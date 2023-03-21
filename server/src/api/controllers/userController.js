@@ -7,8 +7,8 @@ const userService = require('../services/userService');
 // @route POST /api/users/register
 // @access public
 const registerUser = asyncHandler(async (req, res) => {
-  const { firstname, lastname, email, phone, password } = req.body;
-  if (!firstname || !lastname || !email || !phone || !password) {
+  const { name, email, phone, password } = req.body;
+  if (!name || !email || !phone || !password) {
     res.status(400);
     throw new Error('All fields are mandatory');
   }
@@ -40,8 +40,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const accessToken = jwt.sign(
       {
         user: {
-          firstname: userExist.firstname,
-          lastname: userExist.lastname,
+          name: userExist.name,
           email: userExist.email,
           id: userExist._id,
         },
@@ -51,7 +50,7 @@ const loginUser = asyncHandler(async (req, res) => {
         expiresIn: '15m',
       },
     );
-    res.status(200).json({ accessToken });
+    res.status(200).json({ user: userExist, auth: accessToken });
   } else {
     res.status(401);
     throw new Error('Email or password is not valid');

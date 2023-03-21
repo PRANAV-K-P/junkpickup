@@ -11,12 +11,10 @@ module.exports = {
   },
   registerUser: async (userData) => {
     if (userData) {
-      const { firstname, lastname, email, phone, password } = userData;
-      console.log('user phone - ', phone);
+      const { name, email, phone, password } = userData;
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await User.create({
-        firstname,
-        lastname,
+        name,
         email,
         phone,
         password: hashedPassword,

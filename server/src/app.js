@@ -1,11 +1,11 @@
 const express = require('express');
+const app = express();
 const cors = require('cors');
 require('dotenv').config();
 const connectDB = require('./config/dbConnection');
 const errorHandler = require('./api/middleware/errorHandler');
 
 connectDB();
-const app = express();
 
 const port = process.env.PORT || 6000;
 

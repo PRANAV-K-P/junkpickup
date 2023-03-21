@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    width: 100%;
+    overflow: hidden;
+    background-color: #0000;
+    } 
+body {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    background-color: #0000;
+}

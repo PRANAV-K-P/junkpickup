@@ -1,12 +1,13 @@
 import React from "react";
-import NavBar from "../components/navBar";
+import NavBar from "../components/NavBar";
+import Login from "../components/Login";
 
-const Login = () => {
+const LoginPage = () => {
   return (
     <>
-      <NavBar />
+      <Login />
     </>
   );
 };
 
-export default Login;
+export default LoginPage;
