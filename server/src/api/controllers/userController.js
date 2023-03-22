@@ -37,6 +37,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
   const userExist = await userService.userExist(email);
   if (userExist && (await bcrypt.compare(password, userExist.password))) {
+    console.log("userExist -",userExist);
     const accessToken = jwt.sign(
       {
         user: {

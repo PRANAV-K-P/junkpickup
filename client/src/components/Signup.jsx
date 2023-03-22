@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "../api/axios";
+import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import LoginBackgroundImage from "../assets/images/login_background.jpg";
 
@@ -13,7 +14,18 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
   const [regexError, setRegexError] = useState(false);
+  const [serverError, setServerError] = useState(false);
+  const [message, setMessage] = useState("");
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const auth = localStorage.getItem("user");
+    if (auth) {
+      navigate("/");
+    }
+  }, []);
 
   const nameRegex = /^[A-Za-z]+$/;
   const emailRegex = /^\s*([a-z0-9]+@[a-z]+\.[a-z]{2,3})\s*$/;
@@ -23,13 +35,7 @@ const Signup = () => {
 
   const handleSubmit = async () => {
     try {
-      if (
-        !name ||
-        !email ||
-        !phone ||
-        !password ||
-        !confirmPassword
-      ) {
+      if (!name || !email || !phone || !password || !confirmPassword) {
         setError(true);
         return false;
       }
@@ -42,13 +48,12 @@ const Signup = () => {
           withCredentials: false,
         }
       );
-
-      response = JSON.stringify(response)
-      if(response) {
-        navigate('/login');
+      if (response.data) {
+        navigate("/login");
       }
     } catch (err) {
-      console.log("handle submit catch error - ",err);
+      setServerError(true);
+      setMessage(err.response.data.message);
     }
   };
 
@@ -71,6 +76,11 @@ const Signup = () => {
         <div className="flex flex-row">
           <div className="bg-light-blue w-3/5 px-6 py-8 text-white">
             <h2 className="text-2xl font-bold mb-4 text-center">Signup</h2>
+            {serverError && (
+              <span className="mt-1 mb-1 p-2 text-white bg-red-500 font-medium block ml-0">
+                {message}
+              </span>
+            )}
             <form>
               <div className="mb-3">
                 <label htmlFor="name" className="sr-only">
@@ -147,20 +157,34 @@ const Signup = () => {
                   </span>
                 )}
               </div>
-              <div className="mb-3">
+              <div className="mb-3 relative">
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={show1 ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onBlur={check}
                   placeholder="Password"
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
                 />
+                <div className="absolute top-0 bottom-6 right-0 pr-3 flex items-center text-sm leading-5">
+                  {
+                    <FaRegEyeSlash
+                      onClick={() => setShow1(!show1)}
+                      className={`${show1 ? "hidden" : "block"} text-2xl`}
+                    />
+                  }
+                  {
+                    <FaRegEye
+                      onClick={() => setShow1(!show1)}
+                      className={`${show1 ? "block" : "hidden"} text-2xl`}
+                    />
+                  }
+                </div>
                 {error && !password && (
                   <span className="mt-1 text-red-500 font-medium block ml-0">
                     *Password cannot be empty.
@@ -173,20 +197,34 @@ const Signup = () => {
                   </span>
                 )}
               </div>
-              <div className="mb-3">
+              <div className="mb-3 relative">
                 <label htmlFor="confirmPassword" className="sr-only">
                   Confirm Password
                 </label>
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
-                  type="password"
+                  type={show2 ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   onBlur={check}
                   placeholder="ConfirmPassword"
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
                 />
+                <div className="absolute top-0 bottom-4 right-0 pr-3 flex items-center text-sm leading-5">
+                  {
+                    <FaRegEyeSlash
+                      onClick={() => setShow2(!show2)}
+                      className={`${show2 ? "hidden" : "block"} text-2xl`}
+                    />
+                  }
+                  {
+                    <FaRegEye
+                      onClick={() => setShow2(!show2)}
+                      className={`${show2 ? "block" : "hidden"} text-2xl`}
+                    />
+                  }
+                </div>
                 {error && !confirmPassword && (
                   <span className="mt-1 text-red-500 font-medium block ml-0">
                     *Confirm password cannot be empty.
