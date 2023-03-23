@@ -57,7 +57,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen bg-white ">
+    <div className="flex justify-center min-h-screen">
       <div className="w-full max-w-4xl bg-red-400 h-4/5 rounded-lg shadow-lg overflow-hidden mt-5 mb-4">
         <div className="flex flex-row">
           <div className="bg-light-blue w-3/5 px-6 py-8 text-white">
@@ -67,7 +67,6 @@ const Login = () => {
                 {message}
               </span>
             )}
-            <form>
               <div className="mb-3 mt-9">
                 <label htmlFor="firstName" className="sr-only">
                   Email
@@ -101,17 +100,17 @@ const Login = () => {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
                 />
 
-                <div className="absolute top-0 bottom-4 right-0 pr-3 flex items-center text-sm leading-5">
+                <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
                   {
-                    < FaRegEyeSlash
+                    < FaRegEyeSlash 
                       onClick={() => setShow(!show)}
-                      className={`${show ? "hidden" : "block"} text-2xl`}
+                      className={`${show ? "hidden" : "block"} text-xl cursor-pointer`}
                     />
                   }
                   {
                     <FaRegEye
                       onClick={() => setShow(!show)}
-                      className={`${show ? "block" : "hidden"} text-2xl`}
+                      className={`${show ? "block" : "hidden"} text-xl cursor-pointer`}
                     />
                   }
                 </div>
@@ -131,7 +130,6 @@ const Login = () => {
                   Signin
                 </button>
               </div>
-            </form>
             <div className="text-center">
               <p>
                 Don't have an account?{" "}

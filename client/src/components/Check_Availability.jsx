@@ -13,50 +13,53 @@ const Check_Availability = () => {
         setError(true);
         return false;
       }
+      console.log(pin);
     } catch (err) {}
     console.log(pin);
   };
 
   return (
-    <div className="bg-green-300 w-full h-3/6 ">
-      <div className="relative">
-        <img className="w-full h-[550px]" src={`${backgroundImage}`} alt="" />
-        <h3 className="absolute text-2xl text-white top-5 left-5">
-          24/7 Customer Service +91 7850601212
-        </h3>
-        <h3 className="absolute text-2xl top-24 left-[65%] text-white">
-          steps 1 out of 4
-        </h3>
-        <div className="">
-          <h1 className="absolute text-4xl top-36 left-[41.5%] text-white">
-            Check Availability
-          </h1>
-          <h2 className="absolute text-2xl top-48 left-[32%] text-white">
-            Your ZIP/Postal code is required to check availability in your area
-          </h2>
-          <input
-            id="pin"
-            name="pin"
-            type="text"
-            value={pin}
-            onChange={(e) => setPin(e.target.value)}
-            className="absolute rounded-full text-5xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 "
-          />
-          {error && !pinRegex.test(pin) && (
-            <span className="mt-1 text-red-500 text-2xl font-medium block absolute top-[56%] left-[41%]">
-              Please enter a valid pincode !
-            </span>
-          )}
-          <button
-            className="absolute top-[44.2%] left-[67%] text-5xl bg-blue-500 px-2 py-2 rounded-md text-white"
-            type="button"
-            onClick={handleSubmit}
-          >
-            Go
-          </button>
-        </div>
-      </div>
+    <div className=" w-full h-3/6">
+  <div className="relative">
+    <img className="w-full h-[550px] sm:h-[35rem] sm:max-w-full" src={`${backgroundImage}`} alt="" />
+    <h3 className="absolute text-1xl lg:text-2xl text-white top-5 left-5">
+      24/7 Customer Service +91 7850601212
+    </h3>
+    <h3 className="absolute text-1xl lg:text-2xl top-24 left-[65%] text-white">
+      steps 1 out of 4
+    </h3>
+    <div className="sm:w-1/2 lg:w-1/3">
+      <h1 className="absolute text-2xl md:text-3xl lg:text-4xl top-36 left-[40%] xl:left-[45%] text-white">
+        Check Availability
+      </h1>
+      <h2 className="absolute text-1xl lg:text-2xl top-[35%] left-[29%] lg:left-[29%] xl:left-[36%] text-white">
+        Your ZIP/Postal code is required to check availability in your area
+      </h2>
+      <input
+        id="pin"
+        name="pin"
+        type="text"
+        value={pin}
+        onChange={(e) => setPin(e.target.value)}
+        className="absolute rounded-full text-5xl top-[50%] lg:top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 sm:text-4xl sm:top-[50%] sm:left-1/2  w-32 sm:w-80 lg:w-1/5 h-14"
+      />
+      {error && !pinRegex.test(pin) && (
+        <span className="mt-1 text-red-500 text-2xl font-medium block absolute top-[56%] left-[41%]">
+          Please enter a valid pincode !
+        </span>
+      )}
+      <button
+        className="absolute top-[255px] left-[67%] text-2xl bg-blue-500 px-2 py-2 rounded-md text-white sm:text-4xl w-14 h-12 sm:w-28 md:w-14 lg:w-14 md:text-3xl lg:text-3xl md:left-[70.5%] lg:left-[60.5%] lg:top-[255px]"
+        type="button"
+        onClick={handleSubmit}
+      >
+        Go
+      </button>
     </div>
+  </div>
+</div>
+
+
   );
 };
 

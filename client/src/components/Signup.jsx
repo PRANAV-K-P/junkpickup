@@ -71,7 +71,7 @@ const Signup = () => {
     return;
   };
   return (
-    <div className="flex justify-center min-h-full bg-white w-full">
+    <div className="flex justify-center min-h-full w-full">
       <div className="w-full max-w-4xl bg-red-400 h-4/5 rounded-lg shadow-lg overflow-hidden mt-5 mb-4">
         <div className="flex flex-row">
           <div className="bg-light-blue w-3/5 px-6 py-8 text-white">
@@ -81,7 +81,6 @@ const Signup = () => {
                 {message}
               </span>
             )}
-            <form>
               <div className="mb-3">
                 <label htmlFor="name" className="sr-only">
                   Full name
@@ -171,17 +170,17 @@ const Signup = () => {
                   placeholder="Password"
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
                 />
-                <div className="absolute top-0 bottom-6 right-0 pr-3 flex items-center text-sm leading-5">
+                <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
                   {
                     <FaRegEyeSlash
                       onClick={() => setShow1(!show1)}
-                      className={`${show1 ? "hidden" : "block"} text-2xl`}
+                      className={`${show1 ? "hidden" : "block"} text-xl cursor-pointer`}
                     />
                   }
                   {
                     <FaRegEye
                       onClick={() => setShow1(!show1)}
-                      className={`${show1 ? "block" : "hidden"} text-2xl`}
+                      className={`${show1 ? "block" : "hidden"} text-xl cursor-pointer`}
                     />
                   }
                 </div>
@@ -211,17 +210,17 @@ const Signup = () => {
                   placeholder="ConfirmPassword"
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
                 />
-                <div className="absolute top-0 bottom-4 right-0 pr-3 flex items-center text-sm leading-5">
+                <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
                   {
                     <FaRegEyeSlash
                       onClick={() => setShow2(!show2)}
-                      className={`${show2 ? "hidden" : "block"} text-2xl`}
+                      className={`${show2 ? "hidden" : "block"} text-xl cursor-pointer`}
                     />
                   }
                   {
                     <FaRegEye
                       onClick={() => setShow2(!show2)}
-                      className={`${show2 ? "block" : "hidden"} text-2xl`}
+                      className={`${show2 ? "block" : "hidden"} text-xl cursor-pointer`}
                     />
                   }
                 </div>
@@ -247,7 +246,6 @@ const Signup = () => {
                   Signup
                 </button>
               </div>
-            </form>
             <div className="text-center">
               <p>
                 Already have an account ?{" "}

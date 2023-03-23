@@ -37,7 +37,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
   const userExist = await userService.userExist(email);
   if (userExist && (await bcrypt.compare(password, userExist.password))) {
-    console.log("userExist -",userExist);
+    console.log('userExist -', userExist);
     const accessToken = jwt.sign(
       {
         user: {
@@ -58,6 +58,24 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc POST check pincode availability
+// @route POST /api/users/pickup-availability
+// @access public
+
+const pickupAvailability = asyncHandler(async (req, res) => {
+  const { pin } = req.body;
+  if (!pin) {
+    res.status(400);
+    throw new Error('Pincode is mandatory !!');
+  }
+  const validPincode = await userService.checkPincode(pin);
+  if (validPincode) {
+    res.status(200).json({ message: "Entered pincode is available" });
+  } else {
+    res.status(200).json({ message: "Our service is not available to this pincode" });
+  }
+});
+
 // @desc Get single user data
 // @route GET /api/users/profile
 // @access private
@@ -65,4 +83,4 @@ const getSingleUser = asyncHandler(async (req, res) => {
   res.json(req.user);
 });
 
-module.exports = { registerUser, loginUser, getSingleUser };
+module.exports = { registerUser, loginUser, getSingleUser, pickupAvailability };

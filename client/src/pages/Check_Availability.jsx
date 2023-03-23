@@ -1,5 +1,5 @@
 import React from 'react'
-import Check_Availability from '../components/Check_Availability'
+import Check_Availability from '../components/Check_Availability';
 
 const Check_Availability_Page = () => {
   return (
