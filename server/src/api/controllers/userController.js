@@ -70,9 +70,15 @@ const pickupAvailability = asyncHandler(async (req, res) => {
   }
   const validPincode = await userService.checkPincode(pin);
   if (validPincode) {
-    res.status(200).json({ message: "Entered pincode is available" });
+    res.status(200).json({ isValid: true, pin: validPincode.pin });
   } else {
-    res.status(200).json({ message: "Our service is not available to this pincode" });
+    res
+      .status(200)
+      .json({
+        isValid: false,
+        pin,
+        message: 'Our service is not available to this pincode !',
+      });
   }
 });
 

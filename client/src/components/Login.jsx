@@ -4,9 +4,9 @@ import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import LoginBackgroundImage from "../assets/images/login_background.jpg";
 
-const LOGIN_URL = "/users/login";
-
 const Login = () => {
+  const LOGIN_URL = "/users/login";
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -43,8 +43,6 @@ const Login = () => {
       );
       if (response.data.auth) {
         delete response.data.user.password;
-        console.log("response - ", response);
-        console.log("response data - ", response.data);
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("token", JSON.stringify(response.data.auth));
         navigate("/");
@@ -67,69 +65,73 @@ const Login = () => {
                 {message}
               </span>
             )}
-              <div className="mb-3 mt-9">
-                <label htmlFor="firstName" className="sr-only">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Email address"
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
-                />
-                {error && !emailRegex.test(email) && (
-                  <span className="mt-1 text-red-500 font-medium block ml-0">
-                    Please enter a valid email address.
-                  </span>
-                )}
-              </div>
-              <div className="mb-10 relative">
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type={show ? "text": "password" }
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
-                />
+            <div className="mb-3 mt-9">
+              <label htmlFor="firstName" className="sr-only">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email address"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
+              />
+              {error && !emailRegex.test(email) && (
+                <span className="mt-1 text-red-500 font-medium block ml-0">
+                  Please enter a valid email address.
+                </span>
+              )}
+            </div>
+            <div className="mb-10 relative">
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type={show ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Password"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
+              />
 
-                <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
-                  {
-                    < FaRegEyeSlash 
-                      onClick={() => setShow(!show)}
-                      className={`${show ? "hidden" : "block"} text-xl cursor-pointer`}
-                    />
-                  }
-                  {
-                    <FaRegEye
-                      onClick={() => setShow(!show)}
-                      className={`${show ? "block" : "hidden"} text-xl cursor-pointer`}
-                    />
-                  }
-                </div>
+              <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
+                {
+                  <FaRegEyeSlash
+                    onClick={() => setShow(!show)}
+                    className={`${
+                      show ? "hidden" : "block"
+                    } text-xl cursor-pointer`}
+                  />
+                }
+                {
+                  <FaRegEye
+                    onClick={() => setShow(!show)}
+                    className={`${
+                      show ? "block" : "hidden"
+                    } text-xl cursor-pointer`}
+                  />
+                }
+              </div>
 
-                {error && !passwordRegex.test(password) && (
-                  <span className="mt-1 text-red-500 font-medium block ml-0">
-                    Please enter a valid password.
-                  </span>
-                )}
-              </div>
-              <div className="w-full flex justify-center">
-                <button
-                  className="bg-yellow-500 self-center hover:bg-yellow-600 rounded-full py-2 px-4 text-white font-bold w-40 mb-4"
-                  type="button"
-                  onClick={handleLogin}
-                >
-                  Signin
-                </button>
-              </div>
+              {error && !passwordRegex.test(password) && (
+                <span className="mt-1 text-red-500 font-medium block ml-0">
+                  Please enter a valid password.
+                </span>
+              )}
+            </div>
+            <div className="w-full flex justify-center">
+              <button
+                className="bg-yellow-500 self-center hover:bg-yellow-600 rounded-full py-2 px-4 text-white font-bold w-40 mb-4"
+                type="button"
+                onClick={handleLogin}
+              >
+                Signin
+              </button>
+            </div>
             <div className="text-center">
               <p>
                 Don't have an account?{" "}

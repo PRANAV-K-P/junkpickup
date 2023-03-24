@@ -1,26 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 import { RiUserFill } from "react-icons/ri";
 import { HiLockClosed, HiEyeOff, HiEye } from "react-icons/hi";
 import loginBackground from "../assets/images/adminloginbackground.jpg";
 
 const AdminLogin = () => {
-  const [userName, setUserName] = useState("");
+  const ADMIN_LOGIN_URL = "/admin/login";
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [show, setShow] = useState(false);
+  const [serverError, setServerError] = useState(false);
+  const [message, setMessage] = useState(false);
+  const navigate = useNavigate();
 
-  const userNameRegex = /^[a-zA-Z][a-zA-Z0-9_]{2,19}$/;
+  const emailRegex = /^\s*([a-z0-9]+@[a-z]+\.[a-z]{2,3})\s*$/;
   const passwordRegex =
     /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{6,16}$/;
 
-  const handleLogin = () => {
+  useEffect(() => {
+    const auth = localStorage.getItem("admin");
+    if (auth) {
+      navigate("/admin/dashboard");
+    }
+  }, []);
+
+  const handleLogin = async () => {
     try {
-      if (!userNameRegex.test(userName) || !passwordRegex.test(password)) {
+      if (!emailRegex.test(email) || !passwordRegex.test(password)) {
         setError(true);
         return false;
       }
-      console.log("ok");
-    } catch (e) {}
+      let response = await axios.post(
+        ADMIN_LOGIN_URL,
+        JSON.stringify({ email, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: false,
+        }
+      );
+      if (response) {
+        delete response.data.admin.password;
+        localStorage.setItem("admin", JSON.stringify(response.data.admin));
+        localStorage.setItem("token", JSON.stringify(response.data.auth));
+        navigate("/admin/dashboard");
+      }
+    } catch (err) {
+      console.log("handle admin login error - ", err);
+      setServerError(true);
+      setMessage(err.response.data.message);
+    }
   };
 
   return (
@@ -30,6 +61,11 @@ const AdminLogin = () => {
           <div className="w-1/2 bg-white h-96 rounded-l-lg">
             <div className="pt-16 px-12">
               <h2 className="text-4xl font-bold text-gray-700 mb-6">Login</h2>
+              {serverError && (
+                <span className="mt-1 mb-1 p-2 text-white bg-red-500 font-medium block ml-0">
+                  {message}
+                </span>
+              )}
               <p className="text-lg text-gray-500 mb-5">
                 Sign in to your account
               </p>
@@ -39,18 +75,16 @@ const AdminLogin = () => {
                 </div>
                 <input
                   type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  placeholder="Username"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="email"
                   className={`${
-                    error &&
-                    !userNameRegex.test(userName) &&
-                    "border-red-600 border"
+                    error && !emailRegex.test(email) && "border-red-600 border"
                   } w-full h-full pl-12 pr-4 rounded-lg shadow-xl`}
                 />
-                {error && !userNameRegex.test(userName) && (
+                {error && !emailRegex.test(email) && (
                   <span className="relative mt-1 text-red-500 font-medium block ml-0">
-                    Please enter a valid username.
+                    Please enter a valid email.
                   </span>
                 )}
               </div>

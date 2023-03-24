@@ -1,9 +1,13 @@
-import React from 'react'
-
+import React from "react";
+import AdminDashboard from "../components/AdminDashboard";
+import AdminSideBar from "../components/AdminSideBar";
 const AdminHome = () => {
   return (
-    <div>AdminHome</div>
-  )
-}
+    <div className="flex">
+      <AdminSideBar />
+      <AdminDashboard />
+    </div>
+  );
+};
 
-export default AdminHome
+export default AdminHome;
