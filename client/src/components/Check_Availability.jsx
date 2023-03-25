@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
@@ -9,6 +10,7 @@ const Check_Availability = () => {
   const [error, setError] = useState(false);
   const [serverError, setServerError] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const pinRegex = /^\d{6}$/;
 
@@ -28,6 +30,7 @@ const Check_Availability = () => {
       );
       if (response.data.isValid) {
         console.log("Entered pincode is available", response.data.pin);
+        navigate("/j-datetime");
       } else {
         setServerError(true);
         setMessage(response.data.message);

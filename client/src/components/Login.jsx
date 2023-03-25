@@ -55,8 +55,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center min-h-screen">
-      <div className="w-full max-w-4xl bg-red-400 h-4/5 rounded-lg shadow-lg overflow-hidden mt-5 mb-4">
+    <div className="flex justify-center min-h-full w-full">
+      <div className="w-full max-w-4xl h-4/5 rounded-lg shadow-lg overflow-hidden mt-28 mb-4">
         <div className="flex flex-row">
           <div className="bg-light-blue w-3/5 px-6 py-8 text-white">
             <h2 className="text-2xl font-bold mb-5 text-center">Signin</h2>
