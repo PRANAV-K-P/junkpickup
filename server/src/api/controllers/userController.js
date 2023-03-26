@@ -37,7 +37,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
   const userExist = await userService.userExist(email);
   if (userExist && (await bcrypt.compare(password, userExist.password))) {
-    console.log('userExist -', userExist);
     const accessToken = jwt.sign(
       {
         user: {
@@ -61,7 +60,6 @@ const loginUser = asyncHandler(async (req, res) => {
 // @desc POST check pincode availability
 // @route POST /api/users/pickup-availability
 // @access public
-
 const pickupAvailability = asyncHandler(async (req, res) => {
   const { pin } = req.body;
   if (!pin) {
@@ -86,7 +84,14 @@ const pickupAvailability = asyncHandler(async (req, res) => {
 // @route GET /api/users/profile
 // @access private
 const getSingleUser = asyncHandler(async (req, res) => {
-  res.json(req.user);
+  const { email } = req.body;
+  const userData = await userService.userExist(email);
+  if (userData) {
+    res.status(200).json(userData);
+  } else {
+    res.status(401);
+    throw new Error('Unauthorized user');
+  }
 });
 
 module.exports = { registerUser, loginUser, getSingleUser, pickupAvailability };
