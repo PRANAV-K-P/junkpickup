@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "../api/axios";
+import axiosInstance from "../api/axiosInstance";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import LoginBackgroundImage from "../assets/images/login_background.jpg";
@@ -33,14 +33,7 @@ const Login = () => {
         return false;
       }
 
-      let response = await axios.post(
-        LOGIN_URL,
-        JSON.stringify({ email, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: false,
-        }
-      );
+      let response = await axiosInstance.post(LOGIN_URL,{ email, password });
       if (response.data.auth) {
         delete response.data.user.password;
         localStorage.setItem("user", JSON.stringify(response.data.user));

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import axiosInstance from "../api/axiosInstance";
 import { RiUserFill } from "react-icons/ri";
 import { HiLockClosed, HiEyeOff, HiEye } from "react-icons/hi";
 import loginBackground from "../assets/images/adminloginbackground.jpg";
@@ -33,14 +33,7 @@ const AdminLogin = () => {
         setError(true);
         return false;
       }
-      let response = await axios.post(
-        ADMIN_LOGIN_URL,
-        JSON.stringify({ email, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: false,
-        }
-      );
+      let response = await axiosInstance.post(ADMIN_LOGIN_URL, { email, password });
       if (response) {
         delete response.data.admin.password;
         localStorage.setItem("admin", JSON.stringify(response.data.admin));

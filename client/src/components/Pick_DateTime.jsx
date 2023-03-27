@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FaMinus, FaPlus, FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowCircleRight } from "react-icons/fa";
+import Datepicker from 'flowbite-datepicker/Datepicker';
 import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
 function Pick_DateTime() {
@@ -84,6 +85,9 @@ function Pick_DateTime() {
             <FaArrowCircleRight className="text-blue-600 mr-4 text-2xl" />{" "}
             <span className="text-2xl">Date and Time</span>
           </div>
+          <div className="bg-white w-full">
+            date picker
+            </div>
         </div>
       </div>
     </div>

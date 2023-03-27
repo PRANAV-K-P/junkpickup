@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "../api/axios";
+import axiosInstance from "../api/axiosInstance";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import LoginBackgroundImage from "../assets/images/login_background.jpg";
@@ -40,14 +40,7 @@ const Signup = () => {
         return false;
       }
 
-      let response = await axios.post(
-        SIGNUP_URL,
-        JSON.stringify({ name, email, phone, password }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: false,
-        }
-      );
+      let response = await axiosInstance.post(SIGNUP_URL,{ name, email, phone, password });
       if (response.data) {
         navigate("/login");
       }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../api/axios";
+import axiosInstance from "../api/axiosInstance";
 import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
 const Check_Availability = () => {
@@ -20,14 +20,7 @@ const Check_Availability = () => {
         setError(true);
         return false;
       }
-      let response = await axios.post(
-        PICKUP_AVAILABILITY_URL,
-        JSON.stringify({ pin }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: false,
-        }
-      );
+      let response = await axiosInstance.post(PICKUP_AVAILABILITY_URL,{ pin });
       if (response.data.isValid) {
         console.log("Entered pincode is available", response.data.pin);
         navigate("/j-datetime");
