@@ -5,6 +5,6 @@ const validateToken = require('../middleware/validateTokenHandler');
 const router = express.Router();
 
 router.post('/login', loginAdmin);
-router.post('/add-Pincode', validateToken, addPincode);
+router.post('/pin-codes', validateToken, addPincode);
 
 module.exports = router;

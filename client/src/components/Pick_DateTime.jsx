@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
-import Datepicker from 'flowbite-datepicker/Datepicker';
+import Datepicker from "react-datepicker";
 import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
 function Pick_DateTime() {

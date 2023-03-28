@@ -4,7 +4,7 @@ import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import LoginBackgroundImage from "../assets/images/login_background.jpg";
 
-const SIGNUP_URL = "/users/register";
+const SIGNUP_URL = "/users/signup";
 
 const Signup = () => {
   const [name, setName] = useState("");

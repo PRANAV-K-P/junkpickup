@@ -10,7 +10,7 @@ const validateToken = require('../middleware/validateTokenHandler');
 
 const router = express.Router();
 
-router.post('/register', registerUser);
+router.post('/signup', registerUser);
 
 router.post('/login', loginUser);
 router.post('/pickup-availability',pickupAvailability);
