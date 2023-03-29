@@ -149,7 +149,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="w-4/5 h-45 bg-red-500">
+          <div className="w-4/5 h-45">
             <div
               className="h-full bg-center bg-cover"
               style={{

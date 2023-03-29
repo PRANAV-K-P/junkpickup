@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Datepicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
 function Pick_DateTime() {
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [allItems, setAllItems] = useState([
     { name: "Old furniture", count: 0 },
     { name: "Appliances", count: 0 },
@@ -13,6 +15,8 @@ function Pick_DateTime() {
     { name: "Toys", count: 0 },
     // Add more items here as needed
   ]);
+
+  console.log(selectedDate, "------ date");
 
   const handleItemSelect = (item) => {
     if (!selectedItems.some((i) => i.name === item.name)) {
@@ -27,11 +31,13 @@ function Pick_DateTime() {
   return (
     <div className="relative w-full h-[650px] bg-violet-500 flex flex-col justify-end ">
       <img
-        class="absolute w-full h-full z-0 object-cover"
+        className="absolute w-full h-full z-0 object-cover"
         src={`${backgroundImage}`}
         alt="Image"
       ></img>
-      <h2 className="relative text-white font-semibold ml-[999px] mb-10 text-xl">step 2 out of 4</h2>
+      <h2 className="relative text-white font-semibold ml-[999px] mb-10 text-xl">
+        step 2 out of 4
+      </h2>
       <div className="relative bg-white  z-10 w-full h-[520px]">
         <div className="ml-72 mt-7 bg-white w-full h-full">
           <div className="flex items-center bg-white-400 mb-4">
@@ -42,10 +48,7 @@ function Pick_DateTime() {
           </div>
           <div className="flex items-center bg-white border p-3 border-gray-400 shadow-xl w-3/5 mb-4">
             {allItems.map((item) => (
-              <div
-                key={item.name}
-                className="items-center w-full sm:w-auto"
-              >
+              <div key={item.name} className="items-center w-full sm:w-auto">
                 <button
                   className={`${
                     selectedItems.some((i) => i.name === item.name)
@@ -85,9 +88,23 @@ function Pick_DateTime() {
             <FaArrowCircleRight className="text-blue-600 mr-4 text-2xl" />{" "}
             <span className="text-2xl">Date and Time</span>
           </div>
-          <div className="bg-white w-full">
-            date picker
-            </div>
+          <div className="bg-white border w-3/5">
+            <Datepicker
+              className="border"
+              selected={selectedDate}
+              onChange={(date) => {
+                console.log(typeof(date));
+                console.log(date, "===dateee");
+                setSelectedDate(date);
+              }}
+              dateFormat="dd/MM/yyyy"
+              minDate={new Date()}
+              filterDate={(date) => date.getDay() != 6}
+              showYearDropdown
+              scrollableMonthYearDropdown
+              inline
+            />
+          </div>
         </div>
       </div>
     </div>
