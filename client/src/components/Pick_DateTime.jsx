@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Datepicker from "react-datepicker";
+import { parse, format } from "date-fns";
 import "react-datepicker/dist/react-datepicker.css";
 import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
 function Pick_DateTime() {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
   const [allItems, setAllItems] = useState([
     { name: "Old furniture", count: 0 },
     { name: "Appliances", count: 0 },
@@ -15,8 +16,10 @@ function Pick_DateTime() {
     { name: "Toys", count: 0 },
     // Add more items here as needed
   ]);
+  const [times, setTimes] = useState(["9", "10", "12", "3", "5", "6"]);
 
   console.log(selectedDate, "------ date");
+  console.log(selectedItems, "=== selectedItems");
 
   const handleItemSelect = (item) => {
     if (!selectedItems.some((i) => i.name === item.name)) {
@@ -31,7 +34,7 @@ function Pick_DateTime() {
   return (
     <div className="relative w-full h-[650px] bg-violet-500 flex flex-col justify-end ">
       <img
-        className="absolute w-full h-full z-0 object-cover"
+        className="absolute w-full h-[650px] z-0 object-cover"
         src={`${backgroundImage}`}
         alt="Image"
       ></img>
@@ -39,7 +42,9 @@ function Pick_DateTime() {
         step 2 out of 4
       </h2>
       <div className="relative bg-white  z-10 w-full h-[520px]">
-        <div className="ml-72 mt-7 bg-white w-full h-full">
+
+
+        <div className="ml-72 mt-7 bg-white h-full">
           <div className="flex items-center bg-white-400 mb-4">
             <FaArrowCircleRight className="text-blue-600 mr-4 text-2xl" />{" "}
             <span className="text-2xl">
@@ -63,7 +68,7 @@ function Pick_DateTime() {
             ))}
           </div>
           {selectedItems.length > 0 && (
-            <div className="border border-gray-300 w-3/5 bg-white shadow-xl rounded-lg p-2 mb-4 flex flex-wrap">
+            <div className="border border-gray-300 w-3/5 bg-white shadow-xl rounded-lg py-2 pl-2 mb-4 flex flex-wrap">
               {selectedItems.map((item) => (
                 <span
                   key={item.name}
@@ -88,24 +93,52 @@ function Pick_DateTime() {
             <FaArrowCircleRight className="text-blue-600 mr-4 text-2xl" />{" "}
             <span className="text-2xl">Date and Time</span>
           </div>
-          <div className="bg-white border w-3/5">
+          <div className="bg-white border w-3/5 flex flex-row ">
             <Datepicker
               className="border"
               selected={selectedDate}
               onChange={(date) => {
-                console.log(typeof(date));
-                console.log(date, "===dateee");
-                setSelectedDate(date);
+                // const year = date.getFullYear();
+                // const month = String(date.getMonth() + 1).padStart(2, "0");
+                // const day = String(date.getDate()).padStart(2, "0");
+                // const formattedDate = `${year}-${month}-${day}`;
+                const formattedDate = date.toISOString();
+                const newDate = new Date(formattedDate)
+                console.log(formattedDate);
+                console.log(newDate,"new");
+                console.log(newDate.getTime() == date.getTime());
+                setSelectedDate(date)
               }}
               dateFormat="dd/MM/yyyy"
               minDate={new Date()}
-              filterDate={(date) => date.getDay() != 6}
+              // filterDate={(date) => date.getDay() != 6}
               showYearDropdown
               scrollableMonthYearDropdown
               inline
             />
+            <div className="bg-red-300 w-2/4 ml-32">
+              <div className="text-xl bg-gray-300 font-bold flex items-center justify-center ">
+                FRIDAY,JANUARY 6
+              </div>
+              <div className="flex flex-row px-6 py-4">
+                {times.map((item) => (
+                  <div
+                    key={item}
+                    className="items-center sm:w-auto bg-purple-500"
+                  >
+                    <button className="bg-white text-gray-700 border border-gray-300 rounded-lg px-3 py-1 text-sm sm:w-auto mr-2">
+                      {item}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
+
+
+
+        
       </div>
     </div>
   );

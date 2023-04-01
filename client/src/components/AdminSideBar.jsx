@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { Link } from 'react-router-dom'
+import { v4 as uuidv4 } from "uuid";
 import { BsChevronExpand } from "react-icons/bs";
 
 import {
@@ -16,61 +17,60 @@ import {
   BsFiles,
   BsServer,
 } from "react-icons/bs";
-import {FaQuestion, FaImage} from "react-icons/fa";
+import { FaQuestion, FaImage } from "react-icons/fa";
 
 const Menus = [
-  { title: "Dashboard", src: "Chart_fill", icon: <MdOutlineDashboard /> },
-  { title: "Inbox", src: "Chat", icon: <BsChatLeftText /> },
-  { title: "Users", src: "User", gap: true, icon: <MdAccountCircle /> },
-  { title: "Schedule", src: "Calendar", icon: <BsCalendarCheck /> },
+  { title: "Dashboard", src: "/admin/dashboard", icon: <MdOutlineDashboard /> },
+  { title: "Inbox", src: "", icon: <BsChatLeftText /> },
+  { title: "Users", src: "", gap: true, icon: <MdAccountCircle /> },
+  { title: "Schedule", src: "", icon: <BsCalendarCheck /> },
+  { title: "Dates", src: "/admin/dates", icon: <BsCalendarCheck /> },
   {
     title: "FAQs",
-    src: "Services",
+    src: "",
     icon: <FaQuestion />,
     subMenus1: [
       {
         title: "Add FAQ",
-        src: "/services/services1",
+        src: "",
         cName: "sub-nav",
       },
       {
         title: "Update FAQ",
-        src: "/services/services2",
+        src: "",
         cName: "sub-nav",
       },
       {
         title: "View FAQs",
-        src: "/services/services3",
-        
+        src: "",
       },
     ],
   },
   {
-     title: "Banners",
-      src: "Chart",
-       icon: <FaImage /> ,
-       subMenus2: [
-        {
-          title: "Add Banner",
-          src: "/services/banner1",
-          cName: "sub-nav",
-        },
-        {
-          title: "Update Banner",
-          src: "/services/banner2",
-          cName: "sub-nav",
-        },
-        {
-          title: "View Banners",
-          src: "/services/banner3",
-          
-        },
-      ],
+    title: "Banners",
+    src: "",
+    icon: <FaImage />,
+    subMenus2: [
+      {
+        title: "Add Banner",
+        src: "",
+        cName: "sub-nav",
+      },
+      {
+        title: "Update Banner",
+        src: "",
+        cName: "sub-nav",
+      },
+      {
+        title: "View Banners",
+        src: "",
+      },
+    ],
   },
 
-  { title: "Files", src: "Folder", gap: true, icon: <BsFiles /> },
-  { title: "Setting", src: "Setting", icon: <MdOutlineSettings /> },
-  { title: "Logout", src: "Logout", icon: <MdLogout /> },
+  { title: "Files", src: "", gap: true, icon: <BsFiles /> },
+  { title: "Setting", src: "", icon: <MdOutlineSettings /> },
+  { title: "Logout", src: "", icon: <MdLogout /> },
 ];
 const AdminSideBar = () => {
   const [open, setOpen] = useState(true);
@@ -80,7 +80,7 @@ const AdminSideBar = () => {
     setOpen(!open);
   };
   return (
-    <div className="h-screen flex items-end justify-end">
+    <div className="min-h-full flex items-end justify-end">
       <button
         className="fixed lg:hidden z-90 bottom-10 right-10 bg-teal-800 w-10 h-10 
         rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl
@@ -94,7 +94,7 @@ const AdminSideBar = () => {
       <div
         className={`${
           open ? "w-48" : "w-0"
-        } lg:w-72 bg-teal-800 h-screen relative duration-500 `}
+        } lg:w-72 bg-teal-800 h-[740px] relative duration-500 `}
       >
         <div className="justify-center mt-3">
           <h1
@@ -108,35 +108,41 @@ const AdminSideBar = () => {
         <ul className="pt-6">
           {Menus.map((Menu, index) => (
             <React.Fragment key={uuidv4()}>
-              <li key={uuidv4()}
-                className={`flex rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-sm 
-                items-center gap-x-4 ${Menu.gap ? 'mt-9' : 'mt-2' }`}
+              <Link to={Menu.src}>
+              <li
+                key={uuidv4()}
+                className={`flex rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-lg 
+                items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"}`}
               >
-                {Menu.icon}
-
-                <span className="flex-1">{Menu.title}</span>
+               
+                  {Menu.icon}
+                  <span className="flex-1">{Menu.title}</span>
+                  
+               
 
                 {Menu.subMenus1 && (
-                  <BsChevronDown key={uuidv4()}
+                  <BsChevronDown
+                    key={uuidv4()}
                     className={`${subMenuOpen1 && "rotate-180"}`}
                     onClick={() => setSubMenuOpen1(!subMenuOpen1)}
                   />
                 )}
                 {Menu.subMenus2 && (
-                  <BsChevronDown key={uuidv4()}
+                  <BsChevronDown
+                    key={uuidv4()}
                     className={`${subMenuOpen2 && "rotate-180"}`}
                     onClick={() => setSubMenuOpen2(!subMenuOpen2)}
                   />
                 )}
-
               </li>
+              </Link>
 
               {Menu.subMenus1 && subMenuOpen1 && open && (
                 <ul>
                   {Menu.subMenus1.map((subMenuItem, idx) => (
                     <li
                       key={idx}
-                      className="flex px-5 cursor-pointer text-center text-sm text-gray-200 py-1"
+                      className="flex px-5 cursor-pointer text-center text-lg text-gray-200 py-1"
                     >
                       {subMenuItem.title}
                     </li>
@@ -148,14 +154,14 @@ const AdminSideBar = () => {
                   {Menu.subMenus2.map((subMenuItem, idx) => (
                     <li
                       key={idx}
-                      className="flex px-5 cursor-pointer text-center text-sm text-gray-200 py-1"
+                      className="flex px-5 cursor-pointer text-center text-lg text-gray-200 py-1"
                     >
                       {subMenuItem.title}
                     </li>
                   ))}
                 </ul>
               )}
-           </React.Fragment>
+            </React.Fragment>
           ))}
         </ul>
       </div>
