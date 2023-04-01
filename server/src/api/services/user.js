@@ -1,6 +1,5 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
-const Pincode = require('../models/pinModal');
 
 module.exports = {
   userExist: async (email) => {
@@ -24,11 +23,4 @@ module.exports = {
     }
     return false;
   },
-  checkPincode: async (pin) => {
-    const validPincode = await Pincode.findOne({ pin });
-    if (validPincode) {
-      return validPincode;
-    }
-    return false;
-  }
 };

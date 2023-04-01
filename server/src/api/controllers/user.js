@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const userService = require('../services/userService');
+const userService = require('../services/user');
 
 // @desc Register a user
 // @route POST /api/users/register
@@ -57,29 +57,6 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc POST check pincode availability
-// @route POST /api/users/pickup-availability
-// @access public
-const pickupAvailability = asyncHandler(async (req, res) => {
-  const { pin } = req.body;
-  if (!pin) {
-    res.status(400);
-    throw new Error('Pincode is mandatory !!');
-  }
-  const validPincode = await userService.checkPincode(pin);
-  if (validPincode) {
-    res.status(200).json({ isValid: true, pin: validPincode.pin });
-  } else {
-    res
-      .status(200)
-      .json({
-        isValid: false,
-        pin,
-        message: 'Our service is not available to this pincode !',
-      });
-  }
-});
-
 // @desc Get single user data
 // @route GET /api/users/profile
 // @access private
@@ -94,4 +71,4 @@ const getSingleUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, loginUser, getSingleUser, pickupAvailability };
+module.exports = { registerUser, loginUser, getSingleUser };
