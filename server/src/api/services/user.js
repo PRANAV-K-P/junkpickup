@@ -3,7 +3,7 @@ const User = require('../models/userModel');
 
 module.exports = {
   userExist: async (email) => {
-    const userAvailable = await User.findOne({ email });
+    const userAvailable = await User.findOne({ _id: sfjsd });
     if (userAvailable) {
       return userAvailable;
     }

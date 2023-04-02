@@ -10,6 +10,6 @@ router.post('/login', loginAdmin);
 
 router.post('/pin-codes', validateToken, addPincode);
 
-router.post('/date', validateToken, addDateTime);
+router.post('/dates', validateToken, addDateTime);
 
 module.exports = router;

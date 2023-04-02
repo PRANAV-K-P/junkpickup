@@ -8,6 +8,7 @@ const dateTimeSchema = mongoose.Schema(
     },
     time_slots: [
       {
+        id: { type: String },
         time: { type: String },
         isbooked: { type: Boolean },
       },

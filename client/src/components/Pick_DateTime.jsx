@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
 import Datepicker from "react-datepicker";
 import { parse, format } from "date-fns";
@@ -7,6 +7,7 @@ import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
 function Pick_DateTime() {
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedTime, setSelectedTime] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [allItems, setAllItems] = useState([
     { name: "Old furniture", count: 0 },
@@ -21,6 +22,10 @@ function Pick_DateTime() {
   console.log(selectedDate, "------ date");
   console.log(selectedItems, "=== selectedItems");
 
+  useEffect(() => {
+    
+  },[])
+
   const handleItemSelect = (item) => {
     if (!selectedItems.some((i) => i.name === item.name)) {
       setSelectedItems([...selectedItems, item]);
@@ -30,6 +35,10 @@ function Pick_DateTime() {
   const handleItemRemove = (item) => {
     setSelectedItems(selectedItems.filter((i) => i !== item));
   };
+
+  const handleDateSelect = (item) => {
+
+  }
 
   return (
     <div className="relative w-full h-[650px] bg-violet-500 flex flex-col justify-end ">
@@ -42,8 +51,6 @@ function Pick_DateTime() {
         step 2 out of 4
       </h2>
       <div className="relative bg-white  z-10 w-full h-[520px]">
-
-
         <div className="ml-72 mt-7 bg-white h-full">
           <div className="flex items-center bg-white-400 mb-4">
             <FaArrowCircleRight className="text-blue-600 mr-4 text-2xl" />{" "}
@@ -98,20 +105,10 @@ function Pick_DateTime() {
               className="border"
               selected={selectedDate}
               onChange={(date) => {
-                // const year = date.getFullYear();
-                // const month = String(date.getMonth() + 1).padStart(2, "0");
-                // const day = String(date.getDate()).padStart(2, "0");
-                // const formattedDate = `${year}-${month}-${day}`;
-                const formattedDate = date.toISOString();
-                const newDate = new Date(formattedDate)
-                console.log(formattedDate);
-                console.log(newDate,"new");
-                console.log(newDate.getTime() == date.getTime());
-                setSelectedDate(date)
+                setSelectedDate(date);
               }}
               dateFormat="dd/MM/yyyy"
-              minDate={new Date()}
-              // filterDate={(date) => date.getDay() != 6}
+              minDate={new Date(Date.now() + 86400000)}
               showYearDropdown
               scrollableMonthYearDropdown
               inline
@@ -123,11 +120,18 @@ function Pick_DateTime() {
               <div className="flex flex-row px-6 py-4">
                 {times.map((item) => (
                   <div
-                    key={item}
-                    className="items-center sm:w-auto bg-purple-500"
+                    key={item?.time}
+                    className="flex h-20 py-5 justify-center sm:w-auto bg-white"
                   >
-                    <button className="bg-white text-gray-700 border border-gray-300 rounded-lg px-3 py-1 text-sm sm:w-auto mr-2">
-                      {item}
+                    <button
+                      className={`${
+                        selectedTime.some((i) => i.id === item.id)
+                          ? "bg-blue-500 text-white "
+                          : "bg-white text-gray-700"
+                      } shadow-xl border border-gray-200 px-4 py-2 text-sm w-full sm:w-auto mr-2`}
+                      onClick={() => handleDateSelect(item)}
+                    >
+                      {item.time}
                     </button>
                   </div>
                 ))}
@@ -135,10 +139,6 @@ function Pick_DateTime() {
             </div>
           </div>
         </div>
-
-
-
-        
       </div>
     </div>
   );

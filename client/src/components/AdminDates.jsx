@@ -1,10 +1,12 @@
 import React, { useState, useId } from "react";
+import { useNavigate } from 'react-router-dom'
 import Datepicker from "react-datepicker";
 import axiosInstance from "../api/axiosInstance";
 
 const AdminDates = () => {
-  const DATES_URL = "/admin/date";
+  const DATES_URL = "/admin/dates";
 
+  const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState([]);
   const [error, setError] = useState(false);
@@ -19,6 +21,7 @@ const AdminDates = () => {
     { id: useId(), time: "4 PM", status: false },
     { id: useId(), time: "5 PM", status: false },
   ]);
+  
 
   const handleItemSelect = (item) => {
     if (!selectedTime.some((i) => i.time === item.time)) {
@@ -65,15 +68,22 @@ const AdminDates = () => {
         }
       );
       if (response) {
-        let ISOdate = response.data.date;
-        const date1 = new Date(ISOdate).toISOString();
-        console.log(date1, "---date1");
-        const date2 = new Date(ISOdate.slice(0, -1));
-        console.log(date2, "-- isodate");
-        console.log(response, "-- response");
+        console.log(response,"--response");
+        const ISODate = new Date(response.data.date);
+        const date = ISODate.toDateString();
+        await Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Data added Successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        navigate(0)
       }
     } catch (err) {
-      console.log(err);
+      setError(true);
+      setMessage(err.response?.data?.message);
+      console.log(err,"-- err");
     }
   };
 
@@ -91,24 +101,15 @@ const AdminDates = () => {
         <h1 className="text-xl font-semibold mt-10 ml-10">
           Select Date and Time
         </h1>
-        <div className="relative border mt-7 ml-10 h-80 ">
+        <div className="relative border mt-7 ml-10 h-96 ">
           <Datepicker
             className="border border-gray-500  float-left"
             selected={selectedDate}
             onChange={(date) => {
-              console.log(typeof(date));
-              const year = date.getFullYear();
-              const month = String(date.getMonth() + 1).padStart(2, "0");
-              const day = String(date.getDate()).padStart(2, "0");
-              const formattedDate = `${year}-${month}-${day}`;
-              const newDate = new Date(formattedDate)
-              console.log(newDate);
-              console.log(typeof(newDate));
-
-              // setSelectedDate(formattedDate);
+              setSelectedDate(date);
             }}
             dateFormat="dd/MM/yyyy"
-            minDate={new Date()}
+            minDate={new Date(Date.now() + 86400000)}
             //  filterDate={(date) => date.getDay() != 6}
             showYearDropdown
             scrollableMonthYearDropdown
