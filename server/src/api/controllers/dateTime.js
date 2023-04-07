@@ -27,8 +27,8 @@ const addDateTime = asyncHandler(async (req, res) => {
     }
 });
 
-// @desc Add date and timeSlots
-// @route POST /api/admin/date
+// @desc Get timeslots based on date
+// @route GET /api/admin/dates/:id
 // @access private
 const getAllTime = asyncHandler(async (req, res) => {
     console.log("Entered in getalltime in controller");

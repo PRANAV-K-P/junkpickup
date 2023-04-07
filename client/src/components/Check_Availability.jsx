@@ -4,7 +4,7 @@ import axiosInstance from "../api/axiosInstance";
 import backgroundImage from "../../src/assets/images/commonbackground.jpg";
 
 const Check_Availability = () => {
-  const PICKUP_AVAILABILITY_URL = "/users/pickup-availability";
+  const PICKUP_AVAILABILITY_URL = "/users/pickup-availabilities";
 
   const [pin, setPin] = useState("");
   const [error, setError] = useState(false);

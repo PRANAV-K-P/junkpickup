@@ -22,9 +22,9 @@ function Pick_DateTime() {
   console.log(selectedDate, "------ date");
   console.log(selectedItems, "=== selectedItems");
 
-  useEffect(() => {
+  // useEffect(() => {
     
-  },[])
+  // },[])
 
   const handleItemSelect = (item) => {
     if (!selectedItems.some((i) => i.name === item.name)) {
@@ -36,9 +36,27 @@ function Pick_DateTime() {
     setSelectedItems(selectedItems.filter((i) => i !== item));
   };
 
-  const handleDateSelect = (item) => {
+  const handleDateSelect = async () => {
+    // const DATES_URL = '/admin/dates/';
+    // if(selectedDate) {
+    //   let response = await axiosInstance.get(
+    //     DATES_URL,
+    //     {  },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${JSON.parse(
+    //           localStorage.getItem("token")
+    //         )}`,
+    //       },
+    //     }
+    //   );
+    // }
+  }
+
+  const handleTimeSelect = (item) => {
 
   }
+
 
   return (
     <div className="relative w-full h-[650px] bg-violet-500 flex flex-col justify-end ">
@@ -96,6 +114,7 @@ function Pick_DateTime() {
           {/* <div className="bg-white shadow-xl h-8 w-3/5 mb-4">
 
           </div> */}
+
           <div className="flex items-center bg-white mb-4">
             <FaArrowCircleRight className="text-blue-600 mr-4 text-2xl" />{" "}
             <span className="text-2xl">Date and Time</span>
@@ -106,6 +125,7 @@ function Pick_DateTime() {
               selected={selectedDate}
               onChange={(date) => {
                 setSelectedDate(date);
+                handleDateSelect();
               }}
               dateFormat="dd/MM/yyyy"
               minDate={new Date(Date.now() + 86400000)}
@@ -115,8 +135,9 @@ function Pick_DateTime() {
             />
             <div className="bg-red-300 w-2/4 ml-32">
               <div className="text-xl bg-gray-300 font-bold flex items-center justify-center ">
-                FRIDAY,JANUARY 6
+                Timeslots
               </div>
+              {/* no data available */}
               <div className="flex flex-row px-6 py-4">
                 {times.map((item) => (
                   <div
@@ -129,7 +150,7 @@ function Pick_DateTime() {
                           ? "bg-blue-500 text-white "
                           : "bg-white text-gray-700"
                       } shadow-xl border border-gray-200 px-4 py-2 text-sm w-full sm:w-auto mr-2`}
-                      onClick={() => handleDateSelect(item)}
+                      onClick={() => handleTimeSelect(item)}
                     >
                       {item.time}
                     </button>

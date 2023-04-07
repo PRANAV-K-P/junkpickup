@@ -22,7 +22,7 @@ import { FaQuestion, FaImage } from "react-icons/fa";
 const Menus = [
   { title: "Dashboard", src: "/admin/dashboard", icon: <MdOutlineDashboard /> },
   { title: "Inbox", src: "", icon: <BsChatLeftText /> },
-  { title: "Users", src: "", gap: true, icon: <MdAccountCircle /> },
+  { title: "Users", src: "/admin/users", gap: true, icon: <MdAccountCircle /> },
   { title: "Schedule", src: "", icon: <BsCalendarCheck /> },
   { title: "Dates", src: "/admin/dates", icon: <BsCalendarCheck /> },
   {

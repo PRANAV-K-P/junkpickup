@@ -30,31 +30,32 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route POST /api/users/login
 // @access public
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  if (!email || !password) {
-    res.status(400);
-    throw new Error('All fields are mandatory !');
-  }
-  const userExist = await userService.userExist(email);
-  if (userExist && (await bcrypt.compare(password, userExist.password))) {
-    const accessToken = jwt.sign(
-      {
-        user: {
-          name: userExist.name,
-          email: userExist.email,
-          id: userExist._id,
+    const { email, password } = req.body;
+    if (!email || !password) {
+      res.status(400);
+      throw new Error('All fields are mandatory !');
+    }
+    const userExist = await userService.userExist(email);
+    if (userExist && (await bcrypt.compare(password, userExist.password))) {
+      const accessToken = jwt.sign(
+        {
+          user: {
+            role: "user",
+            name: userExist.name,
+            email: userExist.email,
+            id: userExist._id,
+          },
         },
-      },
-      process.env.ACCESS_TOKEN_SECRET,
-      // {
-      //   expiresIn: '59m',
-      // },
-    );
-    res.status(200).json({ user: userExist, auth: accessToken });
-  } else {
-    res.status(401);
-    throw new Error('Email or password is not valid');
-  }
+        process.env.ACCESS_TOKEN_USER_SECRET,
+        // {
+        //   expiresIn: '59m',
+        // },
+      );
+      res.status(200).json({ user: userExist, auth: accessToken });
+    } else {
+      res.status(401);
+      throw new Error('Email or password is not valid');
+    }
 });
 
 // @desc Get single user data

@@ -1,5 +1,6 @@
 import React from 'react'
 import backgroundImage from "../../src/assets/images/middlebox.jpg";
+import { Link } from 'react-router-dom';
 // bg-[url("../../src/assets/images/green.jpg")] bg-no-repeat bg-cover
 
 const Middle = () => {
@@ -10,7 +11,7 @@ const Middle = () => {
             <h2 className='absolute'>YOU GOT JUNK? WE'LL REMOVE IT.</h2>
         </div>
         <div className='relative rounded-xl font-bold text-white flex flex-row items-center justify-around text-3xl  h-36 w-2/5 mt-4 '>
-            <div className='bg-blue-500 py-5 flex justify-center w-56'>Junk Removal</div>
+            <div className='bg-blue-500 py-5 flex justify-center w-56'><Link to="/j-pincode">Junk Removal</Link></div>
             <div className='bg-blue-500 py-5 flex justify-center w-56'>Recycle</div>
         </div>
     </div>
