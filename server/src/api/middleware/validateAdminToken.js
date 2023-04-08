@@ -15,6 +15,10 @@ const validateAdminToken = asyncHandler(async (req, res, next) => {
         res.status(401);
         throw new Error('User is not authorized');
       }
+      if (req.get('userId') !== decoded.user.id) {
+        res.status(401);
+        throw new Error('User is not authorized...');
+      }
       req.user = decoded.user;
       next();
     });

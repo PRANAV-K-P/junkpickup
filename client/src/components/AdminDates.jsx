@@ -64,13 +64,14 @@ const AdminDates = () => {
             Authorization: `Bearer ${JSON.parse(
               localStorage.getItem("token")
             )}`,
+            userId: JSON.parse(localStorage.getItem("admin"))._id
           },
         }
       );
       if (response) {
         console.log(response,"--response");
         const ISODate = new Date(response.data.date);
-        const date = ISODate.toDateString();
+        const date = ISODate.toDateString();  
         await Swal.fire({
           position: 'center',
           icon: 'success',
@@ -78,7 +79,10 @@ const AdminDates = () => {
           showConfirmButton: false,
           timer: 1500
         })
-        navigate(0)
+        // navigate(0) 
+        setSelectedDate(null);
+        setSelectedTime([]);
+        selectedTime.forEach(slot => slot.status = false );
       }
     } catch (err) {
       setError(true);

@@ -15,12 +15,10 @@ const validateUserToken = asyncHandler(async (req, res, next) => {
         res.status(401);
         throw new Error('User is not authorized');
       }
-      if (decoded.user.id !== req.params.userId && decoded.user.id !== req.body.userId) {
+      if (req.get('userId') !== decoded.user.id) {
         res.status(401);
-        throw new Error('User is not authorized to access this resource');
+        throw new Error('User is not authorized...');
       }
-      console.log(req.body.userId);
-      console.log(decoded.user,"-- decoded.user");
       req.user = decoded.user;
       next();
     });
