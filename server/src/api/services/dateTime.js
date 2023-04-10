@@ -31,7 +31,13 @@ module.exports = {
           $unwind: '$time_slots',
         },
         {
-          $project: { _id: 0, time: '$time_slots.time' },
+          $project: {
+            _id: 0,
+            id: '$time_slots.id',
+            time: '$time_slots.time',
+            status: '$time_slots.status',
+            blocked: '$time_slots.blocked',
+          },
         },
       ]);
       if (times) {
@@ -44,5 +50,22 @@ module.exports = {
       );
       return false;
     } catch (err) {}
+  },
+  updateTimeStatus: async ({ dateObj, times }) => {
+    const response = await DateTime.findOneAndUpdate(
+      { date: dateObj }, // filter
+      { 'time_slots.$[elem].blocked': true }, // update
+      {
+        arrayFilters: [
+          { 'elem.time': { $in: times } },
+        ], // array filters
+        new: true, // option to return the updated document
+      },
+    );
+    if (response) {
+      console.log(response,"response after updating");
+      return response;
+    }
+    return false;
   },
 };

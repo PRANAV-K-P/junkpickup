@@ -1,27 +1,17 @@
-import React, { useState, useId } from "react";
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useId, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Datepicker from "react-datepicker";
 import axiosInstance from "../api/axiosInstance";
 
 const AdminDates = () => {
-  const DATES_URL = "/admin/dates";
 
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState([]);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
-  const [timeSlots, setTimeSlots] = useState([
-    { id: useId(), time: "9 AM", status: false },
-    { id: useId(), time: "10 AM", status: false },
-    { id: useId(), time: "11 AM", status: false },
-    { id: useId(), time: "12 PM", status: false },
-    { id: useId(), time: "2 PM", status: false },
-    { id: useId(), time: "3 PM", status: false },
-    { id: useId(), time: "4 PM", status: false },
-    { id: useId(), time: "5 PM", status: false },
-  ]);
-  
+
+  const [timeSlots, setTimeSlots] = useState([]);
 
   const handleItemSelect = (item) => {
     if (!selectedTime.some((i) => i.time === item.time)) {
@@ -40,15 +30,53 @@ const AdminDates = () => {
       );
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const URL = `/admin/dates/${selectedDate}`;
+        if (selectedDate) {
+          console.log(selectedDate);
+          let response = await axiosInstance.get(URL,{
+            headers: {
+              Authorization: `Bearer ${JSON.parse(
+                localStorage.getItem("token")
+              )}`,
+              userId: JSON.parse(localStorage.getItem("admin"))._id,
+            },
+          });
+          if (response.data) {
+            console.log(response.data.timeSlots,"-- before adding status");
+            const timeSlots = response.data.timeSlots;
+            timeSlots.forEach((timeObj) => {
+              timeObj.status = false;
+            })
+            console.log(timeSlots,"-- after adding status");
+            setTimeSlots(response.data.timeSlots)
+          }
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    })();
+  }, [selectedDate]);
+
+
+
   const handleSubmit = async () => {
     try {
+      const DATES_URL = "/admin/dates";
       if (!selectedDate) {
         setError(true);
         setMessage("Date cannot be Empty");
         return false;
-      } else if (selectedTime.length === 0) {
+      } else if (timeSlots.length !== 0 && selectedTime.length === 0) {
         setError(true);
         setMessage("Please select any time slot");
+        return false;
+      } else if (timeSlots.length === 0) {
+        setError(true);
+        setMessage("Time slots are not selected");
         return false;
       }
       setError(false);
@@ -56,7 +84,7 @@ const AdminDates = () => {
       console.log(selectedTime, "--- selectedTime ");
       // console.log("okok");
       console.log("axios");
-      let response = await axiosInstance.post(
+      let response = await axiosInstance.put(
         DATES_URL,
         { date: selectedDate, timeSlot: selectedTime },
         {
@@ -64,30 +92,30 @@ const AdminDates = () => {
             Authorization: `Bearer ${JSON.parse(
               localStorage.getItem("token")
             )}`,
-            userId: JSON.parse(localStorage.getItem("admin"))._id
+            userId: JSON.parse(localStorage.getItem("admin"))._id,
           },
         }
       );
       if (response) {
-        console.log(response,"--response");
+        console.log(response, "--response");
         const ISODate = new Date(response.data.date);
-        const date = ISODate.toDateString();  
+        const date = ISODate.toDateString();
         await Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Data added Successfully',
+          position: "center",
+          icon: "success",
+          title: "Data successfully updated",
           showConfirmButton: false,
-          timer: 1500
-        })
-        // navigate(0) 
+          timer: 1500,
+        });
+        // navigate(0)
         setSelectedDate(null);
         setSelectedTime([]);
-        selectedTime.forEach(slot => slot.status = false );
+        selectedTime.forEach((slot) => (slot.status = false));
       }
     } catch (err) {
       setError(true);
       setMessage(err.response?.data?.message);
-      console.log(err,"-- err");
+      console.log(err, "-- err");
     }
   };
 
@@ -103,7 +131,7 @@ const AdminDates = () => {
           </span>
         )}
         <h1 className="text-xl font-semibold mt-10 ml-10">
-          Select Date and Time
+          Select Date and Time to disable the time
         </h1>
         <div className="relative border mt-7 ml-10 h-96 ">
           <Datepicker
@@ -119,7 +147,7 @@ const AdminDates = () => {
             scrollableMonthYearDropdown
           />
           <div className="absolute border bg-white shadow-xl h-64 left-96 p-3 flex flex-row">
-            {timeSlots.map((item) => (
+            {timeSlots.length !== 0 ? ( timeSlots.map((item) => (
               <div
                 key={item.time}
                 className="flex h-20 py-5 justify-center sm:w-auto bg-white"
@@ -135,7 +163,9 @@ const AdminDates = () => {
                   {item.time}
                 </button>
               </div>
-            ))}
+            ))) : 
+            <h2 className="text-3xl">No timeSlots available for the selected Day</h2>
+            }
           </div>
         </div>
         <button

@@ -10,7 +10,7 @@ const dateTimeSchema = mongoose.Schema(
       {
         id: { type: String },
         time: { type: String },
-        status: { type: String },
+        blocked: { type: Boolean },
         isbooked: { type: Boolean },
       },
     ],
