@@ -15,8 +15,15 @@ const AdminNavBar = () => {
         <h1 className="text-4xl font-bold text-white w-70">
           <Link to="/admin/dashboard">JunkPickup management</Link>
         </h1>
-        <h2 className="text-2xl font-bold text-white w-70" >Admin 
-        {auth ?  <Link to="/admin/login" onClick={logout}>(Logout)</Link> : <></> }
+        <h2 className="text-2xl font-bold text-white w-70">
+          Admin
+          {auth ? (
+            <Link to="/admin/login" onClick={logout}>
+              (Logout)
+            </Link>
+          ) : (
+            <></>
+          )}
         </h2>
       </div>
     </header>

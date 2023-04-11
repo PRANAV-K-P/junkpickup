@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { BsChevronExpand } from "react-icons/bs";
 
@@ -67,10 +67,9 @@ const Menus = [
       },
     ],
   },
+  { title: "items", src: "/admin/items", icon: <BsFiles /> },
 
-  { title: "Files", src: "", gap: true, icon: <BsFiles /> },
-  { title: "Setting", src: "", icon: <MdOutlineSettings /> },
-  { title: "Logout", src: "", icon: <MdLogout /> },
+  { title: "Logout", src: "", gap: true, icon: <MdLogout /> },
 ];
 const AdminSideBar = () => {
   const [open, setOpen] = useState(true);
@@ -96,45 +95,33 @@ const AdminSideBar = () => {
           open ? "w-48" : "w-0"
         } lg:w-72 bg-teal-800 h-[740px] relative duration-500 `}
       >
-        <div className="justify-center mt-3">
-          <h1
-            className={`text-white font-medium text-2xl text-center duration-200 ${
-              !open && "invisible"
-            }`}
-          >
-            LOGO
-          </h1>
-        </div>
-        <ul className="pt-6">
+        <ul className={`${open ? "pt-6" : "invisible"}`}>
           {Menus.map((Menu, index) => (
             <React.Fragment key={uuidv4()}>
               <Link to={Menu.src}>
-              <li
-                key={uuidv4()}
-                className={`flex rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-lg 
+                <li
+                  key={uuidv4()}
+                  className={`flex rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-lg 
                 items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"}`}
-              >
-               
+                >
                   {Menu.icon}
                   <span className="flex-1">{Menu.title}</span>
-                  
-               
 
-                {Menu.subMenus1 && (
-                  <BsChevronDown
-                    key={uuidv4()}
-                    className={`${subMenuOpen1 && "rotate-180"}`}
-                    onClick={() => setSubMenuOpen1(!subMenuOpen1)}
-                  />
-                )}
-                {Menu.subMenus2 && (
-                  <BsChevronDown
-                    key={uuidv4()}
-                    className={`${subMenuOpen2 && "rotate-180"}`}
-                    onClick={() => setSubMenuOpen2(!subMenuOpen2)}
-                  />
-                )}
-              </li>
+                  {Menu.subMenus1 && (
+                    <BsChevronDown
+                      key={uuidv4()}
+                      className={`${subMenuOpen1 && "rotate-180"}`}
+                      onClick={() => setSubMenuOpen1(!subMenuOpen1)}
+                    />
+                  )}
+                  {Menu.subMenus2 && (
+                    <BsChevronDown
+                      key={uuidv4()}
+                      className={`${subMenuOpen2 && "rotate-180"}`}
+                      onClick={() => setSubMenuOpen2(!subMenuOpen2)}
+                    />
+                  )}
+                </li>
               </Link>
 
               {Menu.subMenus1 && subMenuOpen1 && open && (

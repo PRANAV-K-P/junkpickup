@@ -4,7 +4,6 @@ import Datepicker from "react-datepicker";
 import axiosInstance from "../api/axiosInstance";
 
 const AdminDates = () => {
-
   const navigate = useNavigate();
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState([]);
@@ -36,8 +35,7 @@ const AdminDates = () => {
       try {
         const URL = `/admin/dates/${selectedDate}`;
         if (selectedDate) {
-          console.log(selectedDate);
-          let response = await axiosInstance.get(URL,{
+          let response = await axiosInstance.get(URL, {
             headers: {
               Authorization: `Bearer ${JSON.parse(
                 localStorage.getItem("token")
@@ -46,22 +44,16 @@ const AdminDates = () => {
             },
           });
           if (response.data) {
-            console.log(response.data.timeSlots,"-- before adding status");
             const timeSlots = response.data.timeSlots;
             timeSlots.forEach((timeObj) => {
               timeObj.status = false;
-            })
-            console.log(timeSlots,"-- after adding status");
-            setTimeSlots(response.data.timeSlots)
+            });
+            setTimeSlots(response.data.timeSlots);
           }
         }
-      } catch (err) {
-        console.log(err);
-      }
+      } catch (err) {}
     })();
   }, [selectedDate]);
-
-
 
   const handleSubmit = async () => {
     try {
@@ -80,10 +72,6 @@ const AdminDates = () => {
         return false;
       }
       setError(false);
-      console.log("selectedDate = ", selectedDate);
-      console.log(selectedTime, "--- selectedTime ");
-      // console.log("okok");
-      console.log("axios");
       let response = await axiosInstance.put(
         DATES_URL,
         { date: selectedDate, timeSlot: selectedTime },
@@ -97,7 +85,6 @@ const AdminDates = () => {
         }
       );
       if (response) {
-        console.log(response, "--response");
         const ISODate = new Date(response.data.date);
         const date = ISODate.toDateString();
         await Swal.fire({
@@ -115,7 +102,6 @@ const AdminDates = () => {
     } catch (err) {
       setError(true);
       setMessage(err.response?.data?.message);
-      console.log(err, "-- err");
     }
   };
 
@@ -147,25 +133,29 @@ const AdminDates = () => {
             scrollableMonthYearDropdown
           />
           <div className="absolute border bg-white shadow-xl h-64 left-96 p-3 flex flex-row">
-            {timeSlots.length !== 0 ? ( timeSlots.map((item) => (
-              <div
-                key={item.time}
-                className="flex h-20 py-5 justify-center sm:w-auto bg-white"
-              >
-                <button
-                  className={`${
-                    selectedTime.some((i) => i.id === item.id)
-                      ? "bg-blue-500 text-white "
-                      : "bg-white text-gray-700"
-                  } shadow-xl border border-gray-200 px-4 py-2 text-sm w-full sm:w-auto mr-2`}
-                  onClick={() => handleItemSelect(item)}
+            {timeSlots.length !== 0 ? (
+              timeSlots.map((item) => (
+                <div
+                  key={item.time}
+                  className="flex h-20 py-5 justify-center sm:w-auto bg-white"
                 >
-                  {item.time}
-                </button>
-              </div>
-            ))) : 
-            <h2 className="text-3xl">No timeSlots available for the selected Day</h2>
-            }
+                  <button
+                    className={`${
+                      selectedTime.some((i) => i.id === item.id)
+                        ? "bg-blue-500 text-white "
+                        : "bg-white text-gray-700"
+                    } shadow-xl border border-gray-200 px-4 py-2 text-sm w-full sm:w-auto mr-2`}
+                    onClick={() => handleItemSelect(item)}
+                  >
+                    {item.time}
+                  </button>
+                </div>
+              ))
+            ) : (
+              <h2 className="text-3xl">
+                No timeslots available for the selected Day
+              </h2>
+            )}
           </div>
         </div>
         <button

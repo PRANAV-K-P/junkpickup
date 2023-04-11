@@ -33,7 +33,10 @@ const AdminLogin = () => {
         setError(true);
         return false;
       }
-      let response = await axiosInstance.post(ADMIN_LOGIN_URL, { email, password });
+      let response = await axiosInstance.post(ADMIN_LOGIN_URL, {
+        email,
+        password,
+      });
       if (response) {
         delete response.data.admin.password;
         localStorage.setItem("admin", JSON.stringify(response.data.admin));
@@ -41,7 +44,6 @@ const AdminLogin = () => {
         navigate("/admin/dashboard");
       }
     } catch (err) {
-      console.log("handle admin login error - ", err);
       setServerError(true);
       setMessage(err.response.data.message);
     }

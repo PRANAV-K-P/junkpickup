@@ -7,7 +7,6 @@ const AdminDashboard = () => {
         <div className=" bg-red-300 h-16 text-2xl font-bold flex items-center justify-center">
           Dashborad
         </div>
-        
       </div>
     </div>
   );

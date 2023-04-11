@@ -1,6 +1,6 @@
-import React from 'react'
-import AdminUsers from '../components/AdminUsers';
-import AdminSideBar from '../components/AdminSideBar';
+import React from "react";
+import AdminUsers from "../components/AdminUsers";
+import AdminSideBar from "../components/AdminSideBar";
 
 const AdminUsersPage = () => {
   return (
@@ -8,7 +8,7 @@ const AdminUsersPage = () => {
       <AdminSideBar />
       <AdminUsers />
     </div>
-  )
-}
+  );
+};
 
 export default AdminUsersPage;

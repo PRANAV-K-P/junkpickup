@@ -7,16 +7,11 @@ const nodeCron = require('node-cron');
 // @route POST /api/admin/date
 // @access private
 const updateTimeStatus = asyncHandler(async (req, res) => {
-  console.log('reached the server');
   const { date, timeSlot } = req.body;
   const dateObj = new Date(date);
 
   dateObj.setDate(dateObj.getDate() + parseInt(1));
   dateObj.setUTCHours(0, 0, 0, 0);
-
-  console.log(dateObj, '-- date from front');
-
-  console.log(timeSlot, ' -- timeSlot from the fronten');
 
   // const dateAvailable = await dateTimeService.dateExist(dateObj);
   // if (dateAvailable) {
@@ -24,41 +19,30 @@ const updateTimeStatus = asyncHandler(async (req, res) => {
   //   throw new Error('Date already added');
   // }
 
-  // let TArray = [];
-  // timeSlot.map((item) => {
-  //   TArray.push({ time: item.time, isbooked: false });
-  // });
-
-  let times =[];
+  let times = [];
   timeSlot.forEach((timeObj) => {
     times.push(timeObj.time);
-  })
-  console.log(times,"new time array");
-  
+  });
+
   const dateTime = await dateTimeService.updateTimeStatus({ dateObj, times });
   if (dateTime) {
-    res.status(201).json(dateTime);
+    res.status(200).json(dateTime);
   } else {
     res.status(400);
     throw new Error('Date or Time is not valid');
   }
-
- 
 });
 
 // @desc Get timeslots based on date
 // @route GET /api/admin/dates/:id
 // @access private
-const getAllTime = asyncHandler(async (req, res) => {
-  console.log('Entered in getalltime in controller');
+const getAllTimeAdmin = asyncHandler(async (req, res) => {
   const date = req.params.id;
   const dateObj = new Date(date);
   dateObj.setDate(dateObj.getDate() + parseInt(1));
   dateObj.setUTCHours(0, 0, 0, 0);
-  console.log(dateObj, '-- date object');
   const timeSlots = await dateTimeService.getAllTime(dateObj);
   if (timeSlots) {
-    console.log(timeSlots, '-- timeslots -----');
     res.status(200).json({ timeSlots });
   } else {
     res.status(404);
@@ -78,7 +62,7 @@ const cronJob = async () => {
       { time: '4 PM' },
       { time: '5 PM' },
     ];
-    
+
     // 6 days date should be added to db
     for (let i = 1; i <= 6; i++) {
       timeSlots.forEach((item) => {
@@ -106,15 +90,8 @@ const cronJob = async () => {
         throw new Error('Invalid Date and Time');
       }
     }
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 };
-
-// nodeCron.schedule('*/4 * * * * *',cronJob, {
-//   scheduled: true,
-//   timezone: 'Asia/Kolkata',
-// });
 
 // it should work on every sunday at a specific time
 nodeCron.schedule('4 21 * * 1', cronJob, {
@@ -122,4 +99,27 @@ nodeCron.schedule('4 21 * * 1', cronJob, {
   timezone: 'Asia/Kolkata',
 });
 
-module.exports = { updateTimeStatus, getAllTime };
+// @desc Get timeslots based on date
+// @route GET /api/users/dates/:id
+// @access private
+const getAllTimeUser = asyncHandler(async (req, res) => {
+  const date = req.params.id;
+  const dateObj = new Date(date);
+  dateObj.setDate(dateObj.getDate() + parseInt(1));
+  dateObj.setUTCHours(0, 0, 0, 0);
+  const timeSlots = await dateTimeService.getAllTime(dateObj);
+  if (timeSlots) {
+    let times = [];
+    timeSlots.forEach((item) => {
+      if (item.blocked === false) {
+        times.push(item);
+      }
+    });
+    res.status(200).json(times);
+  } else {
+    res.status(404);
+    throw new Error('Time not found');
+  }
+});
+
+module.exports = { updateTimeStatus, getAllTimeAdmin, getAllTimeUser };

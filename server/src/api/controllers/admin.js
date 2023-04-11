@@ -23,9 +23,9 @@ const loginAdmin = asyncHandler(async (req, res) => {
             },
           },
           process.env.ACCESS_TOKEN_ADMIN_SECRET,
-          // {
-          //   expiresIn: '59m',
-          // },
+          {
+            expiresIn: '59m',
+          },
         );
         res.status(200).json({ admin, auth: accessToken });
       } else {

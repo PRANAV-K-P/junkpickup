@@ -31,9 +31,7 @@ const MainNavBar = () => {
         >
           <ul className="text-base text-gray-700 lg:flex lg:justify-between">
             <li className="group">
-              <span
-                className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
-              >
+              <span className="lg:px-5 py-2 block hover:text-blue-700 font-bold">
                 Services
               </span>
               <div className="hidden z-50 group-hover:block hover:block lg:top-15 lg:absolute w-24 top-30 bg-slate-50 shadow-xl px-2 py-3">

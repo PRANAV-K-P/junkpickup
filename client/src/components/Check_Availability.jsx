@@ -20,17 +20,14 @@ const Check_Availability = () => {
         setError(true);
         return false;
       }
-      let response = await axiosInstance.post(PICKUP_AVAILABILITY_URL,{ pin });
+      let response = await axiosInstance.post(PICKUP_AVAILABILITY_URL, { pin });
       if (response.data.isValid) {
-        console.log("Entered pincode is available", response.data.pin);
         navigate("/j-datetime");
       } else {
         setServerError(true);
         setMessage(response.data.message);
       }
-    } catch (err) {
-      console.log("err -", err);
-    }
+    } catch (err) {}
   };
 
   return (

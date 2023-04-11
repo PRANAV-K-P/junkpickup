@@ -6,6 +6,7 @@ import AdminNavBar from "../components/AdminNavBar";
 import AdminPrivateComponent from "../components/AdminPrivateComponent";
 import AdminDates from "../pages/AdminDates";
 import AdminUsers from "../pages/AdminUsers";
+import AdminAddItems from "../pages/AdminAddItems";
 
 const AdminRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const AdminRoutes = () => {
           <Route path="dashboard" element={<AdminHome />}></Route>
           <Route path="dates" element={<AdminDates />}></Route>
           <Route path="users" element={<AdminUsers />}></Route>
+          <Route path="items" element={<AdminAddItems />}></Route>
         </Route>
         <Route path="login" element={<AdminLogin />}></Route>
       </Routes>

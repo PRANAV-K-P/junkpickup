@@ -17,6 +17,9 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
     },
+    blocked: {
+      type: Boolean,
+    }
   },
   {
     timestamps: true,

@@ -1,6 +1,6 @@
-import React from 'react'
-import AdminDates from '../components/AdminDates'
-import AdminSideBar from '../components/AdminSideBar'
+import React from "react";
+import AdminDates from "../components/AdminDates";
+import AdminSideBar from "../components/AdminSideBar";
 
 const AdminDatePages = () => {
   return (
@@ -8,7 +8,7 @@ const AdminDatePages = () => {
       <AdminSideBar />
       <AdminDates />
     </div>
-  )
-}
+  );
+};
 
-export default AdminDatePages
+export default AdminDatePages;

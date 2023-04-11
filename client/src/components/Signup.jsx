@@ -40,7 +40,12 @@ const Signup = () => {
         return false;
       }
 
-      let response = await axiosInstance.post(SIGNUP_URL,{ name, email, phone, password });
+      let response = await axiosInstance.post(SIGNUP_URL, {
+        name,
+        email,
+        phone,
+        password,
+      });
       if (response.data) {
         navigate("/login");
       }
@@ -74,171 +79,179 @@ const Signup = () => {
                 {message}
               </span>
             )}
-              <div className="mb-3">
-                <label htmlFor="name" className="sr-only">
-                  Full name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onBlur={check}
-                  placeholder="Full name"
-                  className=" appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
-                />
-                {error && !name && (
-                  <span className="mt-1 text-red-500 font-medium block ml-0">
-                    *Name cannot be empty.
-                  </span>
-                )}
-                {regexError && !nameRegex.test(name) && name && (
+            <div className="mb-3">
+              <label htmlFor="name" className="sr-only">
+                Full name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                onBlur={check}
+                placeholder="Full name"
+                className=" appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
+              />
+              {error && !name && (
+                <span className="mt-1 text-red-500 font-medium block ml-0">
+                  *Name cannot be empty.
+                </span>
+              )}
+              {regexError && !nameRegex.test(name) && name && (
+                <span className="mt-1 text-yellow-500 font-medium block ml-0">
+                  Invalid Name!
+                </span>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="email" className="sr-only">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onBlur={check}
+                placeholder="Email address"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
+              />
+              {error && !email && (
+                <span className="mt-1 text-red-500 font-medium block ml-0">
+                  *Email cannot be empty.
+                </span>
+              )}
+              {regexError && !emailRegex.test(email) && email && (
+                <span className="mt-1 text-yellow-500 font-medium block ml-0">
+                  Invalid email address!
+                </span>
+              )}
+            </div>
+            <div className="mb-3">
+              <label htmlFor="phone" className="sr-only">
+                Phone
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                onBlur={check}
+                placeholder="Phone number"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
+              />
+              {error && !phone && (
+                <span className="mt-1 text-red-500 font-medium block ml-0">
+                  *Phone number cannot be empty.
+                </span>
+              )}
+              {regexError && !phoneRegex.test(phone) && phone && (
+                <span className="mt-1 text-yellow-500 font-medium block ml-0">
+                  Invalid phone number!
+                </span>
+              )}
+            </div>
+            <div className="mb-3 relative">
+              <label htmlFor="password" className="sr-only">
+                Password
+              </label>
+              <input
+                id="password"
+                name="password"
+                type={show1 ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={check}
+                placeholder="Password"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
+              />
+              <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
+                {
+                  <FaRegEyeSlash
+                    onClick={() => setShow1(!show1)}
+                    className={`${
+                      show1 ? "hidden" : "block"
+                    } text-xl cursor-pointer`}
+                  />
+                }
+                {
+                  <FaRegEye
+                    onClick={() => setShow1(!show1)}
+                    className={`${
+                      show1 ? "block" : "hidden"
+                    } text-xl cursor-pointer`}
+                  />
+                }
+              </div>
+              {error && !password && (
+                <span className="mt-1 text-red-500 font-medium block ml-0">
+                  *Password cannot be empty.
+                </span>
+              )}
+              {regexError && !passwordRegex.test(password) && password && (
+                <span className="mt-1 text-yellow-500 font-medium block ml-0">
+                  *Must be 6 or more characters & contain at least 1 number & 1
+                  special character & 1 lower case & 1 upper case
+                </span>
+              )}
+            </div>
+            <div className="mb-3 relative">
+              <label htmlFor="confirmPassword" className="sr-only">
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type={show2 ? "text" : "password"}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                onBlur={check}
+                placeholder="ConfirmPassword"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
+              />
+              <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
+                {
+                  <FaRegEyeSlash
+                    onClick={() => setShow2(!show2)}
+                    className={`${
+                      show2 ? "hidden" : "block"
+                    } text-xl cursor-pointer`}
+                  />
+                }
+                {
+                  <FaRegEye
+                    onClick={() => setShow2(!show2)}
+                    className={`${
+                      show2 ? "block" : "hidden"
+                    } text-xl cursor-pointer`}
+                  />
+                }
+              </div>
+              {error && !confirmPassword && (
+                <span className="mt-1 text-red-500 font-medium block ml-0">
+                  *Confirm password cannot be empty.
+                </span>
+              )}
+              {regexError &&
+                password !== confirmPassword &&
+                confirmPassword && (
                   <span className="mt-1 text-yellow-500 font-medium block ml-0">
-                    Invalid Name!
+                    Please make sure passwords match.
                   </span>
                 )}
-              </div>
-              <div className="mb-3">
-                <label htmlFor="email" className="sr-only">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  onBlur={check}
-                  placeholder="Email address"
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
-                />
-                {error && !email && (
-                  <span className="mt-1 text-red-500 font-medium block ml-0">
-                    *Email cannot be empty.
-                  </span>
-                )}
-                {regexError && !emailRegex.test(email) && email && (
-                  <span className="mt-1 text-yellow-500 font-medium block ml-0">
-                    Invalid email address!
-                  </span>
-                )}
-              </div>
-              <div className="mb-3">
-                <label htmlFor="phone" className="sr-only">
-                  Phone
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  onBlur={check}
-                  placeholder="Phone number"
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
-                />
-                {error && !phone && (
-                  <span className="mt-1 text-red-500 font-medium block ml-0">
-                    *Phone number cannot be empty.
-                  </span>
-                )}
-                {regexError && !phoneRegex.test(phone) && phone && (
-                  <span className="mt-1 text-yellow-500 font-medium block ml-0">
-                    Invalid phone number!
-                  </span>
-                )}
-              </div>
-              <div className="mb-3 relative">
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type={show1 ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onBlur={check}
-                  placeholder="Password"
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
-                />
-                <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
-                  {
-                    <FaRegEyeSlash
-                      onClick={() => setShow1(!show1)}
-                      className={`${show1 ? "hidden" : "block"} text-xl cursor-pointer`}
-                    />
-                  }
-                  {
-                    <FaRegEye
-                      onClick={() => setShow1(!show1)}
-                      className={`${show1 ? "block" : "hidden"} text-xl cursor-pointer`}
-                    />
-                  }
-                </div>
-                {error && !password && (
-                  <span className="mt-1 text-red-500 font-medium block ml-0">
-                    *Password cannot be empty.
-                  </span>
-                )}
-                {regexError && !passwordRegex.test(password) && password && (
-                  <span className="mt-1 text-yellow-500 font-medium block ml-0">
-                    *Must be 6 or more characters & contain at least 1 number &
-                    1 special character & 1 lower case & 1 upper case
-                  </span>
-                )}
-              </div>
-              <div className="mb-3 relative">
-                <label htmlFor="confirmPassword" className="sr-only">
-                  Confirm Password
-                </label>
-                <input
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type={show2 ? "text" : "password"}
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  onBlur={check}
-                  placeholder="ConfirmPassword"
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border-b-2 border-white placeholder-white text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm bg-light-blue"
-                />
-                <div className="absolute top-2 right-0 pr-3 flex items-center leading-5">
-                  {
-                    <FaRegEyeSlash
-                      onClick={() => setShow2(!show2)}
-                      className={`${show2 ? "hidden" : "block"} text-xl cursor-pointer`}
-                    />
-                  }
-                  {
-                    <FaRegEye
-                      onClick={() => setShow2(!show2)}
-                      className={`${show2 ? "block" : "hidden"} text-xl cursor-pointer`}
-                    />
-                  }
-                </div>
-                {error && !confirmPassword && (
-                  <span className="mt-1 text-red-500 font-medium block ml-0">
-                    *Confirm password cannot be empty.
-                  </span>
-                )}
-                {regexError &&
-                  password !== confirmPassword &&
-                  confirmPassword && (
-                    <span className="mt-1 text-yellow-500 font-medium block ml-0">
-                      Please make sure passwords match.
-                    </span>
-                  )}
-              </div>
-              <div className="w-full flex justify-center">
-                <button
-                  className="bg-yellow-500 self-center hover:bg-yellow-600 rounded-full py-2 px-4 text-white font-bold w-40 mb-4"
-                  type="button"
-                  onClick={handleSubmit}
-                >
-                  Signup
-                </button>
-              </div>
+            </div>
+            <div className="w-full flex justify-center">
+              <button
+                className="bg-yellow-500 self-center hover:bg-yellow-600 rounded-full py-2 px-4 text-white font-bold w-40 mb-4"
+                type="button"
+                onClick={handleSubmit}
+              >
+                Signup
+              </button>
+            </div>
             <div className="text-center">
               <p>
                 Already have an account ?{" "}

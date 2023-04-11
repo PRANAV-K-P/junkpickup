@@ -5,7 +5,8 @@ const {
   getSingleUser,
 } = require('../controllers/user');
 const { pickupAvailability } = require('../controllers/pincode');
-const { getAllTime } = require("../controllers/dateTime")
+const { getAllTimeUser } = require('../controllers/dateTime');
+const { getItems } = require('../controllers/item');
 const validateUserToken = require('../middleware/validateUserToken');
 
 const router = express.Router();
@@ -18,6 +19,8 @@ router.post('/pickup-availabilities', pickupAvailability);
 
 router.get('/profiles/:id', validateUserToken, getSingleUser);
 
-router.get('/dates/:id', validateUserToken, getAllTime);
+router.get('/dates/:id', getAllTimeUser);
+
+router.get('/items', getItems);
 
 module.exports = router;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const JunkPin = () => {
-  return (
-    <div>JunkPin</div>
-  )
-}
+  return <div>JunkPin</div>;
+};
 
-export default JunkPin
+export default JunkPin;
