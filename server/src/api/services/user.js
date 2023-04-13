@@ -4,8 +4,15 @@ const User = require('../models/userModel');
 module.exports = {
   userExist: async (email) => {
     const userAvailable = await User.findOne({ email });
+    let response = {};
     if (userAvailable) {
-      return userAvailable;
+      response.userAvailable = userAvailable;
+      if(userAvailable.blocked) {
+        response.block = true;
+      } else {
+        response.block = false
+      }
+      return response;
     }
     return false;
   },
@@ -25,7 +32,7 @@ module.exports = {
     return false;
   },
   getAllusers: async () => {
-    const allUsers = await User.find({}, { name: 1, email: 1 });
+    const allUsers = await User.find({}, { name: 1, email: 1, blocked: 1 });
     if (allUsers) {
       return allUsers;
     }

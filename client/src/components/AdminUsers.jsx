@@ -1,11 +1,167 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { MdOutlineSearch } from "react-icons/md";
+import axiosInstance from "../api/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const AdminUsers = () => {
+  const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const FETCH_USERS = "/admin/users";
+        let response = await axiosInstance.get(FETCH_USERS, {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(
+              localStorage.getItem("token")
+            )}`,
+            userId: JSON.parse(localStorage.getItem("admin"))._id,
+          },
+        });
+        if (response.data) {
+          setUsers(response.data);
+        }
+      } catch (err) {}
+    })();
+  }, []);
+
+  const handleUserAccess = async (userId, userName, blocked) => {
+    try {
+      Swal.fire({
+        title: `Do you want to ${blocked ? "Unblock" : "block" } ${userName}`,
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const URL = `/admin/users/${userId}`;
+          let response = await axiosInstance.put(
+            URL,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${JSON.parse(
+                  localStorage.getItem("token")
+                )}`,
+                userId: JSON.parse(localStorage.getItem("admin"))._id,
+              },
+            }
+          );
+          if (response.data) {
+            navigate(0);
+            
+          }
+          await Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `Successfully ${blocked ? "Unblocked" : "blocked" }`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    } catch (err) {}
+  };
+
   return (
     <div className="bg-sky-blue w-full min-h-full  flex justify-center items-center ">
       <div className="bg-white w-4/5 h-5/6">
-        <div className=" bg-red-300 h-16 text-2xl font-bold flex items-center justify-center">
+        <h1 className="text-2xl mt-10 font-bold flex items-center justify-center">
           Users
+        </h1>
+
+        <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+          <div className="py-4 bg-gray-100 dark:bg-gray-100">
+            <div className="mb-5">
+              <label htmlFor="table-search" className="sr-only">
+                Search
+              </label>
+
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <MdOutlineSearch className="text-black text-xl" />
+                </div>
+                <input
+                  type="text"
+                  id="table-search-users"
+                  className="block p-2 pl-10 text-sm text-black border border-white rounded-lg w-80 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  placeholder="Search for users"
+                />
+              </div>
+            </div>
+            <table className="w-full text-sm text-left text-black dark:text-black">
+              <thead className="text-xs text-black uppercase bg-gray-100 dark:bg-gray-100 dark:text-black">
+                <tr>
+                  <th scope="col" className="p-4">
+                    Sl.no
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Name
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Email
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Status
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {users.map((item, index) => (
+                  <tr
+                    key={item.name}
+                    className="bg-gray-100 border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-white dark:hover:bg-white"
+                  >
+                    <td className="w-4 p-4">{index + 1}</td>
+                    <th
+                      scope="row"
+                      className="flex items-center px-6 py-4 text-black whitespace-nowrap dark:text-black"
+                    >
+                      <img
+                        className="w-10 h-10 rounded-full"
+                        src="/docs/images/people/profile-picture-1.jpg"
+                        alt="Jese image"
+                      />
+                      <div className="pl-3">
+                        <div className="text-base font-semibold">
+                          {item.name}
+                        </div>
+                      </div>
+                    </th>
+                    <td className="px-6 py-4">{item.email}</td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center">
+                        <div
+                          className={`${
+                            item.blocked ? "bg-red-600 " : "bg-green-600 "
+                          }h-2.5 w-2.5 rounded-full mr-2`}
+                        ></div>
+                        {item.blocked ? "Offline" : "Online"}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      {/* Modal toggle */}
+                      <button
+                        onClick={() => handleUserAccess(item._id,item.name,item.blocked)}
+                        className={`${
+                          item.blocked ? "bg-green-500 px-4" : "bg-red-500 px-6"
+                        } font-semibold rounded-full py-1 text-white`}
+                      >
+                        {item.blocked ? "Unblock" : "Block"}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

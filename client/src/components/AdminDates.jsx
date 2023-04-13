@@ -108,9 +108,9 @@ const AdminDates = () => {
   return (
     <div className="bg-sky-blue w-full min-h-full  flex justify-center items-center ">
       <div className="bg-white w-4/5 ">
-        <div className=" bg-red-300 h-16 text-2xl font-bold flex items-center justify-center">
+        {/* <div className=" bg-red-300 h-16 text-2xl font-bold flex items-center justify-center">
           Dates
-        </div>
+        </div> */}
         {error && (
           <span className="mt-1 mb-1 p-1 text-white bg-red-500 text-2xl font-medium block ml-0">
             {message}

@@ -49,10 +49,8 @@ const AdminAddItems = () => {
   return (
     <div className="bg-sky-blue w-full min-h-full  flex justify-center items-center ">
       <div className="bg-white w-4/5 h-5/6 ">
-        <div className=" bg-red-300 h-16 text-2xl font-bold flex items-center justify-center">
-          Add Items
-        </div>
-        <div className="block max-w-md rounded-lg p-6 shadow-xl bg-white ml-auto mr-auto mt-32">
+        <h1 className="text-2xl mt-10 font-bold flex items-center justify-center">Add Items</h1>
+        <div className="block max-w-md rounded-lg p-6 shadow-xl bg-white ml-auto mr-auto mt-12">
           {serverError && (
             <span className="mt-1 p-2 text-white bg-red-500 font-medium block ml-0 mb-5">
               {message}

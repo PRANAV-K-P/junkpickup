@@ -35,8 +35,15 @@ const loginUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('All fields are mandatory !');
   }
-  const userExist = await userService.userExist(email);
-  if (userExist && (await bcrypt.compare(password, userExist.password))) {
+  const response = await userService.userExist(email);
+  const userExist = response.userAvailable;
+  if (response?.block) {
+    res.status(401);
+    throw new Error("Account suspended, Can't login");
+  } else if (
+    userExist &&
+    (await bcrypt.compare(password, userExist.password))
+  ) {
     const accessToken = jwt.sign(
       {
         user: {

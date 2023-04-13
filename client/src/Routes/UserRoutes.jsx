@@ -7,6 +7,7 @@ import Pick_DateTime from "../pages/Pick_DateTime";
 import Check_Availability from "../pages/Check_Availability";
 import PrivateComponent from "../components/PrivateComponent";
 import NavBar from "../components/NavBar";
+import Profile from "../components/Profile"
 
 const UserRoutes = () => {
   return (
@@ -19,6 +20,7 @@ const UserRoutes = () => {
         <Route path="j-pincode" element={<Check_Availability />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </div>
   );
