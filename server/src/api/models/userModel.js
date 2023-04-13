@@ -14,6 +14,16 @@ const userSchema = mongoose.Schema(
     phone: {
       type: String,
     },
+    addresses: [
+      {
+        name: {type: String},
+        address: {type: String},
+        pincode: {type: String},
+        city: {type: String},
+        mobile: {type: String},
+        email: {type: String},
+      }
+    ],
     password: {
       type: String,
     },

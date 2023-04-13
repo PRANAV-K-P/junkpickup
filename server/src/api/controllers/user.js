@@ -48,7 +48,6 @@ const loginUser = asyncHandler(async (req, res) => {
       {
         user: {
           role: 'user',
-          name: userExist.name,
           email: userExist.email,
           id: userExist._id,
         },
@@ -93,7 +92,7 @@ const getAllusers = asyncHandler(async (req, res) => {
 });
 
 // @desc manage the users's access
-// @route PUT /api/admin/users
+// @route PUT /api/admin/users/:id
 // @access private
 const manageUserAccess = asyncHandler(async (req, res) => {
   const userId = req.params.id;
@@ -106,10 +105,41 @@ const manageUserAccess = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc update the user's address
+// @route PUT /api/users/address/:id
+// @access private
+const addAddress = asyncHandler(async (req, res) => {
+  // const {name, address, pincode, city, mobile, email} = req.body;
+  const userId = req.params.id;
+  const user = await userService.addAddress(userId,req.body);
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(400);
+    throw new Error('Invalid data to add address');
+  }
+});
+
+// @desc update the user's address
+// @route PUT /api/users/address
+// @access private
+const updateAddress = asyncHandler(async (req, res) => {
+  const userId = req.query.id;
+  const user = await userService.updateAddress(userId,req.body);
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(400);
+    throw new Error('Invalid data to update address');
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
   getSingleUser,
   getAllusers,
   manageUserAccess,
+  addAddress,
+  updateAddress
 };

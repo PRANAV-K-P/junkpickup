@@ -7,10 +7,10 @@ module.exports = {
     let response = {};
     if (userAvailable) {
       response.userAvailable = userAvailable;
-      if(userAvailable.blocked) {
+      if (userAvailable.blocked) {
         response.block = true;
       } else {
-        response.block = false
+        response.block = false;
       }
       return response;
     }
@@ -43,6 +43,35 @@ module.exports = {
     const response = await User.updateOne(
       { _id: userId },
       { $set: { blocked: !userData.blocked } },
+    );
+    if (response) {
+      return response;
+    }
+    return false;
+  },
+  addAddress: async (userId, addressData) => {
+    let updated = await User.updateOne(
+      { _id: userId },
+      { $push: { addresses: addressData } },
+    );
+    if (updated) {
+      return updated;
+    }
+    return false;
+  },
+  updateAddress: async (userId, addressData) => {
+    let response = await User.updateOne(
+      { _id: userId, 'addresses._id': addressData.id },
+      {
+        $set: {
+          'addresses.$.name': addressData.name,
+          'addresses.$.address': addressData.address,
+          'addresses.$.pincode': addressData.pincode,
+          'addresses.$.city': addressData.city,
+          'addresses.$.mobile': addressData.mobile,
+          'addresses.$.email': addressData.email,
+        },
+      },
     );
     if (response) {
       return response;

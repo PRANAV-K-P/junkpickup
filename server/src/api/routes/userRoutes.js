@@ -3,6 +3,8 @@ const {
   registerUser,
   loginUser,
   getSingleUser,
+  addAddress,
+  updateAddress
 } = require('../controllers/user');
 const { pickupAvailability } = require('../controllers/pincode');
 const { getAllTimeUser } = require('../controllers/dateTime');
@@ -22,5 +24,9 @@ router.get('/profiles/:id', validateUserToken, getSingleUser);
 router.get('/dates/:id', getAllTimeUser);
 
 router.get('/items', getItems);
+
+router.put('/address/:id', addAddress);
+
+router.put('/address', updateAddress);
 
 module.exports = router;
