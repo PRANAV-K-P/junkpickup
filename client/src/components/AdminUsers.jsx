@@ -13,10 +13,9 @@ const AdminUsers = () => {
         const FETCH_USERS = "/admin/users";
         let response = await axiosInstance.get(FETCH_USERS, {
           headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("token")
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("adminToken")
             )}`,
-            userId: JSON.parse(localStorage.getItem("admin"))._id,
           },
         });
         if (response.data) {
@@ -44,10 +43,9 @@ const AdminUsers = () => {
             {},
             {
               headers: {
-                Authorization: `Bearer ${JSON.parse(
-                  localStorage.getItem("token")
+                Authorization: `Bpickj ${JSON.parse(
+                  localStorage.getItem("adminToken")
                 )}`,
-                userId: JSON.parse(localStorage.getItem("admin"))._id,
               },
             }
           );

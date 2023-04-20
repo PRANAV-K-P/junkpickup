@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const nodeCron = require('node-cron');
 
 // @desc Add date and timeSlots
-// @route POST /api/admin/date
+// @route POST /api/datetime
 // @access private
 const updateTimeStatus = asyncHandler(async (req, res) => {
   const { date, timeSlot } = req.body;
@@ -34,9 +34,10 @@ const updateTimeStatus = asyncHandler(async (req, res) => {
 });
 
 // @desc Get timeslots based on date
-// @route GET /api/admin/dates/:id
+// @route GET /api/datetime/admin/:id
 // @access private
 const getAllTimeAdmin = asyncHandler(async (req, res) => {
+  console.log("Reached here");
   const date = req.params.id;
   const dateObj = new Date(date);
   dateObj.setDate(dateObj.getDate() + parseInt(1));
@@ -94,13 +95,13 @@ const cronJob = async () => {
 };
 
 // it should work on every sunday at a specific time
-nodeCron.schedule('4 21 * * 1', cronJob, {
+nodeCron.schedule('4 21 * * 0', cronJob, {
   scheduled: true,
   timezone: 'Asia/Kolkata',
 });
 
 // @desc Get timeslots based on date
-// @route GET /api/users/dates/:id
+// @route GET /api/datetime/users/:id
 // @access private
 const getAllTimeUser = asyncHandler(async (req, res) => {
   const date = req.params.id;

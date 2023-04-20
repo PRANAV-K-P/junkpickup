@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const itemService = require('../services/item');
 
 // @desc create an item
-// @route POST /api/admin/items
+// @route POST /api/items
 // @access private
 const addItems = asyncHandler(async (req, res) => {
   const { name, description } = req.body;
@@ -25,7 +25,7 @@ const addItems = asyncHandler(async (req, res) => {
 });
 
 // @desc get all items
-// @route GET /api/admin/items
+// @route GET /api/items
 // @access public
 const getItems = asyncHandler(async (req, res) => {
   const allItems = await itemService.getItems();

@@ -33,14 +33,13 @@ const AdminDates = () => {
   useEffect(() => {
     (async () => {
       try {
-        const URL = `/admin/dates/${selectedDate}`;
+        const URL = `/datetime/admin/${selectedDate}`;
         if (selectedDate) {
           let response = await axiosInstance.get(URL, {
             headers: {
-              Authorization: `Bearer ${JSON.parse(
-                localStorage.getItem("token")
+              Authorization: `Bpickj ${JSON.parse(
+                localStorage.getItem("adminToken")
               )}`,
-              userId: JSON.parse(localStorage.getItem("admin"))._id,
             },
           });
           if (response.data) {
@@ -57,7 +56,7 @@ const AdminDates = () => {
 
   const handleSubmit = async () => {
     try {
-      const DATES_URL = "/admin/dates";
+      const DATES_URL = "/datetime";
       if (!selectedDate) {
         setError(true);
         setMessage("Date cannot be Empty");
@@ -77,10 +76,9 @@ const AdminDates = () => {
         { date: selectedDate, timeSlot: selectedTime },
         {
           headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("token")
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("adminToken")
             )}`,
-            userId: JSON.parse(localStorage.getItem("admin"))._id,
           },
         }
       );

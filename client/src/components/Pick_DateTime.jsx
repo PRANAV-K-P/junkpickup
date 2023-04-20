@@ -17,7 +17,7 @@ function Pick_DateTime() {
   useEffect(() => {
     (async () => {
       try {
-        const ITEMS_URL = "/users/items";
+        const ITEMS_URL = "/items";
         let response = await axiosInstance.get(ITEMS_URL);
         if (response.data) {
           const itemsArray = response.data;
@@ -40,14 +40,13 @@ function Pick_DateTime() {
   useEffect(() => {
     (async () => {
       try {
-        const URL = `/users/dates/${selectedDate}`;
+        const URL = `/datetime/users/${selectedDate}`;
         if (selectedDate) {
           let response = await axiosInstance.get(URL, {
             headers: {
-              // Authorization: `Bearer ${JSON.parse(
-              //   localStorage.getItem("token")
+              // Authorization: `Bpickj ${JSON.parse(
+              //   localStorage.getItem("userToken")
               // )}`,
-              // userId: JSON.parse(localStorage.getItem("user"))._id,
             },
           });
           if (response.data) {

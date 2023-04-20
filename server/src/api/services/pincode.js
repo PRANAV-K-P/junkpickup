@@ -1,4 +1,4 @@
-const Pincode = require('../models/pinModal');
+const Pincode = require('../models/pin.model');
 
 module.exports = {
   addPincode: async (pin) => {

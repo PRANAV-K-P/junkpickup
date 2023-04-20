@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/userModel');
+const User = require('../models/user.model');
 
 module.exports = {
   userExist: async (email) => {
@@ -31,24 +31,6 @@ module.exports = {
     }
     return false;
   },
-  getAllusers: async () => {
-    const allUsers = await User.find({}, { name: 1, email: 1, blocked: 1 });
-    if (allUsers) {
-      return allUsers;
-    }
-    return false;
-  },
-  manageUserAccess: async (userId) => {
-    let userData = await User.findOne({ _id: userId });
-    const response = await User.updateOne(
-      { _id: userId },
-      { $set: { blocked: !userData.blocked } },
-    );
-    if (response) {
-      return response;
-    }
-    return false;
-  },
   addAddress: async (userId, addressData) => {
     let updated = await User.updateOne(
       { _id: userId },
@@ -60,6 +42,7 @@ module.exports = {
     return false;
   },
   updateAddress: async (userId, addressData) => {
+    console.log(userId);
     let response = await User.updateOne(
       { _id: userId, 'addresses._id': addressData.id },
       {
@@ -73,6 +56,62 @@ module.exports = {
         },
       },
     );
+    if (response) {
+      console.log(response);
+      return response;
+    }
+    return false;
+  },
+  getSingleUser: async (userId) => {
+    let response = await User.findOne(
+      { _id: userId },
+      { name: 1, email: 1, phone: 1 },
+    );
+    console.log(response);
+    if (response) {
+      return response;
+    }
+    return false;
+  },
+  updateSingleUser: async (userId, userData) => {
+    let response = await User.findOneAndUpdate(
+      { _id: userId },
+      { name: userData.name, email: userData.email, phone: userData.phone },
+      {
+        new: true,
+        fields: {
+          name: 1,
+          email: 1,
+          phone: 1,
+        },
+      },
+    );
+    if (response) {
+      return response;
+    }
+    return false;
+  },
+  getAddresses: async (userId) => {
+    console.log(userId);
+    let response = await User.aggregate([
+      {
+        $match: { _id: userId },
+      },
+      {
+        $unwind: '$addresses',
+      },
+      {
+        $project: {
+          name: '$addresses.name',
+          address: '$addresses.address',
+          pincode: '$addresses.pincode',
+          city: '$addresses.city',
+          mobile: '$addresses.mobile',
+          email: '$addresses.email',
+        },
+      },
+    ]);
+    console.log(response, '-- response');
     if (response) {
       return response;
     }

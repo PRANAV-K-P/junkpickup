@@ -37,9 +37,8 @@ const Login = () => {
 
       let response = await axiosInstance.post(LOGIN_URL,{ email, password });
       if (response.data.auth) {
-        delete response.data.user.password;
         localStorage.setItem("user", JSON.stringify(response.data.user));
-        localStorage.setItem("token", JSON.stringify(response.data.auth));
+        localStorage.setItem("userToken", JSON.stringify(response.data.auth));
         navigate("/");
       }
     } catch (err) {

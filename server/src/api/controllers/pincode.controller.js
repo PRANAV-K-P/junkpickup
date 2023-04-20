@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const pincodeService = require('../services/pincode');
 
 // @desc Add pin numbers
-// @route POST /api/admin/add-Pincode
+// @route POST /api/pincode
 // @access private
 const addPincode = asyncHandler(async (req, res) => {
   const { pin } = req.body;
@@ -25,7 +25,7 @@ const addPincode = asyncHandler(async (req, res) => {
 });
 
 // @desc POST check pincode availability
-// @route POST /api/users/pickup-availability
+// @route POST /api/pincode/pickup-availability
 // @access public
 const pickupAvailability = asyncHandler(async (req, res) => {
   const { pin } = req.body;

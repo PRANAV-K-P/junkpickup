@@ -57,7 +57,14 @@ const loginUser = asyncHandler(async (req, res) => {
         expiresIn: '59m',
       },
     );
-    res.status(200).json({ user: userExist, auth: accessToken });
+    res.status(200).json({
+      user: {
+        _id: userExist._id,
+        name: userExist.name,
+        email: userExist.email,
+      },
+      auth: accessToken,
+    });
   } else {
     res.status(401);
     throw new Error('Email or password is not valid');
@@ -65,11 +72,11 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 // @desc Get single user data
-// @route GET /api/users/profile
+// @route GET /api/users/profiles/:id
 // @access private
 const getSingleUser = asyncHandler(async (req, res) => {
-  const { email } = req.body;
-  const userData = await userService.userExist(email);
+  const userId = req.params.id;
+  const userData = await userService.getSingleUser(userId);
   if (userData) {
     res.status(200).json(userData);
   } else {
@@ -78,42 +85,19 @@ const getSingleUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc get all users
-// @route GET /api/admin/users
-// @access private
-const getAllusers = asyncHandler(async (req, res) => {
-  const allUsers = await userService.getAllusers();
-  if (allUsers) {
-    res.status(200).json(allUsers);
-  } else {
-    res.status(401);
-    throw new Error('Users data not found');
-  }
-});
-
-// @desc manage the users's access
-// @route PUT /api/admin/users/:id
-// @access private
-const manageUserAccess = asyncHandler(async (req, res) => {
-  const userId = req.params.id;
-  const userData = await userService.manageUserAccess(userId);
-  if (userData) {
-    res.status(200).json(userData);
-  } else {
-    res.status(400);
-    throw new Error('User data not found');
-  }
-});
-
 // @desc update the user's address
 // @route PUT /api/users/address/:id
 // @access private
 const addAddress = asyncHandler(async (req, res) => {
-  // const {name, address, pincode, city, mobile, email} = req.body;
+  const { name, address, pincode, city, mobile, email } = req.body;
+  if (!name || !address || !pincode || !city || !mobile || !email) {
+    res.status(400);
+    throw new Error('All fields are mandatory');
+  }
   const userId = req.params.id;
-  const user = await userService.addAddress(userId,req.body);
+  const user = await userService.addAddress(userId, req.body);
   if (user) {
-    res.status(200).json(user);
+    res.status(201).json(user);
   } else {
     res.status(400);
     throw new Error('Invalid data to add address');
@@ -124,8 +108,13 @@ const addAddress = asyncHandler(async (req, res) => {
 // @route PUT /api/users/address
 // @access private
 const updateAddress = asyncHandler(async (req, res) => {
+  const { name, address, pincode, city, mobile, email } = req.body;
+  if (!name || !address || !pincode || !city || !mobile || !email) {
+    res.status(400);
+    throw new Error('All fields are mandatory');
+  }
   const userId = req.query.id;
-  const user = await userService.updateAddress(userId,req.body);
+  const user = await userService.updateAddress(userId, req.body);
   if (user) {
     res.status(200).json(user);
   } else {
@@ -134,12 +123,46 @@ const updateAddress = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc update single user data
+// @route PUT /api/users/profiles/:id
+// @access private
+const updateSingleUser = asyncHandler(async (req, res) => {
+  const { name, email, phone } = req.body;
+  if (!name || !email || !phone) {
+    res.status(400);
+    throw new Error('All fields are mandatory');
+  }
+  const userId = req.params.id;
+  const userData = await userService.updateSingleUser(userId, req.body);
+  if (userData) {
+    res.status(200).json(userData);
+  } else {
+    res.status(401);
+    throw new Error('Unauthorized user');
+  }
+});
+
+// @desc update single user data
+// @route PUT /api/users/addresses
+// @access private
+const getAddresses = asyncHandler(async (req, res) => {
+  const userId = req.query.userId;
+  console.log(userId);
+  const address = await userService.getAddresses(userId);
+  if (address) {
+    res.status(200).json(address);
+  } else {
+    res.status(401);
+    throw new Error('Unauthorized user');
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
   getSingleUser,
-  getAllusers,
-  manageUserAccess,
   addAddress,
-  updateAddress
+  updateAddress,
+  updateSingleUser,
+  getAddresses,
 };

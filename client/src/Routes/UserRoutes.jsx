@@ -7,14 +7,16 @@ import Pick_DateTime from "../pages/Pick_DateTime";
 import Check_Availability from "../pages/Check_Availability";
 import PrivateComponent from "../components/PrivateComponent";
 import NavBar from "../components/NavBar";
-import Profile from "../components/Profile"
+import Profile from "../pages/Profile";
 
 const UserRoutes = () => {
-  return (
+  return (  
     <div>
       <NavBar />
       <Routes>
-        <Route element={<PrivateComponent />}></Route>
+        <Route element={<PrivateComponent />}>
+        <Route path="profile" element={<Profile />} />
+        </Route>
         <Route path="/" element={<Home />} />
         <Route path="j-datetime" element={<Pick_DateTime />} />
         <Route path="j-pincode" element={<Check_Availability />} />

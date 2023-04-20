@@ -13,7 +13,7 @@ const AdminAddItems = () => {
 
   const handleSubmit = async () => {
     try {
-      const URL = "/admin/items";
+      const URL = "/items";
       if (!regex.test(name) || !regex.test(description)) {
         setError(true);
         return false;
@@ -24,10 +24,9 @@ const AdminAddItems = () => {
         { name, description },
         {
           headers: {
-            Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem("token")
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("adminToken")
             )}`,
-            userId: JSON.parse(localStorage.getItem("admin"))._id,
           },
         }
       );

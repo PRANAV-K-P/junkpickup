@@ -1,4 +1,4 @@
-const DateTime = require('../models/dateTimeModel');
+const DateTime = require('../models/dateTime.model');
 
 module.exports = {
   addDateTime: async ({ dateObj, TArray }) => {

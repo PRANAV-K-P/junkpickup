@@ -9,7 +9,9 @@ const MainNavBar = () => {
   const auth = localStorage.getItem("user");
 
   const logout = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem("user");
+    localStorage.removeItem("userToken");
     navigate("/");
   };
   return (
@@ -48,15 +50,6 @@ const MainNavBar = () => {
                   </li>
                 </ul>
               </div>
-            </li>
-
-            <li>
-              <Link
-                className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
-                to=""
-              >
-                Locations
-              </Link>
             </li>
             <li>
               <Link

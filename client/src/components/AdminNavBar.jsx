@@ -6,7 +6,9 @@ const AdminNavBar = () => {
   const auth = localStorage.getItem("admin");
 
   const logout = () => {
-    localStorage.clear();
+    // localStorage.clear();
+    localStorage.removeItem("admin");
+    localStorage.removeItem("adminToken");
     navigate("/admin/login");
   };
   return (

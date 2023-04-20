@@ -38,9 +38,8 @@ const AdminLogin = () => {
         password,
       });
       if (response) {
-        delete response.data.admin.password;
         localStorage.setItem("admin", JSON.stringify(response.data.admin));
-        localStorage.setItem("token", JSON.stringify(response.data.auth));
+        localStorage.setItem("adminToken", JSON.stringify(response.data.auth));
         navigate("/admin/dashboard");
       }
     } catch (err) {
