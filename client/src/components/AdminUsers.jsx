@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
+  const [status, setStatus] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,10 +21,11 @@ const AdminUsers = () => {
         });
         if (response.data) {
           setUsers(response.data);
+          setStatus(false);
         }
       } catch (err) {}
     })();
-  }, []);
+  }, [status]);
 
   const handleUserAccess = async (userId, userName, blocked) => {
     try {
@@ -50,16 +52,16 @@ const AdminUsers = () => {
             }
           );
           if (response.data) {
-            navigate(0);
-            
+            await Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `Successfully ${blocked ? "Unblocked" : "blocked" }`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            setStatus(true);
           }
-          await Swal.fire({
-            position: "center",
-            icon: "success",
-            title: `Successfully ${blocked ? "Unblocked" : "blocked" }`,
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          
         }
       });
     } catch (err) {}

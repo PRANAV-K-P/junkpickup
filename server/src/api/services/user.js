@@ -1,5 +1,9 @@
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
+
 
 module.exports = {
   userExist: async (email) => {
@@ -42,7 +46,6 @@ module.exports = {
     return false;
   },
   updateAddress: async (userId, addressData) => {
-    console.log(userId);
     let response = await User.updateOne(
       { _id: userId, 'addresses._id': addressData.id },
       {
@@ -57,7 +60,6 @@ module.exports = {
       },
     );
     if (response) {
-      console.log(response);
       return response;
     }
     return false;
@@ -67,7 +69,6 @@ module.exports = {
       { _id: userId },
       { name: 1, email: 1, phone: 1 },
     );
-    console.log(response);
     if (response) {
       return response;
     }
@@ -92,29 +93,29 @@ module.exports = {
     return false;
   },
   getAddresses: async (userId) => {
-    console.log(userId);
-    let response = await User.aggregate([
-      {
-        $match: { _id: userId },
-      },
-      {
-        $unwind: '$addresses',
-      },
-      {
-        $project: {
-          name: '$addresses.name',
-          address: '$addresses.address',
-          pincode: '$addresses.pincode',
-          city: '$addresses.city',
-          mobile: '$addresses.mobile',
-          email: '$addresses.email',
+      let response = await User.aggregate([
+        {
+          $match: {_id: new ObjectId(userId)},
         },
-      },
-    ]);
-    console.log(response, '-- response');
-    if (response) {
-      return response;
-    }
-    return false;
+        {
+          $unwind: '$addresses',
+        },
+        {
+          $project: {
+            _id: 0,
+            id: '$addresses.id',
+            name: '$addresses.name',
+            address: '$addresses.address',
+            pincode: '$addresses.pincode',
+            city: '$addresses.city',
+            mobile: '$addresses.mobile',
+            email: '$addresses.email',
+          },
+        },
+      ]);
+      if (response) {
+        return response;
+      }
+      return false;
   },
 };

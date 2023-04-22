@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema(
     },
     addresses: [
       {
+        id: {type: String},
         name: {type: String},
         address: {type: String},
         pincode: {type: String},

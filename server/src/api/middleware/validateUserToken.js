@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 
 const validateUserToken = asyncHandler(async (req, res, next) => {
   const authHeader = req.headers.Authorization || req.headers.authorization;
-  console.log(authHeader, "authheader");
   if (authHeader && authHeader.startsWith('Bpickj')) {
     const [, token] = authHeader.split(' ');
     // token = authHeader.split(' ')[1];

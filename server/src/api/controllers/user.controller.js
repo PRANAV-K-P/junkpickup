@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const userService = require('../services/user');
 
 // @desc Register a user
@@ -95,7 +96,9 @@ const addAddress = asyncHandler(async (req, res) => {
     throw new Error('All fields are mandatory');
   }
   const userId = req.params.id;
-  const user = await userService.addAddress(userId, req.body);
+  const addressData = req.body;
+  addressData.id = crypto.randomUUID();
+  const user = await userService.addAddress(userId, addressData);
   if (user) {
     res.status(201).json(user);
   } else {
@@ -147,13 +150,12 @@ const updateSingleUser = asyncHandler(async (req, res) => {
 // @access private
 const getAddresses = asyncHandler(async (req, res) => {
   const userId = req.query.userId;
-  console.log(userId);
   const address = await userService.getAddresses(userId);
   if (address) {
     res.status(200).json(address);
   } else {
     res.status(401);
-    throw new Error('Unauthorized user');
+    throw new Error('Address not present');
   }
 });
 

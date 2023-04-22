@@ -39,6 +39,11 @@ const errorHandler = (err, req, res, next) => {
       });
       break;
     default:
+      res.json({
+        title: 'Internal Server Error',
+        message: err.message,
+        stackTrace: err.stack,
+      });
       break;
   }
 };

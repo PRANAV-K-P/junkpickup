@@ -46,7 +46,6 @@ const Profile = () => {
         }
       );
       if (response.data) {
-        console.log(response.data);
       }
     } catch (e) {
       setServerError(true);
@@ -65,7 +64,6 @@ const Profile = () => {
           },
         });
         if (response.data) {
-          console.log(response.data);
           setName(response.data.name);
           setEmail(response.data.email);
           setPhone(response.data.phone);

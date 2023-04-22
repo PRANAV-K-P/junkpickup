@@ -47,8 +47,7 @@ const Signup = () => {
         password,
       });
       if (response.data) {
-        console.log(response.data);
-        // navigate("/login");
+        navigate("/login");
       }
     } catch (err) {
       setServerError(true);

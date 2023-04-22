@@ -37,7 +37,6 @@ const updateTimeStatus = asyncHandler(async (req, res) => {
 // @route GET /api/datetime/admin/:id
 // @access private
 const getAllTimeAdmin = asyncHandler(async (req, res) => {
-  console.log("Reached here");
   const date = req.params.id;
   const dateObj = new Date(date);
   dateObj.setDate(dateObj.getDate() + parseInt(1));
