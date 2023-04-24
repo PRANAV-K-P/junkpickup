@@ -1,5 +1,5 @@
 import React from "react";
-import homebackground1 from "../../src/assets/images/firstbanner.jpg";
+import homebackground1 from "../../assets/images/firstbanner.jpg";
 
 const HomeBody1 = () => {
   return (

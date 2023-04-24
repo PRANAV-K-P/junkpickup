@@ -1,16 +1,16 @@
 import React from "react";
-import Pick_DateTime from "../components/Pick_DateTime";
+import ConfirmBooking from "../components/ConfirmBooking";
 import Support from "../components/shared/Support";
 import Footer from "../components/partials/Footer";
 
-const Pick_DateTimePage = () => {
+const ConfirmBookingPage = () => {
   return (
     <>
-      <Pick_DateTime />
+      <ConfirmBooking />
       <Support />
       <Footer />
     </>
   );
 };
 
-export default Pick_DateTimePage;
+export default ConfirmBookingPage;

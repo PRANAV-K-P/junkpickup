@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 import { RiUserFill } from "react-icons/ri";
 import { HiLockClosed, HiEyeOff, HiEye } from "react-icons/hi";
-import loginBackground from "../assets/images/adminloginbackground.jpg";
+import loginBackground from "../../assets/images/adminloginbackground.jpg";
 
 const AdminLogin = () => {
   const ADMIN_LOGIN_URL = "/admin/login";

@@ -1,16 +1,16 @@
 import React from "react";
-import Pick_DateTime from "../components/Pick_DateTime";
+import AddressDetails from "../components/AddressDetails";
 import Support from "../components/shared/Support";
 import Footer from "../components/partials/Footer";
 
-const Pick_DateTimePage = () => {
+const AddressDetailsPage = () => {
   return (
     <>
-      <Pick_DateTime />
+      <AddressDetails />
       <Support />
       <Footer />
     </>
   );
 };
 
-export default Pick_DateTimePage;
+export default AddressDetailsPage;

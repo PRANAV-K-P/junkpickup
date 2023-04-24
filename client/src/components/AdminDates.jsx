@@ -50,7 +50,10 @@ const AdminDates = () => {
             setTimeSlots(response.data.timeSlots);
           }
         }
-      } catch (err) {}
+      } catch (err) {
+        setError(true);
+        setMessage(err.response?.data?.message);
+      }
     })();
   }, [selectedDate]);
 
@@ -95,6 +98,7 @@ const AdminDates = () => {
         // navigate(0)
         setSelectedDate(null);
         setSelectedTime([]);
+        setTimeSlots([]);
         selectedTime.forEach((slot) => (slot.status = false));
       }
     } catch (err) {

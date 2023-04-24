@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import LoginBackgroundImage from "../assets/images/login_background.jpg";
+import LoginBackgroundImage from "../../assets/images/login_background.jpg";
 
 const SIGNUP_URL = "/users/signup";
 

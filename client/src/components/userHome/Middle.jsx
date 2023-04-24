@@ -1,5 +1,5 @@
 import React from "react";
-import backgroundImage from "../../src/assets/images/middlebox.jpg";
+import backgroundImage from "../../assets/images/middlebox.jpg";
 import { Link } from "react-router-dom";
 
 const Middle = () => {

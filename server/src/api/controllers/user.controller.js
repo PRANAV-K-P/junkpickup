@@ -111,12 +111,20 @@ const addAddress = asyncHandler(async (req, res) => {
 // @route PUT /api/users/address
 // @access private
 const updateAddress = asyncHandler(async (req, res) => {
-  const { name, address, pincode, city, mobile, email } = req.body;
-  if (!name || !address || !pincode || !city || !mobile || !email) {
+  const { addressId, name, address, pincode, city, mobile, email } = req.body;
+  if (
+    !addressId ||
+    !name ||
+    !address ||
+    !pincode ||
+    !city ||
+    !mobile ||
+    !email
+  ) {
     res.status(400);
     throw new Error('All fields are mandatory');
   }
-  const userId = req.query.id;
+  const userId = req.query.userId;
   const user = await userService.updateAddress(userId, req.body);
   if (user) {
     res.status(200).json(user);
@@ -159,6 +167,23 @@ const getAddresses = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc a single address
+// @route GET /api/users/address-data
+// @access private
+const getSingleAddres = asyncHandler(async (req, res) => {
+  const userId = req.query.userId;
+  const addressId = req.query.addressId;
+  let address = await userService.getSingleAddres(userId, addressId);
+  if (address) {
+    address = address.toObject();
+    delete address._id;
+    res.status(200).json(address);
+  } else {
+    res.status(401);
+    throw new Error('Address not present');
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -167,4 +192,5 @@ module.exports = {
   updateAddress,
   updateSingleUser,
   getAddresses,
+  getSingleAddres,
 };

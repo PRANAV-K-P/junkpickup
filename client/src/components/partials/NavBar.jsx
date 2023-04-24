@@ -2,16 +2,26 @@ import { useState } from "react";
 import { FiMenu } from "react-icons/fi";
 import { FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {updateDate, updateTimeId, updateItems, updateTime, updateAddressId, updatePincode, updateType} from "../../redux/user";
 
 const MainNavBar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const auth = localStorage.getItem("user");
+  const dispatch = useDispatch();
 
   const logout = () => {
     // localStorage.clear();
     localStorage.removeItem("user");
     localStorage.removeItem("userToken");
+    dispatch(updateDate(null));
+    dispatch(updateTimeId(""));
+    dispatch(updateItems([]));
+    dispatch(updateTime(""));
+    dispatch(updateAddressId(""));
+    dispatch(updatePincode(""));
+    dispatch(updateType(""));
     navigate("/");
   };
   return (

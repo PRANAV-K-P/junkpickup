@@ -1,6 +1,6 @@
 import React from "react";
 import AdminDates from "../components/AdminDates";
-import AdminSideBar from "../components/AdminSideBar";
+import AdminSideBar from "../components/partials/AdminSideBar";
 
 const AdminDatePages = () => {
   return (

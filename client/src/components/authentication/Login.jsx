@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from "../../api/axiosInstance";
 import { FaRegEyeSlash, FaRegEye } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import LoginBackgroundImage from "../assets/images/login_background.jpg";
+import { useSelector } from "react-redux";
+import LoginBackgroundImage from "../../assets/images/login_background.jpg";
 
 const Login = () => {
   const LOGIN_URL = "/users/login";
@@ -14,7 +15,7 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
-
+  const { pincode } = useSelector((state) => state.user);
   useEffect(() => {
     const auth = localStorage.getItem("user");
     if (auth) {
@@ -35,11 +36,16 @@ const Login = () => {
         return false;
       }
 
-      let response = await axiosInstance.post(LOGIN_URL,{ email, password });
+      let response = await axiosInstance.post(LOGIN_URL, { email, password });
       if (response.data.auth) {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("userToken", JSON.stringify(response.data.auth));
-        navigate("/");
+        if (pincode) {
+          navigate("/j-datetime");
+        } else {
+          navigate("/");
+          // navigate(-1)
+        }
       }
     } catch (err) {
       setServerError(true);

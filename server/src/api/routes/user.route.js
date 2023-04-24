@@ -22,4 +22,6 @@ router.route('/addresses')
 
   .get(validateUserToken, controller.getAddresses);
 
+router.get("/address-data", validateUserToken, controller.getSingleAddres);
+
 module.exports = router;

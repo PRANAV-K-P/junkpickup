@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-// import { IoMdAddCircle } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { MdOutlineEditNote } from "react-icons/md";
-import axiosInstance from "../api/axiosInstance";
+import axiosInstance from ".././api/axiosInstance";
+import {updateAddressId} from "../redux/user";
 
-const Address = () => {
+const AddressDiv = () => {
+    const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
@@ -17,7 +19,12 @@ const Address = () => {
   const [message, setMessage] = useState("");
   const [serverError, setServerError] = useState(false);
   const [addresses, setAddresses] = useState([]);
+//   const [addressId, setAddressId] = useState("");
+const { addressId } = useSelector((state) => state.user);
+  
+  const [update, setUpdate] = useState(false);
   const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
+  
 
   const nameRegex = /^\S[a-zA-Z]*(\s[a-zA-Z]+)*\s?\S[a-zA-Z]*$/;
   const addressRegex = /^\S[a-zA-Z0-9]*(\s[a-zA-Z0-9]+)*\S$/;
@@ -30,11 +37,6 @@ const Address = () => {
   const ADDRESS = `/users/addresses/${userId}`;
   const URL = "/users/addresses";
 
-  // const handleAddAddress = (address) => {
-  //   setAddresses([...addresses, address]);
-  //   setIsAddAddressModalOpen(false);
-  // };
-
   const closeModal = () => {
     setIsAddAddressModalOpen(false);
     setName("");
@@ -44,6 +46,7 @@ const Address = () => {
     setMobile("");
     setEmail("");
     setError(false);
+    setUpdate(false);
   };
 
   useEffect(() => {
@@ -100,6 +103,49 @@ const Address = () => {
       setMobile("");
       setEmail("");
       setIsAddAddressModalOpen(false);
+    } catch (err) {
+      setServerError(true);
+      setMessage(err.response.data.message);
+    }
+  };
+
+  const handleUpdate = async () => {
+    try {
+      if (
+        !nameRegex.test(name) ||
+        !addressRegex.test(address) ||
+        !pinRegex.test(pincode) ||
+        !cityRegex.test(city) ||
+        !phoneRegex.test(mobile) | !emailRegex.test(email)
+      ) {
+        setError(true);
+        return false;
+      }
+      let response = await axiosInstance.put(
+        URL,
+        { addressId, name, address, pincode, city, mobile, email },
+        {
+          headers: {
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("userToken")
+            )}`,
+          },
+          params: {
+            userId,
+          },
+        }
+      );
+      if (response.data) {
+        setStatus(true);
+      }
+      setName("");
+      setAddress("");
+      setPincode("");
+      setCity("");
+      setMobile("");
+      setEmail("");
+      setIsAddAddressModalOpen(false);
+      setUpdate(false);
     } catch (e) {
       setServerError(true);
       setMessage(err.response.data.message);
@@ -107,46 +153,77 @@ const Address = () => {
   };
 
   return (
-    <div className="md:col-span-2">
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <div className="mb-6">
+    <div className="md:col-span-2 border border-gray-400">
+      <div className="bg-white rounded-lg  shadow-md pl-5 py-3">
+        <div className="mb-3 bg-white">
           <h2 className="text-xl font-medium mb-4">Addresses</h2>
           {addresses.length > 0 ? (
-            <ul className="flex flex-row">
+            <ul className="flex flex-wrap">
               {addresses.map((address, index) => (
-                <li
+                <label
+                  htmlFor={address.id}
+                  className="cursor-pointer flex items-center py-3 border-gray-200 border bg-white mr-2 mb-2 pl-2 shadow-xl w-[100%] sm:w-[60%] md:w-[80%] lg:w-[45%] xl:w-[32%] 2xl:w-[22%]  "
                   key={index}
-                  className="flex items-center py-3 bg-white mr-2 px-5 shadow-xl"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 mr-3">
-                    <FaUserCircle
-                      size={24}
-                      className="text-gray-500 mx-auto my-auto"
-                    />
-                  </div>
-                  <div className="">
-                    <div className="">
-                      <MdOutlineEditNote size={30} className="ml-auto cursor-pointer" />
-                    </div>
+                  <input
+                    type="radio"
+                    value={address.id}
+                    id={address.id}
+                    onChange={() => {
+                        dispatch(updateAddressId(address.id))
+                    }}
+                    name="Address"
+                    className="mr-2"
+                  />
 
-                    <h3 className="text-lg font-medium">{address.name}</h3>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.address}
-                    </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.pincode}
-                    </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.city}
-                    </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.mobile}
-                    </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.email}
-                    </p>
-                  </div>
-                </li>
+                  <li
+                    className=""
+                  >
+                    <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 mr-3">
+                      <FaUserCircle
+                        size={24}
+                        className="text-gray-500 mx-auto my-auto"
+                      />
+                    </div>
+                    <div className="">
+                      <div className="">
+                        <MdOutlineEditNote
+                          size={30}
+                          className="ml-auto cursor-pointer "
+                          onClick={() => {
+                            // setAddressId(address.id);
+                            dispatch(updateAddressId(address.id))
+                            setName(address.name);
+                            setAddress(address.address);
+                            setPincode(address.pincode);
+                            setCity(address.city);
+                            setMobile(address.mobile);
+                            setEmail(address.email);
+                            setUpdate(true);
+                            setIsAddAddressModalOpen(true);
+                          }}
+                        />
+                      </div>
+
+                      <h3 className="text-lg font-medium">{address.name}</h3>
+                      <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
+                        {address.address}
+                      </p>
+                      <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
+                        {address.pincode}
+                      </p>
+                      <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
+                        {address.city}
+                      </p>
+                      <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
+                        {address.mobile}
+                      </p>
+                      <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
+                        {address.email}
+                      </p>
+                    </div>
+                  </li>
+                </label>
               ))}
             </ul>
           ) : (
@@ -170,7 +247,13 @@ const Address = () => {
                     <MdClose size={20} />
                   </button>
                   <div className="p-6">
-                    <h2 className="text-lg font-medium mb-4">Add Address</h2>
+                    {update ? (
+                      <h2 className="text-lg font-medium mb-4">
+                        Update Address
+                      </h2>
+                    ) : (
+                      <h2 className="text-lg font-medium mb-4">Add Address</h2>
+                    )}
                     {serverError && (
                       <span className="mt-1 mb-1 p-2 text-white bg-red-500 font-medium block ml-0">
                         {message}
@@ -306,7 +389,7 @@ const Address = () => {
                     </div>
                     <button
                       type="submit"
-                      onClick={handleSubmit}
+                      onClick={update ? handleUpdate : handleSubmit}
                       className="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded px-4 py-2"
                     >
                       Save
@@ -319,9 +402,7 @@ const Address = () => {
         </div>
       </div>
     </div>
-
-
   );
 };
 
-export default Address;
+export default AddressDiv;

@@ -47,7 +47,7 @@ module.exports = {
   },
   updateAddress: async (userId, addressData) => {
     let response = await User.updateOne(
-      { _id: userId, 'addresses._id': addressData.id },
+      { _id: userId, 'addresses.id': addressData.addressId },
       {
         $set: {
           'addresses.$.name': addressData.name,
@@ -118,4 +118,14 @@ module.exports = {
       }
       return false;
   },
+  getSingleAddres: async (userId, addressId) => {
+    let response = await User.findOne({ _id: userId }, {
+      addresses: {$elemMatch: {id: addressId}}
+    });
+    if(response) {
+      response = response.addresses?.[0]
+      return response;
+    }
+    return false;
+  }
 };

@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { IoMdAddCircle } from "react-icons/io";
-import { FaUserCircle } from "react-icons/fa";
-import { MdClose } from "react-icons/md";
-import axiosInstance from "../api/axiosInstance";
-import Address from "../components/Address";
+import axiosInstance from "../../api/axiosInstance";
+import Address from "./Address";
 
 const Profile = () => {
   const [name, setName] = useState("");
@@ -49,7 +46,7 @@ const Profile = () => {
       }
     } catch (e) {
       setServerError(true);
-      setMessage(err.response.data.message);
+      setMessage(err.response?.data?.message);
     }
   };
 
@@ -70,7 +67,7 @@ const Profile = () => {
         }
       } catch (err) {
         setServerError(true);
-        setMessage(err.response.data.message);
+        setMessage(err.response?.data?.message);
       }
     })();
   }, []);

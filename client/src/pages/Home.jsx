@@ -1,8 +1,8 @@
 import React from "react";
-import Footer from "../components/Footer";
-import HomeBody1 from "../components/HomeBody1";
-import HomeBody2 from "../components/HomeBody2";
-import Middle from "../components/Middle";
+import Footer from "../components/partials/Footer";
+import HomeBody1 from "../components/userHome/HomeBody1";
+import HomeBody2 from "../components/userHome/HomeBody2";
+import Middle from "../components/userHome/Middle";
 
 const Home = () => {
   return (
