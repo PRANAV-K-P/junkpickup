@@ -103,6 +103,7 @@ const { addressId } = useSelector((state) => state.user);
       setMobile("");
       setEmail("");
       setIsAddAddressModalOpen(false);
+      setError(false);
     } catch (err) {
       setServerError(true);
       setMessage(err.response.data.message);
@@ -146,6 +147,7 @@ const { addressId } = useSelector((state) => state.user);
       setEmail("");
       setIsAddAddressModalOpen(false);
       setUpdate(false);
+      setError(false);
     } catch (e) {
       setServerError(true);
       setMessage(err.response.data.message);
@@ -161,16 +163,16 @@ const { addressId } = useSelector((state) => state.user);
             <ul className="flex flex-wrap">
               {addresses.map((address, index) => (
                 <label
-                  htmlFor={address.id}
+                  htmlFor={address.addressId}
                   className="cursor-pointer flex items-center py-3 border-gray-200 border bg-white mr-2 mb-2 pl-2 shadow-xl w-[100%] sm:w-[60%] md:w-[80%] lg:w-[45%] xl:w-[32%] 2xl:w-[22%]  "
                   key={index}
                 >
                   <input
                     type="radio"
-                    value={address.id}
-                    id={address.id}
+                    value={address.addressId}
+                    id={address.addressId}
                     onChange={() => {
-                        dispatch(updateAddressId(address.id))
+                        dispatch(updateAddressId(address.addressId))
                     }}
                     name="Address"
                     className="mr-2"
@@ -191,8 +193,7 @@ const { addressId } = useSelector((state) => state.user);
                           size={30}
                           className="ml-auto cursor-pointer "
                           onClick={() => {
-                            // setAddressId(address.id);
-                            dispatch(updateAddressId(address.id))
+                            dispatch(updateAddressId(address.addressId))
                             setName(address.name);
                             setAddress(address.address);
                             setPincode(address.pincode);

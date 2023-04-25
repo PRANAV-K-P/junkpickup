@@ -24,7 +24,6 @@ const ConfirmBooking = () => {
     (async () => {
       try {
         let formattedDate = new Date(date);
-        console.log(formattedDate, "-- before");
         const options = {
           weekday: "short",
           month: "long",
@@ -32,7 +31,6 @@ const ConfirmBooking = () => {
           year: "numeric",
         };
         formattedDate = formattedDate.toLocaleDateString("en-US", options);
-        console.log(formattedDate, "-- after");
         setNewDate(formattedDate);
 
         let URL = "/users/address-data";
@@ -60,7 +58,7 @@ const ConfirmBooking = () => {
   }, []);
 
   const handleSubmit = () => {
-    //
+    
   };
   return (
     <div className="relative w-full bg-white flex flex-col justify-end ">
@@ -81,28 +79,28 @@ const ConfirmBooking = () => {
                 <span className="text-2xl">Review details and confirm</span>
               </div>
               <div className="font-bold text-xl bg-white">Pick-up Date</div>
-              <div className="text-1xl font-semibold mb-2">{newDate}</div>
+              <div className="text-xl font-semibold mb-2">{newDate}</div>
               <div className="font-bold text-xl">Arrival Time</div>
-              <div className="text-1xl font-semibold">{time}</div>
+              <div className="text-xl font-semibold">{time}</div>
             </div>
             <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700" />
             <div className="mb-2">
             <span className="font-bold text-xl">For: </span>
-            <span className="text-1xl font-semibold">{type}</span>
+            <span className="text-xl font-semibold">{type}</span>
             </div>
             <div className="mb-2">
             <span className="font-bold text-xl">Name: </span>
-            <span className="text-1xl font-semibold mb-2">{name}</span>
+            <span className="text-xl font-semibold mb-2">{name}</span>
 
             </div>
             <div className="font-bold text-xl">Address: </div>
-            <div className="text-1xl font-semibold mb-1">{address}</div>
-            <div className="text-1xl font-semibold mb-1">{city}</div>
-            <div className="text-1xl font-semibold mb-1">{pincode}</div>
+            <div className="text-xl font-semibold mb-1">{address}</div>
+            <div className="text-xl font-semibold mb-1">{city}</div>
+            <div className="text-xl font-semibold mb-1">{pincode}</div>
             <div className="font-bold text-xl">Phone number: </div>
-            <div className="text-1xl font-semibold">{mobile}</div>
+            <div className="text-xl font-semibold">{mobile}</div>
             <div className="font-bold text-xl">Email address: </div>
-            <div className="text-1xl font-semibold">{email}</div>
+            <div className="text-xl font-semibold">{email}</div>
           </div>
           <div className=" sm:ml-72 ml-2 mr-2 sm:w-2/4 mt-7 px-5 mb-3 w-2/4">
             <button

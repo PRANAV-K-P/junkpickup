@@ -97,7 +97,7 @@ const addAddress = asyncHandler(async (req, res) => {
   }
   const userId = req.params.id;
   const addressData = req.body;
-  addressData.id = crypto.randomUUID();
+  addressData.addressId = crypto.randomUUID();
   const user = await userService.addAddress(userId, addressData);
   if (user) {
     res.status(201).json(user);
@@ -153,8 +153,8 @@ const updateSingleUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc update single user data
-// @route PUT /api/users/addresses
+// @desc get single addresses
+// @route GET /api/users/addresses
 // @access private
 const getAddresses = asyncHandler(async (req, res) => {
   const userId = req.query.userId;

@@ -47,7 +47,7 @@ module.exports = {
   },
   updateAddress: async (userId, addressData) => {
     let response = await User.updateOne(
-      { _id: userId, 'addresses.id': addressData.addressId },
+      { _id: userId, 'addresses.addressId': addressData.addressId },
       {
         $set: {
           'addresses.$.name': addressData.name,
@@ -67,7 +67,7 @@ module.exports = {
   getSingleUser: async (userId) => {
     let response = await User.findOne(
       { _id: userId },
-      { name: 1, email: 1, phone: 1 },
+      // { name: 1, email: 1, phone: 1 },
     );
     if (response) {
       return response;
@@ -103,7 +103,7 @@ module.exports = {
         {
           $project: {
             _id: 0,
-            id: '$addresses.id',
+            addressId: '$addresses.addressId',
             name: '$addresses.name',
             address: '$addresses.address',
             pincode: '$addresses.pincode',
@@ -120,7 +120,7 @@ module.exports = {
   },
   getSingleAddres: async (userId, addressId) => {
     let response = await User.findOne({ _id: userId }, {
-      addresses: {$elemMatch: {id: addressId}}
+      addresses: {$elemMatch: {addressId: addressId}}
     });
     if(response) {
       response = response.addresses?.[0]

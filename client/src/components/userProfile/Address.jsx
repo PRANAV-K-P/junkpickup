@@ -31,11 +31,6 @@ const Address = () => {
   const ADDRESS = `/users/addresses/${userId}`;
   const URL = "/users/addresses";
 
-  // const handleAddAddress = (address) => {
-  //   setAddresses([...addresses, address]);
-  //   setIsAddAddressModalOpen(false);
-  // };
-
   const closeModal = () => {
     setIsAddAddressModalOpen(false);
     setName("");
@@ -65,7 +60,10 @@ const Address = () => {
           setAddresses(response.data);
           setStatus(false);
         }
-      } catch (e) {}
+      } catch (err) {
+        setServerError(true);
+        setMessage(err.response.data.message);
+      }
     })();
   }, [status]);
 
@@ -102,6 +100,7 @@ const Address = () => {
       setMobile("");
       setEmail("");
       setIsAddAddressModalOpen(false);
+      setError(false)
     } catch (err) {
       setServerError(true);
       setMessage(err.response.data.message);
@@ -145,7 +144,8 @@ const Address = () => {
       setEmail("");
       setIsAddAddressModalOpen(false);
       setUpdate(false);
-    } catch (e) {
+      setError(false);
+    } catch (err) {
       setServerError(true);
       setMessage(err.response.data.message);
     }
@@ -163,20 +163,20 @@ const Address = () => {
                   key={index}
                   className="flex items-center py-3 bg-white mr-2 mb-2 pl-2 shadow-xl w-[100%] sm:w-[45%] md:w-[49%] lg:w-[32%] xl:w-[23%] 2xl:w-[22%]"
                 >
-                  <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 mr-3">
+                  {/* <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 mr-3">
               
                     <FaUserCircle
                       size={24}
                       className="text-gray-500 mx-auto my-auto"
                     />
-                  </div>
+                  </div> */}
                   <div className="">
                     <div className="">
                       <MdOutlineEditNote
                         size={30}
                         className="ml-auto cursor-pointer "
                         onClick={() => {
-                          setAddressId(address.id);
+                          setAddressId(address.addressId);
                           setName(address.name);
                           setAddress(address.address);
                           setPincode(address.pincode);
@@ -189,20 +189,20 @@ const Address = () => {
                       />
                     </div>
 
-                    <h3 className="text-lg font-medium">{address.name}</h3>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
+                    <h3 className="text-lg font-medium ">{address.name}</h3>
+                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap">
                       {address.address}
                     </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.pincode}
-                    </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.city}
-                    </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
-                      {address.mobile}
-                    </p>
-                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2">
+                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap ">
+                      {address.pincode} 
+                    </p> 
+                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap">
+                      {address.city} 
+                    </p> 
+                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap">
+                      {address.mobile} 
+                    </p> 
+                    <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap">
                       {address.email}
                     </p>
                   </div>

@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const crypto = require('crypto');
 const itemService = require('../services/item');
 
 // @desc create an item
@@ -10,12 +11,14 @@ const addItems = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('All fields are mandatory');
   }
+  const ItemData = req.body;
+  ItemData.itemId = crypto.randomUUID();
   const itemExist = await itemService.itemExist(name);
   if (itemExist) {
     res.status(400);
     throw new Error('Item already created');
   }
-  const item = await itemService.addItems(req.body);
+  const item = await itemService.addItems(ItemData);
   if (item) {
     res.status(201).json({ name: item.name, description: item.description });
   } else {

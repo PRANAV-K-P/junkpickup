@@ -38,7 +38,9 @@ const AdminAddItems = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate(0);
+        setName("");
+        setDescription("");
+        setError(false);
       }
     } catch (err) {
       setServerError(true);

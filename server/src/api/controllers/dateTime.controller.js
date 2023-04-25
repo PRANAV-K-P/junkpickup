@@ -9,7 +9,7 @@ const nodeCron = require('node-cron');
 const updateTimeStatus = asyncHandler(async (req, res) => {
   const { date, timeSlot } = req.body;
   const dateObj = new Date(date);
-
+  
   dateObj.setDate(dateObj.getDate() + parseInt(1));
   dateObj.setUTCHours(0, 0, 0, 0);
 

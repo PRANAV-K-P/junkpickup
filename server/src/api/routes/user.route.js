@@ -8,7 +8,7 @@ router.post('/signup', controller.registerUser);
 
 router.post('/login', controller.loginUser);
 
-router.put('/addresses/:id', validateUserToken, controller.addAddress);
+router.put('/addresses/:id', validateUserToken, controller.addAddress);  //clear
 
 router.route('/profiles/:id')
 
@@ -18,10 +18,10 @@ router.route('/profiles/:id')
 
 router.route('/addresses')
 
-  .put(validateUserToken, controller.updateAddress)
+  .put(validateUserToken, controller.updateAddress)  //clear
 
-  .get(validateUserToken, controller.getAddresses);
+  .get(validateUserToken, controller.getAddresses);   //clear
 
-router.get("/address-data", validateUserToken, controller.getSingleAddres);
+router.get("/address-data", validateUserToken, controller.getSingleAddres);  //clear
 
 module.exports = router;

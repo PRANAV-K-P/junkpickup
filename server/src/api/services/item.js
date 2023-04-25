@@ -3,8 +3,9 @@ const Item = require('../models/item.model');
 module.exports = {
   addItems: async (itemData) => {
     if (itemData) {
-      const { name, description } = itemData;
+      const { itemId, name, description } = itemData;
       const item = await Item.create({
+        itemId,
         name,
         description,
       });
@@ -20,7 +21,7 @@ module.exports = {
     return false;
   },
   getItems: async () => {
-    const allItems = await Item.find({}, { name: 1 });
+    const allItems = await Item.find({}, { itemId: 1, name: 1 });
     if (allItems) {
       return allItems;
     }
