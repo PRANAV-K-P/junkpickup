@@ -16,10 +16,10 @@ const Middle = () => {
         <h2 className="absolute">YOU GOT JUNK? WE'LL REMOVE IT.</h2>
       </div>
       <div className="relative rounded-xl font-bold text-white flex flex-row items-center justify-around text-3xl  h-36 w-2/5 mt-4 ">
-        <div className="bg-blue-500 py-5 flex justify-center w-56">
+        <div className="bg-blue-500 py-5 flex justify-center w-56 rounded-xl">
           <Link to="/j-pincode">Junk Removal</Link>
         </div>
-        <div className="bg-blue-500 py-5 flex justify-center w-56">Recycle</div>
+        <div className="bg-blue-500 py-5 flex justify-center w-56 rounded-xl">Recycle</div>
       </div>
     </div>
   );

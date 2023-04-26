@@ -126,8 +126,8 @@ const AdminUsers = () => {
                     >
                       <img
                         className="w-10 h-10 rounded-full"
-                        src="/docs/images/people/profile-picture-1.jpg"
-                        alt="Jese image"
+                        src=""
+                        alt="404"
                       />
                       <div className="pl-3">
                         <div className="text-base font-semibold">

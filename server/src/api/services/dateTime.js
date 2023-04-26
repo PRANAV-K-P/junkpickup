@@ -33,6 +33,7 @@ module.exports = {
             id: '$time_slots.id',
             time: '$time_slots.time',
             blocked: '$time_slots.blocked',
+            isbooked: '$time_slots.isbooked',
           },
         },
       ]);
@@ -56,4 +57,18 @@ module.exports = {
     }
     return false;
   },
+  updateIsBooked: async (dateObj, timeId) => {
+    let response = await DateTime.findOneAndUpdate(
+      { date: dateObj },
+      { 'time_slots.$[elem].isbooked': true },
+      {
+        arrayFilters: [{ 'elem.id': timeId }],
+        new: true,
+      },
+    );
+    if (response) {
+      return response;
+    }
+    return false;
+  }
 };

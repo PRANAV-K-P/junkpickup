@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { BsChevronExpand } from "react-icons/bs";
 
@@ -69,14 +69,21 @@ const Menus = [
   },
   { title: "items", src: "/admin/items", icon: <BsFiles /> },
 
-  { title: "Logout", src: "", gap: true, icon: <MdLogout /> },
+  { title: "Logout", src: "/admin/logout", gap: true, icon: <MdLogout /> },
 ];
+
 const AdminSideBar = () => {
   const [open, setOpen] = useState(true);
   const [subMenuOpen1, setSubMenuOpen1] = useState(false);
   const [subMenuOpen2, setSubMenuOpen2] = useState(false);
   const toggleSidebar = () => {
     setOpen(!open);
+  };
+  const handleLogout = () => {
+      const navigate = useNavigate();
+      localStorage.removeItem("admin");
+      localStorage.removeItem("adminToken");
+      navigate("/admin/login");
   };
   return (
     <div className="min-h-full flex items-end justify-end">
@@ -98,7 +105,9 @@ const AdminSideBar = () => {
         <ul className={`${open ? "pt-6" : "invisible"}`}>
           {Menus.map((Menu, index) => (
             <React.Fragment key={uuidv4()}>
-              <Link to={Menu.src}>
+              <Link
+                to={Menu.src}
+              >
                 <li
                   key={uuidv4()}
                   className={`flex rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-lg 

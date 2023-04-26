@@ -11,4 +11,6 @@ router.get('/admin/:id', validateAdminToken, controller.getAllTimeAdmin);
 
 router.get('/users/:id', validateUserToken, controller.getAllTimeUser);
 
+router.put('/bookings', validateUserToken, controller.updateIsBooked);
+
 module.exports = router;

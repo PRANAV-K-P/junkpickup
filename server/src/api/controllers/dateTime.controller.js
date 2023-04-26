@@ -111,7 +111,7 @@ const getAllTimeUser = asyncHandler(async (req, res) => {
   if (timeSlots) {
     let times = [];
     timeSlots.forEach((item) => {
-      if (item.blocked === false) {
+      if (item.blocked === false && item.isbooked === false) {
         times.push(item);
       }
     });
@@ -122,4 +122,25 @@ const getAllTimeUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { updateTimeStatus, getAllTimeAdmin, getAllTimeUser };
+// @desc update the state of selected time in timeslots
+// @route PUT /api/datetime/bookings
+// @access private
+const updateIsBooked = asyncHandler(async (req, res) => {
+  const {date,timeId} = req.body;
+  if(!timeId || !date) {
+    res.status(400);
+    throw new Error("All fields are mandatory");
+  }
+  const dateObj = new Date(date);
+  dateObj.setDate(dateObj.getDate() + parseInt(1));
+  dateObj.setUTCHours(0, 0, 0, 0);
+  let time = await dateTimeService.updateIsBooked(dateObj,timeId);
+  if(time) {
+    res.status(200).json(time);
+  } else {
+    res.status(404);
+    throw new Error('Time is not present');
+  }
+});
+
+module.exports = { updateTimeStatus, getAllTimeAdmin, getAllTimeUser, updateIsBooked };

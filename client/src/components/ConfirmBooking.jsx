@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowCircleRight } from "react-icons/fa";
 import backgroundImage from ".././assets/images/commonbackground.jpg";
 import axiosInstance from "../api/axiosInstance";
+import {updateDate, updateTimeId, updateItems, updateTime, updateAddressId, updatePincode, updateType} from "../redux/user";
 
 const ConfirmBooking = () => {
   const { date } = useSelector((state) => state.user);
   const { time } = useSelector((state) => state.user);
+  const { timeId } = useSelector((state) => state.user);
   const { type } = useSelector((state) => state.user);
   const { addressId } = useSelector((state) => state.user);
+  const { items } = useSelector((state) => state.user);
   const [newDate, setNewDate] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -17,6 +20,11 @@ const ConfirmBooking = () => {
   const [city, setCity] = useState("");
   const [mobile, setMobile] = useState("");
   const [email, setEmail] = useState("");
+  const [addressData, setAddressData] = useState({});
+  const [serverError, setServerError] = useState(false);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const userId = JSON.parse(localStorage.getItem("user"))._id;
 
@@ -46,6 +54,7 @@ const ConfirmBooking = () => {
           },
         });
         if (response.data) {
+          setAddressData(response.data);
           setName(response.data.name);
           setAddress(response.data.address);
           setPincode(response.data.pincode);
@@ -57,8 +66,65 @@ const ConfirmBooking = () => {
     })();
   }, []);
 
-  const handleSubmit = () => {
-    
+  const updateTimeStatus = async (date,timeId) => {
+    try {
+      const TIME = "/datetime/bookings"
+      let response = await axiosInstance.put(TIME,
+        {
+          date,
+          timeId
+        },
+        {
+          headers: {
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("userToken")
+            )}`,
+          },
+        })
+        if (response.data) {
+          return true;
+        }
+    } catch(err) {
+      setServerError(true);
+      setMessage(err.response?.data?.message);
+    }
+  }
+
+  const handleSubmit = async () => {
+    try {
+      const BOOKING = "/booking";
+      let response = await axiosInstance.post(
+        BOOKING,
+        {
+          userId,
+          items,
+          addressData,
+          date,
+          time
+        },
+        {
+          headers: {
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("userToken")
+            )}`,
+          },
+        }
+      );
+      if (response.data) {
+        await updateTimeStatus(date,timeId);
+        dispatch(updateDate(null));
+        dispatch(updateTimeId(""));
+        dispatch(updateItems([]));
+        dispatch(updateTime(""));
+        dispatch(updateAddressId(""));
+        dispatch(updatePincode(""));
+        dispatch(updateType(""));
+        navigate('/confirmation');
+      }
+    } catch (err) {
+      setServerError(true);
+      setMessage(err.response?.data?.message);
+    }
   };
   return (
     <div className="relative w-full bg-white flex flex-col justify-end ">
@@ -74,6 +140,11 @@ const ConfirmBooking = () => {
         <div className="md:col-span-2">
           <div className="bg-white ml-2 mr-2 sm:ml-72 rounded-lg shadow-2xl border mt-7 border-gray-300 py-8 px-16 mb-3 sm:w-2/4">
             <div className="mb-6 w-full">
+              {serverError && (
+                <span className="mt-1 mb-1 p-2 text-white bg-red-500 font-medium block ml-0">
+                  {message}
+                </span>
+              )}
               <div className="flex flex-wrap items-center bg-white mb-4 ">
                 <FaArrowCircleRight className="text-blue-600 mr-4 text-2xl" />{" "}
                 <span className="text-2xl">Review details and confirm</span>
@@ -85,13 +156,12 @@ const ConfirmBooking = () => {
             </div>
             <hr className="h-px my-5 bg-gray-200 border-0 dark:bg-gray-700" />
             <div className="mb-2">
-            <span className="font-bold text-xl">For: </span>
-            <span className="text-xl font-semibold">{type}</span>
+              <span className="font-bold text-xl">For: </span>
+              <span className="text-xl font-semibold">{type}</span>
             </div>
             <div className="mb-2">
-            <span className="font-bold text-xl">Name: </span>
-            <span className="text-xl font-semibold mb-2">{name}</span>
-
+              <span className="font-bold text-xl">Name: </span>
+              <span className="text-xl font-semibold mb-2">{name}</span>
             </div>
             <div className="font-bold text-xl">Address: </div>
             <div className="text-xl font-semibold mb-1">{address}</div>

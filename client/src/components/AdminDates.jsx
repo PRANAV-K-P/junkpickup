@@ -118,7 +118,7 @@ const AdminDates = () => {
             {message}
           </span>
         )}
-        <h1 className="text-xl font-semibold mt-10 ml-10">
+        <h1 className="text-xl font-semibold mt-10 ml-10 text-red-500">
           Select Date and Time to disable the time
         </h1>
         <div className="relative border mt-7 ml-10 h-96 ">
@@ -144,7 +144,7 @@ const AdminDates = () => {
                   <button
                     className={`${
                       selectedTime.some((i) => i.id === item.id)
-                        ? "bg-blue-500 text-white "
+                        ? "bg-red-500 text-white "
                         : "bg-white text-gray-700"
                     } shadow-xl border border-gray-200 px-4 py-2 text-sm w-full sm:w-auto mr-2`}
                     onClick={() => handleItemSelect(item)}
