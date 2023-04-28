@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.set('strictQuery', false);
+// mongoose.set('strictQuery', false);
 
 const connectDB = async () => {
   try {
@@ -14,7 +14,7 @@ const connectDB = async () => {
       connect.connection.name,
     );
   } catch (err) {
-    throw err;
+    console.log(err);
   }
 };
 

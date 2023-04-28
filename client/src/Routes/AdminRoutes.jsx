@@ -1,13 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import AdminLogin from "../pages/AdminLogin";
-import AdminHome from "../pages/AdminHome";
-import AdminNavBar from "../components/partials/AdminNavBar";
-import AdminPrivateComponent from "../components/authentication/AdminPrivateComponent";
-import AdminDates from "../pages/AdminDates";
-import AdminUsers from "../pages/AdminUsers";
+import AdminLogin from "../pages/Admin/AdminLogin";
+import AdminHome from "../pages/Admin/AdminHome";
+import AdminNavBar from "../components/Admin/Navigation/AdminNavBar";
+import AdminPrivateComponent from "../components/Authorization/AdminPrivateComponent";
+import AdminDates from "../pages/Admin/AdminDates";
+import AdminUsers from "../pages/Admin/AdminUsers";
 
-import AdminAddItems from "../pages/AdminAddItems";
+import AdminAddItems from "../pages/Admin/AdminAddItems";
 import Logout from "../utils/Logout";
 import Page404 from "../utils/Page404";
 

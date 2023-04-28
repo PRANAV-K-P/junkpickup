@@ -1,18 +1,19 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
-import Home from "../pages/Home";
-import Pick_DateTime from "../pages/Pick_DateTime";
-import Check_Availability from "../pages/Check_Availability";
-import PrivateComponent from "../components/authentication/PrivateComponent";
-import NavBar from "../components/partials/NavBar";
-import Profile from "../pages/Profile";
-import AddressDetails from "../pages/AddressDetails";
-import ConfirmBooking from "../pages/confirmBooking";
-import Confirmation from "../pages/Confirmation";
-import ViewBookings from "../components/ViewBookings";
+import Login from "../pages//User/Login";
+import Signup from "../pages/User/Signup";
+import Home from "../pages/User/Home";
+import Pick_DateTime from "../pages/User/Pick_DateTime";
+import Check_Availability from "../pages/User/Check_Availability";
+import PrivateComponent from "../components/Authorization/PrivateComponent";
+import NavBar from "../components/User/NavBar/NavBar";
+import Profile from "../pages/User/Profile";
+import AddressDetails from "../pages/User/AddressDetails";
+import ConfirmBooking from "../pages/User/ConfirmBooking";
+import Confirmation from "../pages/User/Confirmation";
+import ViewBookings from "../pages/User/ViewBookings";
 import Page404 from "../utils/Page404";
+import BookingDetails from "../pages/User/BookingDetails";
 
 const UserRoutes = () => {
   return (  
@@ -32,6 +33,7 @@ const UserRoutes = () => {
         <Route path="/*" element={<Page404 user={true} />} />
         <Route path="confirmation" element={<Confirmation />} />
         <Route path="view-bookings" element={<ViewBookings />} />
+        <Route path="view-bookings/:id" element={<BookingDetails />} />
       </Routes>
     </div>
   );

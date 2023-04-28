@@ -16,7 +16,7 @@ app.use('/api/admin', require('./api/routes/admin.route'));
 app.use('/api/pincode', require('./api/routes/pincode.route'));
 app.use('/api/datetime', require('./api/routes/dateTime.route'));
 app.use('/api/items', require('./api/routes/item.route'));
-app.use('/api/booking', require('./api/routes/booking.route'));
+app.use('/api/bookings', require('./api/routes/booking.route'));
 
 app.use(errorHandler);
 

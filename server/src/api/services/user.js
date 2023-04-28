@@ -67,7 +67,7 @@ module.exports = {
   getSingleUser: async (userId) => {
     let response = await User.findOne(
       { _id: userId },
-      // { name: 1, email: 1, phone: 1 },
+      { name: 1, email: 1, phone: 1 },
     );
     if (response) {
       return response;
