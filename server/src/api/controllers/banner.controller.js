@@ -36,7 +36,6 @@ const addBanner = asyncHandler(async (req, res) => {
   const randomImageName = (bytes = 32) =>
     crypto.randomBytes(bytes).toString('hex');
   const imageName = randomImageName();
-  req.file.buffer;
 
   const params = {
     Bucket: bucketName,
