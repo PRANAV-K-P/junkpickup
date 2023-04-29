@@ -46,27 +46,7 @@ const Menus = [
       },
     ],
   },
-  {
-    title: "Banners",
-    src: "",
-    icon: <FaImage />,
-    subMenus2: [
-      {
-        title: "Add Banner",
-        src: "",
-        cName: "sub-nav",
-      },
-      {
-        title: "Update Banner",
-        src: "",
-        cName: "sub-nav",
-      },
-      {
-        title: "View Banners",
-        src: "",
-      },
-    ],
-  },
+  { title: "Banners", src: "/admin/banners", icon: <FaImage /> },
   { title: "items", src: "/admin/items", icon: <BsFiles /> },
 
   { title: "Logout", src: "/admin/logout", gap: true, icon: <MdLogout /> },
@@ -79,16 +59,11 @@ const AdminSideBar = () => {
   const toggleSidebar = () => {
     setOpen(!open);
   };
-  const handleLogout = () => {
-      const navigate = useNavigate();
-      localStorage.removeItem("admin");
-      localStorage.removeItem("adminToken");
-      navigate("/admin/login");
-  };
+  
   return (
-    <div className="min-h-full flex items-end justify-end">
+    <div className=" flex justify-end">
       <button
-        className="fixed lg:hidden z-90 bottom-10 right-10 bg-teal-800 w-10 h-10 
+        className="fixed lg:hidden z-90 bottom-10 right-10 bg-teal-800 w-10
         rounded-full drop-shadow-lg flex justify-center items-center text-white text-4xl
          hover:bg-teal-800 duration-300"
         onClick={toggleSidebar}
@@ -100,7 +75,7 @@ const AdminSideBar = () => {
       <div
         className={`${
           open ? "w-48" : "w-0"
-        } lg:w-72 bg-teal-800 h-[740px] relative duration-500 `}
+        } lg:w-72 bg-teal-800 relative duration-500 `}
       >
         <ul className={`${open ? "pt-6" : "invisible"}`}>
           {Menus.map((Menu, index) => (

@@ -30,7 +30,7 @@ const AdminUsers = () => {
   const handleUserAccess = async (userId, userName, blocked) => {
     try {
       Swal.fire({
-        title: `Do you want to ${blocked ? "Unblock" : "block" } ${userName}`,
+        title: `Do you want to ${blocked ? "Unblock" : "block"} ${userName}`,
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
@@ -55,13 +55,12 @@ const AdminUsers = () => {
             await Swal.fire({
               position: "center",
               icon: "success",
-              title: `Successfully ${blocked ? "Unblocked" : "blocked" }`,
+              title: `Successfully ${blocked ? "Unblocked" : "blocked"}`,
               showConfirmButton: false,
               timer: 1500,
             });
             setStatus(true);
           }
-          
         }
       });
     } catch (err) {}
@@ -94,7 +93,7 @@ const AdminUsers = () => {
               </div>
             </div>
             <table className="w-full text-sm text-left text-black dark:text-black">
-              <thead className="text-xs text-black uppercase bg-gray-100 dark:bg-gray-100 dark:text-black">
+              <thead className="text-lg text-black uppercase bg-gray-100 dark:bg-gray-100 dark:text-black">
                 <tr>
                   <th scope="col" className="p-4">
                     Sl.no
@@ -113,43 +112,31 @@ const AdminUsers = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 {users.map((item, index) => (
                   <tr
                     key={item.name}
                     className="bg-gray-100 border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-white dark:hover:bg-white"
                   >
-                    <td className="w-4 p-4">{index + 1}</td>
-                    <th
-                      scope="row"
-                      className="flex items-center px-6 py-4 text-black whitespace-nowrap dark:text-black"
-                    >
-                      <img
-                        className="w-10 h-10 rounded-full"
-                        src=""
-                        alt="404"
-                      />
-                      <div className="pl-3">
-                        <div className="text-base font-semibold">
-                          {item.name}
-                        </div>
-                      </div>
-                    </th>
-                    <td className="px-6 py-4">{item.email}</td>
-                    <td className="px-6 py-4">
+                    <td className="w-4 p-4 text-lg">{index + 1}</td>
+                    <td className="px-6 py-4 text-lg"> {item.name}</td>
+                    <td className="px-6 py-4 text-lg">{item.email}</td>
+                    <td className="px-6 py-4 text-lg">
                       <div className="flex items-center">
                         <div
                           className={`${
                             item.blocked ? "bg-red-600 " : "bg-green-600 "
                           }h-2.5 w-2.5 rounded-full mr-2`}
                         ></div>
-                        {item.blocked ? "Offline" : "Online"}
+                        {item.blocked ? "Inactive" : "Active"}
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       {/* Modal toggle */}
                       <button
-                        onClick={() => handleUserAccess(item._id,item.name,item.blocked)}
+                        onClick={() =>
+                          handleUserAccess(item._id, item.name, item.blocked)
+                        }
                         className={`${
                           item.blocked ? "bg-green-500 px-4" : "bg-red-500 px-6"
                         } font-semibold rounded-full py-1 text-white`}

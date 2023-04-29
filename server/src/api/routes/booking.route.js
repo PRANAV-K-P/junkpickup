@@ -4,9 +4,11 @@ const router = express.Router();
 const controller = require('../controllers/booking.controller');
 const validateUserToken = require('../middleware/validateUserToken');
 
-router.post('/', validateUserToken, controller.createOrder);
+router.route('/')
 
-router.get('/', validateUserToken, controller.getBookings);
+  .post(validateUserToken, controller.createOrder)
+
+  .get(validateUserToken, controller.getBookings);
 
 router.get('/:id', validateUserToken, controller.getSingleBooking);
 

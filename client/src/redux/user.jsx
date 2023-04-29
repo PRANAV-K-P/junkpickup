@@ -39,6 +39,8 @@ const userSlice = createSlice({
   },
 });
 
+
+
 export const { updatePincode, updateDate, updateTimeId, updateItems, updateTime, updateAddressId, updateType } = userSlice.actions;
 
 export default userSlice.reducer;

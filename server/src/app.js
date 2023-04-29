@@ -17,6 +17,7 @@ app.use('/api/pincode', require('./api/routes/pincode.route'));
 app.use('/api/datetime', require('./api/routes/dateTime.route'));
 app.use('/api/items', require('./api/routes/item.route'));
 app.use('/api/bookings', require('./api/routes/booking.route'));
+app.use('/api/banners', require('./api/routes/banner.route'));
 
 app.use(errorHandler);
 

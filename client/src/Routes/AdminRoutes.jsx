@@ -6,7 +6,7 @@ import AdminNavBar from "../components/Admin/Navigation/AdminNavBar";
 import AdminPrivateComponent from "../components/Authorization/AdminPrivateComponent";
 import AdminDates from "../pages/Admin/AdminDates";
 import AdminUsers from "../pages/Admin/AdminUsers";
-
+import Banners from "../pages/Admin/Banner";
 import AdminAddItems from "../pages/Admin/AdminAddItems";
 import Logout from "../utils/Logout";
 import Page404 from "../utils/Page404";
@@ -21,6 +21,7 @@ const AdminRoutes = () => {
           <Route path="dates" element={<AdminDates />}></Route>
           <Route path="users" element={<AdminUsers />}></Route>
           <Route path="items" element={<AdminAddItems />}></Route>
+          <Route path="banners" element={<Banners />}></Route>
           <Route path="logout" element={<Logout />}></Route>
         </Route>
         <Route path="login" element={<AdminLogin />}></Route>

@@ -1,12 +1,27 @@
-import React from "react";
-import homebackground2 from "../../../assets/images/mountain.jpg";
+import React,{useEffect, useState} from "react";
+import axiosInstance from "../../../api/axiosInstance";
 
 const HomeBody2 = () => {
+  const [banner, setBanner] = useState({});
+  const bannerName = "Banner c70b2b2f-65b2-43f9-a78e-ef599618e3c1";
+
+  
+  useEffect(() => {
+    (async () => {
+      const BANNER = `/banners/${bannerName}`;
+      try {
+        let response = await axiosInstance.get(BANNER);
+        if (response.data) {
+          setBanner(response.data);
+        }
+      } catch (err) {}
+    })();
+  }, []);
   return (
-    <div className="relative bg-red-400 w-full h-[550px] sm:h-[35rem] sm:max-w-full">
+    <div className="relative w-full h-[550px] sm:h-[35rem] sm:max-w-full">
       <img
         className="object-cover w-full h-full"
-        src={`${homebackground2}`}
+        src={`${banner.imageUrl}`}
         alt=""
       />
       <h2 className="absolute font-bold text-white top-2/4 text-3xl px-40 ">
