@@ -16,9 +16,7 @@ const bannerSchema = mongoose.Schema(
   },
   {
     timestamps: true,
-  },
-  {
-    collection: 'Banners',
+    collection: 'banners',
   },
 );
 

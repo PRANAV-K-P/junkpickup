@@ -14,10 +14,8 @@ router.route('/')
 
   .get(validateAdminToken, controller.getBanner);
 
-router.route('/:id')
+router.delete('/:id', validateAdminToken, controller.deleteBanner);
 
-  .delete(validateAdminToken, controller.deleteBanner)
-
-  .get(controller.getOneBanner);
+router.get('/data',  controller.getBanner);
 
 module.exports = router;

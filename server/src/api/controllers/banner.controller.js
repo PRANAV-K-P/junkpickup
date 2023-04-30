@@ -9,14 +9,9 @@ const {
   DeleteObjectCommand,
 } = require('@aws-sdk/client-s3');
 
-// const multer = require('multer')
-
-// const storage = multer.memoryStorage()
-// const upload = multer({ storage: storage })
-
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 
-const bucketName = process.env.BUCKET_NAME;
+const bucketName = process.env.BUCKET_NAME1;
 const bucketRegion = process.env.BUCKET_REGION;
 const accessKey = process.env.ACCESS_KEY;
 const secretAccessKey = process.env.SECRET_ACCESS_KEY;
@@ -85,7 +80,6 @@ const getBanner = asyncHandler(async (req, res) => {
 // @access private
 const deleteBanner = asyncHandler(async (req, res) => {
   const bannerId = req.params.id;
-  res.status(200).json({Hammer: 'bannerId'})
   const banner = await bannerService.getSingleBanner(bannerId);
   if(banner) {
     const params = {
@@ -97,10 +91,10 @@ const deleteBanner = asyncHandler(async (req, res) => {
 
     let response = await bannerService.deleteBanner(bannerId);
     if (response) {
-      res.status(200).json(banner);
+      res.status(200).json(response);
 
     } else {
-      res.status(500);
+      res.status(500);  
     throw new Error('deletion failed');
     }
   } else {
@@ -109,25 +103,4 @@ const deleteBanner = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc get single banner
-// @route GET /api/banners/:id
-// @access private
-const getOneBanner = asyncHandler(async (req, res) => {
-  const bannerName = req.params.id;
-  const banner = await bannerService.getOneBanner(bannerName);
-  if (banner) {
-      const getObjectParams = {
-        Bucket: bucketName,
-        Key: banner.image,
-      };
-      const command = new GetObjectCommand(getObjectParams);
-      const url = await getSignedUrl(s3, command, { expiresIn: 3600 });
-      banner.imageUrl = url;
-    res.status(200).json(banner);
-  } else {
-    res.status(401);
-    throw new Error('Banners not found');
-  }
-});
-
-module.exports = { addBanner, getBanner, deleteBanner, getOneBanner };
+module.exports = { addBanner, getBanner, deleteBanner };

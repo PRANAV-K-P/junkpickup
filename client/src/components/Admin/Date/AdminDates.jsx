@@ -108,7 +108,7 @@ const AdminDates = () => {
   };
 
   return (
-    <div className="bg-sky-blue w-full min-h-full  flex justify-center items-center ">
+    <div className="bg-sky-blue w-full min-h-screen  flex justify-center items-center ">
       <div className="bg-white w-4/5 ">
         {/* <div className=" bg-red-300 h-16 text-2xl font-bold flex items-center justify-center">
           Dates

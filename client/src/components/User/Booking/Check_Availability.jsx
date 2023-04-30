@@ -27,13 +27,13 @@ const Check_Availability = () => {
       let response = await axiosInstance.post(PICKUP_AVAILABILITY_URL, { pin });
       if (response.data.isValid && auth) {
         dispatch(updatePincode(pin));
-        navigate("/j-datetime");
+        navigate("/pick-datetime");
       } else if (response.data.isValid) {
         setServerError(false);
         setStatus(true);
         dispatch(updatePincode(pin));
         setMessage("Pincode is available. Please login to continue. ");
-        // navigate("/j-datetime");
+        // navigate("/pick-datetime");
       } else {
         setStatus(false);
         setServerError(true);

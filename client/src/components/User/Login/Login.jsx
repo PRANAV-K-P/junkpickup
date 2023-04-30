@@ -41,7 +41,7 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response.data.user));
         localStorage.setItem("userToken", JSON.stringify(response.data.auth));
         if (pincode) {
-          navigate("/j-datetime");
+          navigate("/pick-datetime");
         } else {
           navigate("/");
           // navigate(-1)

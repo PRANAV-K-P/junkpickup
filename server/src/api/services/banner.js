@@ -36,11 +36,4 @@ module.exports = {
     } 
     return false;
   },
-  getOneBanner: async (bannerName) => {
-    const response = await Banner.findOne({ name: bannerName });
-    if(response) {
-        return response;
-    }
-    return false;
-  },
 };

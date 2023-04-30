@@ -23,8 +23,9 @@ const Menus = [
   { title: "Dashboard", src: "/admin/dashboard", icon: <MdOutlineDashboard /> },
   { title: "Inbox", src: "", icon: <BsChatLeftText /> },
   { title: "Users", src: "/admin/users", gap: true, icon: <MdAccountCircle /> },
-  { title: "Schedule", src: "", icon: <BsCalendarCheck /> },
+  { title: "Booking", src: "/admin/bookings", icon: <BsCalendarCheck /> },
   { title: "Dates", src: "/admin/dates", icon: <BsCalendarCheck /> },
+  { title: "Recycle", src: "/admin/recycle", icon: <BsCalendarCheck /> },
   {
     title: "FAQs",
     src: "",
@@ -55,7 +56,6 @@ const Menus = [
 const AdminSideBar = () => {
   const [open, setOpen] = useState(true);
   const [subMenuOpen1, setSubMenuOpen1] = useState(false);
-  const [subMenuOpen2, setSubMenuOpen2] = useState(false);
   const toggleSidebar = () => {
     setOpen(!open);
   };
@@ -98,31 +98,12 @@ const AdminSideBar = () => {
                       onClick={() => setSubMenuOpen1(!subMenuOpen1)}
                     />
                   )}
-                  {Menu.subMenus2 && (
-                    <BsChevronDown
-                      key={uuidv4()}
-                      className={`${subMenuOpen2 && "rotate-180"}`}
-                      onClick={() => setSubMenuOpen2(!subMenuOpen2)}
-                    />
-                  )}
                 </li>
               </Link>
 
               {Menu.subMenus1 && subMenuOpen1 && open && (
                 <ul>
                   {Menu.subMenus1.map((subMenuItem, idx) => (
-                    <li
-                      key={idx}
-                      className="flex px-5 cursor-pointer text-center text-lg text-gray-200 py-1"
-                    >
-                      {subMenuItem.title}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {Menu.subMenus2 && subMenuOpen2 && open && (
-                <ul>
-                  {Menu.subMenus2.map((subMenuItem, idx) => (
                     <li
                       key={idx}
                       className="flex px-5 cursor-pointer text-center text-lg text-gray-200 py-1"

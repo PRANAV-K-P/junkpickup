@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
     status: false,
+    recycleId: "",
   };
   
 
@@ -12,9 +13,12 @@ const INITIAL_STATE = {
       updateStatus: (state, action) => {
         state.status = action.payload;
       }, 
+      updateRecycleId: (state, action) => {
+        state.recycleId = action.payload;
+      }, 
     },
   });
 
-  export const { updateStatus } = adminSlice.actions;
+  export const { updateStatus, updateRecycleId } = adminSlice.actions;
 
 export default adminSlice.reducer;

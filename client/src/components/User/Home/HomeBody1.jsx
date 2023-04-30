@@ -3,11 +3,10 @@ import axiosInstance from "../../../api/axiosInstance";
 
 const HomeBody1 = () => {
   const [banner, setBanner] = useState({});
-  const bannerName = "Banner 736abe8a-11ce-4ec1-8159-87bc16d21cd4";
   
   useEffect(() => {
     (async () => {
-      const BANNER = `/banners/${bannerName}`;
+      const BANNER = "/banners/data";
       try {
         let response = await axiosInstance.get(BANNER);
         if (response.data) {
@@ -20,7 +19,7 @@ const HomeBody1 = () => {
     <div className="flex flex-col">
       <img
         className="opacity-100 h-[680px]"
-        src={`${banner.imageUrl}`}
+        src={`${banner[1]?.imageUrl}`}
         alt=""
         width="100%"
       />

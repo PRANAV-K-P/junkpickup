@@ -12,6 +12,8 @@ import AddressDetails from "../pages/User/AddressDetails";
 import ConfirmBooking from "../pages/User/ConfirmBooking";
 import Confirmation from "../pages/User/Confirmation";
 import ViewBookings from "../pages/User/ViewBookings";
+import About from "../pages/User/About";
+import Recycle from "../pages/User/Recycle";
 import Page404 from "../utils/Page404";
 import BookingDetails from "../pages/User/BookingDetails";
 
@@ -22,18 +24,20 @@ const UserRoutes = () => {
       <Routes>
         <Route element={<PrivateComponent />}>
         <Route path="profile" element={<Profile />} />
-        <Route path="j-datetime" element={<Pick_DateTime />} />
+        <Route path="pick-datetime" element={<Pick_DateTime />} />
         <Route path="address-details" element={<AddressDetails />} />
         <Route path="booking" element={<ConfirmBooking />} />
-        </Route>
-        <Route path="/" element={<Home />} />
-        <Route path="j-pincode" element={<Check_Availability />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
-        <Route path="/*" element={<Page404 user={true} />} />
         <Route path="confirmation" element={<Confirmation />} />
         <Route path="view-bookings" element={<ViewBookings />} />
         <Route path="view-bookings/:id" element={<BookingDetails />} />
+        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="check-pincode" element={<Check_Availability />} />
+        <Route path="recycle" element={<Recycle />} />
+        <Route path="login" element={<Login />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="about" element={<About />} />
+        <Route path="/*" element={<Page404 user={true} />} />
       </Routes>
     </div>
   );

@@ -5,13 +5,13 @@ import { updateStatus } from "../../../redux/admin";
 import axiosInstance from "../../../api/axiosInstance";
 
 const Upload = () => {
-  const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
+  const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
 
   const [image, setImage] = useState(null);
   const dispatch = useDispatch();
 
   const closeModal = () => {
-    setIsAddAddressModalOpen(false);
+    setIsBannerModalOpen(false);
   };
 
   const handleImageChange = (event) => {
@@ -41,10 +41,9 @@ const Upload = () => {
           timer: 1500,
         });
         dispatch(updateStatus(true));
-        setIsAddAddressModalOpen(false);
+        setIsBannerModalOpen(false);
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   return (
@@ -55,12 +54,12 @@ const Upload = () => {
 
           <button
             className="bg-blue-500 hover:bg-blue-600 text-white font-medium rounded px-4 w-1/5 py-2 mt-4"
-            onClick={() => setIsAddAddressModalOpen(true)}
+            onClick={() => setIsBannerModalOpen(true)}
           >
             Upload Image
           </button>
 
-          {isAddAddressModalOpen && (
+          {isBannerModalOpen && (
             <div className="fixed z-10 inset-0 overflow-y-auto">
               <div className="flex items-center justify-center min-h-screen">
                 <div className="relative bg-white w-2/5 mx-4  rounded shadow-xl border border-gray-300">

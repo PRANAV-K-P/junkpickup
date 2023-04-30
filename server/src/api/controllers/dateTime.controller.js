@@ -94,7 +94,7 @@ const cronJob = async () => {
 };
 
 // it should work on every sunday at a specific time
-nodeCron.schedule('4 21 * * 0', cronJob, {
+nodeCron.schedule('10 21 * * 0', cronJob, {
   scheduled: true,
   timezone: 'Asia/Kolkata',
 });

@@ -49,12 +49,12 @@ const MainNavBar = () => {
               <div className="hidden z-50 group-hover:block hover:block lg:top-15 lg:absolute w-24 top-30 bg-slate-50 shadow-xl px-2 py-3">
                 <ul className="opacity-50 font-semibold ">
                   <li className=" opacity-100">
-                    <Link className="block" to="/j-pincode">
+                    <Link className="block" to="/check-pincode">
                       JunkPickup
                     </Link>
                   </li>
                   <li className="block">
-                    <Link className="" to="">
+                    <Link className="" to="/recycle">
                       Recycle
                     </Link>
                   </li>
@@ -75,6 +75,14 @@ const MainNavBar = () => {
                 to=""
               >
                 Connect
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
+                to="/about"
+              >
+                About
               </Link>
             </li>
             {auth ? (
