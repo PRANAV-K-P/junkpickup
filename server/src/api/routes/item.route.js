@@ -3,8 +3,9 @@ const router = express.Router();
 
 const controller = require('../controllers/item.controller');
 const validateAdminToken = require('../middleware/validateAdminToken');
+const validateUserToken = require('../middleware/validateUserToken');
 
-router.get('/', controller.getItems);
+router.get('/',validateUserToken, controller.getItems);
 
 router.post('/', validateAdminToken, controller.addItems);
 

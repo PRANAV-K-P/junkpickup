@@ -32,4 +32,11 @@ module.exports = {
     }
     return false;
   },
+  getAllBookings: async () => {
+    const response = await Booking.find();
+    if(response) {
+      return response;
+    }
+    return false;
+  }
 };

@@ -2,6 +2,7 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 
 const validateAdminToken = asyncHandler(async (req, res, next) => {
+  console.log("zero");
   const authHeader = req.headers.Authorization || req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bpickj')) {
     const [, token] = authHeader.split(' ');
@@ -9,11 +10,11 @@ const validateAdminToken = asyncHandler(async (req, res, next) => {
     jwt.verify(token, process.env.ACCESS_TOKEN_ADMIN_SECRET, (err, decoded) => {
       if (err) {
         res.status(401);
-        throw new Error('User is not authorized');
+        throw new Error('User is not authorized 98989');
       }
       if (decoded.user.role !== 'admin') {
         res.status(401);
-        throw new Error('User is not authorized');
+        throw new Error('User is not authorized   hhhhh');
       }
       req.user = decoded.user;
       next();

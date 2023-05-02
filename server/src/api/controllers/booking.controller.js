@@ -34,7 +34,7 @@ const createOrder = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc get all bookings
+// @desc get all bookings based on Id
 // @route GET /api/bookings
 // @access private
 const getBookings = asyncHandler(async (req, res) => {
@@ -68,7 +68,19 @@ const getSingleBooking = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Booking data is not available');
   }
-
 })
 
-module.exports = { createOrder, getBookings, getSingleBooking };
+// @desc get all bookings
+// @route GET /api/bookings/admin
+// @access private
+const getAllBookings = asyncHandler(async (req, res) => {
+  const bookings = await bookingService.getAllBookings();
+  if(bookings) {
+    res.status(200).json(bookings);
+  } else {
+    res.status(404);
+    throw new Error("Bookings not found");
+  }
+})
+
+module.exports = { createOrder, getBookings, getSingleBooking, getAllBookings };
