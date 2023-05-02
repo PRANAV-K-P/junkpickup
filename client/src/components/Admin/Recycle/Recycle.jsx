@@ -7,7 +7,6 @@ import { updateStatus, updateRecycleId } from "../../../redux/admin";
 import axiosInstance from "../../../api/axiosInstance";
 
 const Recycle = () => {
-  
   const [centers, setCenters] = useState([]);
   const { status } = useSelector((state) => state.admin);
   const dispatch = useDispatch();
@@ -133,7 +132,10 @@ const Recycle = () => {
                       {element.name}
                     </td>
                     <td className="col-span-1 text-lg flex items-center justify-center">
-                      <Link to={`/admin/recycle/${element._id}`} className="text-blue-500 font-semibold">
+                      <Link
+                        to={`/admin/recycle/${element._id}`}
+                        className="text-blue-500 font-semibold"
+                      >
                         see more details
                       </Link>
                     </td>

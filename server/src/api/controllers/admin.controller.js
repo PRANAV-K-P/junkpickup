@@ -69,4 +69,22 @@ const manageUserAccess = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { loginAdmin, getAllusers, manageUserAccess };
+// @desc get single User
+// @route GET /api/admin/users/:id
+// @access private
+const AdminGetUser = asyncHandler(async (req, res) => {
+  const userId = req.params.id;
+  if(!userId) {
+    res.status(400);
+    throw new Error("Invalid userId")
+  }
+  const userData = await adminService.AdminGetUser(userId);
+  if(userData) {
+    res.status(200).json(userData);
+  } else {
+    res.status(404);
+    throw new Error("User data not found");
+  }
+})
+
+module.exports = { loginAdmin, getAllusers, manageUserAccess, AdminGetUser };

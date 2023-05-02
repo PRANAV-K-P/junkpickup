@@ -1,28 +1,15 @@
 const asyncHandler = require('express-async-handler');
 const bannerService = require('../services/banner');
 const crypto = require('crypto');
-
+const s3 = require('../utils/s3bucket');
 const {
-  S3Client,
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand,
 } = require('@aws-sdk/client-s3');
-
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
-
 const bucketName = process.env.BUCKET_NAME1;
-const bucketRegion = process.env.BUCKET_REGION;
-const accessKey = process.env.ACCESS_KEY;
-const secretAccessKey = process.env.SECRET_ACCESS_KEY;
 
-const s3 = new S3Client({
-  credentials: {
-    accessKeyId: accessKey,
-    secretAccessKey: secretAccessKey,
-  },
-  region: bucketRegion,
-});
 
 // @desc add banner
 // @route POST /api/banners

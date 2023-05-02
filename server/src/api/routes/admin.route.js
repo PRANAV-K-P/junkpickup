@@ -10,4 +10,6 @@ router.get('/users', validateAdminToken, controller.getAllusers);
 
 router.put('/users/:id', validateAdminToken, controller.manageUserAccess);
 
+router.get('/users/:id', validateAdminToken, controller.AdminGetUser);
+
 module.exports = router;

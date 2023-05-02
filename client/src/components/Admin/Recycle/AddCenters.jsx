@@ -23,9 +23,6 @@ const AddCenters = () => {
   const pinRegex = /^\d{6}$/;
   const officeRegex = /^\S[a-zA-Z]*(\s[a-zA-Z]+)*\s?\S[a-zA-Z]*$/;
   const yearRegex = /^\d{4}$/;
-  
-  
-  
 
   const closeModal = () => {
     setImage("");
@@ -81,12 +78,12 @@ const AddCenters = () => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("image", image);
-    formData.append("imageName",imageName);
+    formData.append("imageName", imageName);
     formData.append("city", city);
     formData.append("pincode", pincode);
     formData.append("headOffice", headOffice);
     formData.append("startedYear", startedYear);
-    if(recycleId) {
+    if (recycleId) {
       updateData(formData);
     } else {
       addData(formData);
@@ -123,7 +120,7 @@ const AddCenters = () => {
         setIsRecycleModalOpen(false);
       }
     } catch (err) {}
-  }
+  };
 
   const updateData = async (formData) => {
     const URL = `/recycling-centers/${recycleId}`;
@@ -136,7 +133,7 @@ const AddCenters = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      if(response.data) {
+      if (response.data) {
         await Swal.fire({
           position: "center",
           icon: "success",
@@ -156,8 +153,8 @@ const AddCenters = () => {
         dispatch(updateRecycleId(""));
         setIsRecycleModalOpen(false);
       }
-    } catch(err) {}
-  }
+    } catch (err) {}
+  };
 
   return (
     <div className="md:col-span-2">
@@ -220,7 +217,7 @@ const AddCenters = () => {
                           onChange={handleImageChange}
                           className="border rounded w-full py-2 px-3 text-gray-700"
                           accept="image/*"
-                          required={recycleId ? false : true }
+                          required={recycleId ? false : true}
                         />
                       </div>
                       <div className="mb-4">
@@ -316,7 +313,7 @@ const AddCenters = () => {
                           type="submit"
                           className="bg-blue-500 w-1/3 hover:bg-blue-600 text-white font-medium rounded px-4 py-2"
                         >
-                          {recycleId ? "update": "save" } 
+                          {recycleId ? "update" : "save"}
                         </button>
                       </div>
                     </form>

@@ -62,7 +62,7 @@ const Banner = () => {
     });
   };
   return (
-    <div className="bg-sky-blue w-full min-h-screen  flex justify-center ">
+    <div className="bg-sky-blue w-full h-screen flex justify-center ">
       <div className=" w-4/5 p-3">
         <Upload />
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">

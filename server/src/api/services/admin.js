@@ -27,4 +27,11 @@ module.exports = {
     }
     return false;
   },
+  AdminGetUser: async (userId) => {
+    let userData = await User.findOne({_id: userId},{name: 1, email: 1, phone: 1});
+    if(userData) {
+      return userData;
+    }
+    return false;
+  }
 };

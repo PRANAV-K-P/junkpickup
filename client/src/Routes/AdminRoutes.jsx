@@ -10,6 +10,7 @@ import Banners from "../pages/Admin/Banner";
 import Recycle from "../pages/Admin/Recycle";
 import RecycleDetails from "../pages/Admin/RecycleDetails"
 import AdminAddItems from "../pages/Admin/AdminAddItems";
+import Chat from "../pages/Admin/chat";
 import Logout from "../utils/Logout";
 import Page404 from "../utils/Page404";
 
@@ -26,6 +27,7 @@ const AdminRoutes = () => {
           <Route path="banners" element={<Banners />}></Route>
           <Route path="recycle" element={<Recycle />}></Route>
           <Route path="recycle/:id" element={<RecycleDetails />}></Route>
+          <Route path="chat" element={<Chat />}></Route>
           <Route path="logout" element={<Logout />}></Route>
         </Route>
         <Route path="login" element={<AdminLogin />}></Route>
