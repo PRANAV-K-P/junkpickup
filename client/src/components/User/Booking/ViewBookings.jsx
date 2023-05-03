@@ -12,40 +12,63 @@ const ViewBookings = () => {
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const getBookings = async () => {
+    try {
+      const GET_BOOKINGS = "/bookings";
+      let response = await axiosInstance.get(GET_BOOKINGS, {
+        headers: {
+          Authorization: `Bpickj ${JSON.parse(
+            localStorage.getItem("userToken")
+          )}`,
+        },
+        params: {
+          userId,
+        },
+      });
+      if (response.data) {
+        const res = response.data;
+        res.map((item) => {
+          let formattedDate = new Date(item.date);
+          const options = {
+            weekday: "short",
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          };
+          formattedDate = formattedDate.toLocaleDateString("en-US", options);
+          item.date = formattedDate;
+        });
+        setBookings(res);
+        setMessage("see items & more");
+        setIsLoading(false);
+      }
+    } catch (err) {}
+  }
+
   useEffect(() => {
-    (async () => {
-      try {
-        const GET_BOOKINGS = "/bookings";
-        let response = await axiosInstance.get(GET_BOOKINGS, {
-          headers: {
+    getBookings();
+  }, []);
+
+  const handleSearch = async (event) => {
+    const key = event.target.value;
+    if (key) {
+      let response = await axiosInstance.get(`/bookings/user/search/${key}`,{
+        headers: {
             Authorization: `Bpickj ${JSON.parse(
               localStorage.getItem("userToken")
             )}`,
           },
           params: {
             userId,
-          },
-        });
-        if (response.data) {
-          const res = response.data;
-          res.map((item) => {
-            let formattedDate = new Date(item.date);
-            const options = {
-              weekday: "short",
-              month: "long",
-              day: "numeric",
-              year: "numeric",
-            };
-            formattedDate = formattedDate.toLocaleDateString("en-US", options);
-            item.date = formattedDate;
-          });
-          setBookings(res);
-          setMessage("see items & more");
-          setIsLoading(false);
-        }
-      } catch (err) {}
-    })();
-  }, []);
+          }
+      });
+      if (response.data) {
+        setBookings(response.data);
+      }
+    } else {
+        getBookings();
+    }
+  }
 
   return (
     <div className="relative w-full h-[697px] bg-red-400 z-40 flex flex-col bg-no-repeat">
@@ -70,6 +93,7 @@ const ViewBookings = () => {
                   <input
                     type="text"
                     id="table-search-users"
+                    onChange={handleSearch}
                     className="block p-2 pl-10 text-sm text-black border border-white rounded-lg w-80 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Search for bookings"
                   />

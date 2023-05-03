@@ -8,24 +8,43 @@ const AdminUsers = () => {
   const [status, setStatus] = useState(false);
   const navigate = useNavigate();
 
+  const getUsers = async () => {
+    try {
+      let response = await axiosInstance.get('/admin/users', {
+        headers: {
+          Authorization: `Bpickj ${JSON.parse(
+            localStorage.getItem("adminToken")
+          )}`,
+        },
+      });
+      if (response.data) {
+        setUsers(response.data);
+        setStatus(false);
+      }
+    } catch (err) {}
+  }
+
   useEffect(() => {
-    (async () => {
-      try {
-        const FETCH_USERS = "/admin/users";
-        let response = await axiosInstance.get(FETCH_USERS, {
-          headers: {
+    getUsers();
+  }, [status]);
+
+  const handleSearch = async (event) => {
+    const key = event.target.value;
+    if (key) {
+      let response = await axiosInstance.get(`/admin/users/search/${key}`,{
+        headers: {
             Authorization: `Bpickj ${JSON.parse(
               localStorage.getItem("adminToken")
             )}`,
           },
-        });
-        if (response.data) {
-          setUsers(response.data);
-          setStatus(false);
-        }
-      } catch (err) {}
-    })();
-  }, [status]);
+      });
+      if (response.data) {
+        setUsers(response.data);
+      }
+    } else {
+      getUsers();
+    }
+  }
 
   const handleUserAccess = async (userId, userName, blocked) => {
     try {
@@ -87,6 +106,7 @@ const AdminUsers = () => {
                 <input
                   type="text"
                   id="table-search-users"
+                  onChange={handleSearch}
                   className="block p-2 pl-10 text-sm text-black border border-white rounded-lg w-80 bg-gray-100 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="Search for users"
                 />

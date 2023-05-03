@@ -2,7 +2,6 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 
 const validateAdminToken = asyncHandler(async (req, res, next) => {
-  console.log("zero");
   const authHeader = req.headers.Authorization || req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bpickj')) {
     const [, token] = authHeader.split(' ');

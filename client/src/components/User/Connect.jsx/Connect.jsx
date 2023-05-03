@@ -175,7 +175,7 @@ const Connect = () => {
                 <button
                   onClick={handleSubmit}
                   type="button"
-                  className="chatSubmitbtn w-16 h-10 rounded-lg cursor-pointer bg-teal-300 text-white"
+                  className="chatSubmitbtn w-16 h-10 rounded-lg cursor-pointer bg-teal-500 text-white"
                 >
                   Send
                 </button>

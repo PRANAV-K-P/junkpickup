@@ -38,5 +38,46 @@ module.exports = {
       return response;
     }
     return false;
+  },
+  searchInBookings: async (key) => {
+    let response = await Booking.find({
+      $or: [
+      { time: { $regex: key, $options: "i" } },
+      { status: { $regex: key, $options: "i" } },
+      { "products.name": { $regex: key, $options: "i" } },
+      { "deliveryDetails.name": { $regex: key, $options: "i" } },
+      ],
+  })
+  if(response) {
+    return response;
+  }
+  return false;
+  },
+  userSearchInBookings: async (key, userId) => {
+    let response = await Booking.find({
+      userId: userId,
+      $or: [
+      { time: { $regex: key, $options: "i" } },
+      { status: { $regex: key, $options: "i" } },
+      { "products.name": { $regex: key, $options: "i" } },
+      { "deliveryDetails.name": { $regex: key, $options: "i" } },
+      { "deliveryDetails.address": { $regex: key, $options: "i" } },
+      { "deliveryDetails.mobile": { $regex: key, $options: "i" } },
+      { "deliveryDetails.city": { $regex: key, $options: "i" } },
+      { "deliveryDetails.pincode": { $regex: key, $options: "i" } },
+      { "deliveryDetails.email": { $regex: key, $options: "i" } },
+      ],
+  })
+  if(response) {
+    return response;
+  }
+  return false;
+  },
+  getBookingCount: async () => {
+    let count = await Booking.countDocuments();
+    if(count) {
+      return count;
+    }
+    return false;
   }
 };

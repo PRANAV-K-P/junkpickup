@@ -83,4 +83,46 @@ const getAllBookings = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { createOrder, getBookings, getSingleBooking, getAllBookings };
+// @desc search all Bookings
+// @route GET /api/bookings/admin/search/:id
+// @access private
+const searchInBookings = asyncHandler(async (req, res) => {
+  const key = req.params.id;
+  const search = await bookingService.searchInBookings(key);
+  if (search) {
+    res.status(200).json(search);
+  } else {
+    res.status(404);
+    throw new Error('Booking Data not found');
+  }
+});
+
+// @desc search all bookings user
+// @route GET /api/bookings/user/search/:id
+// @access private
+const userSearchInBookings = asyncHandler(async (req, res) => {
+  const key = req.params.id;
+  const userId = req.query.userId;
+  const search = await bookingService.userSearchInBookings(key, userId);
+  if (search) {
+    res.status(200).json(search);
+  } else {
+    res.status(404);
+    throw new Error('Booking Data not found');
+  }
+});
+
+// @desc to get the count of bookings
+// @route GET /api/bookings/count
+// @access private
+const getBookingCount = asyncHandler(async (req, res) => {
+  let count = await bookingService.getBookingCount();
+  if(count) {
+    res.status(200).json({bookings: count});
+  } else {
+    res.status(404);
+    throw new Error('Bookings not found');
+  }
+})
+
+module.exports = { createOrder, getBookings, getSingleBooking, getAllBookings, searchInBookings, userSearchInBookings, getBookingCount };

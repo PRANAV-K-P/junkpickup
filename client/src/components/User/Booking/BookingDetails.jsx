@@ -16,7 +16,7 @@ const BookingDetails = () => {
   useEffect(() => {
     (async () => {
       try {
-        let BOOKING = `/bookings/${id}`;
+        let BOOKING = `/bookings/user/${id}`;
         let response = await axiosInstance.get(BOOKING, {
           headers: {
             Authorization: `Bpickj ${JSON.parse(

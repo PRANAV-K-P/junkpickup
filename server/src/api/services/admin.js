@@ -33,5 +33,24 @@ module.exports = {
       return userData;
     }
     return false;
+  },
+  searchInUsers: async (key) => {
+    let response = await User.find({
+      $or: [
+      { name: { $regex: key, $options: "i" } },
+      { email: { $regex: key, $options: "i" } },
+      ],
+  })
+  if(response) {
+    return response;
+  }
+  return false;
+  },
+  getUserCount: async () => {
+    let count = await User.countDocuments();
+    if(count) {
+      return count;
+    }
+    return false;
   }
 };

@@ -19,19 +19,19 @@ import BookingDetails from "../pages/User/BookingDetails";
 import ConnectPage from "../pages/User/Connect";
 
 const UserRoutes = () => {
-  return (  
+  return (
     <div>
       <NavBar />
       <Routes>
         <Route element={<PrivateComponent />}>
-        <Route path="profile" element={<Profile />} />
-        <Route path="pick-datetime" element={<Pick_DateTime />} />
-        <Route path="address-details" element={<AddressDetails />} />
-        <Route path="booking" element={<ConfirmBooking />} />
-        <Route path="confirmation" element={<Confirmation />} />
-        <Route path="view-bookings" element={<ViewBookings />} />
-        <Route path="view-bookings/:id" element={<BookingDetails />} />
-        <Route path="connect" element={<ConnectPage />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="pick-datetime" element={<Pick_DateTime />} />
+          <Route path="address-details" element={<AddressDetails />} />
+          <Route path="booking" element={<ConfirmBooking />} />
+          <Route path="confirmation" element={<Confirmation />} />
+          <Route path="view-bookings" element={<ViewBookings />} />
+          <Route path="view-bookings/:id" element={<BookingDetails />} />
+          <Route path="connect" element={<ConnectPage />} />
         </Route>
         <Route path="/" element={<Home />} />
         <Route path="check-pincode" element={<Check_Availability />} />

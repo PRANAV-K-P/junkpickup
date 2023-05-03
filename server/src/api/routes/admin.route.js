@@ -12,4 +12,8 @@ router.put('/users/:id', validateAdminToken, controller.manageUserAccess);
 
 router.get('/users/:id', validateAdminToken, controller.AdminGetUser);
 
+router.get('/users/search/:id', validateAdminToken, controller.searchInUsers);
+
+router.get('/user-count', validateAdminToken, controller.getUserCount);
+
 module.exports = router;

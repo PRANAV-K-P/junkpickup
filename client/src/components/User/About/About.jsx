@@ -39,8 +39,6 @@ const About = () => {
               </div>
             </div>
           </div>
-          
-         
     
           <div className="ml-2 mr-2 sm:ml-auto sm:mr-auto rounded-lg shadow-2xl mt-20 border border-gray-300 p-2 sm:w-2/4 mb-10">
             <div className="w-full">

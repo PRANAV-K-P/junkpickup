@@ -87,4 +87,31 @@ const AdminGetUser = asyncHandler(async (req, res) => {
   }
 })
 
-module.exports = { loginAdmin, getAllusers, manageUserAccess, AdminGetUser };
+// @desc search all Users
+// @route GET /api/admin/users/search/:id
+// @access private
+const searchInUsers = asyncHandler(async (req, res) => {
+  const key = req.params.id;
+  const search = await adminService.searchInUsers(key);
+  if (search) {
+    res.status(200).json(search);
+  } else {
+    res.status(404);
+    throw new Error('User Data not found');
+  }
+});
+
+// @desc to get the count of Users
+// @route GET /api/admin/users/count
+// @access private
+const getUserCount = asyncHandler(async (req, res) => {
+  let count = await adminService.getUserCount();
+  if(count) {
+    res.status(200).json({users: count});
+  } else {
+    res.status(404);
+    throw new Error('Users not found');
+  }
+})
+
+module.exports = { loginAdmin, getAllusers, manageUserAccess, AdminGetUser, searchInUsers, getUserCount };

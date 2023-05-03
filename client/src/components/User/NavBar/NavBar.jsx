@@ -54,14 +54,15 @@ const MainNavBar = () => {
               <span className="lg:px-5 py-2 block hover:text-blue-700 font-bold">
                 Services
               </span>
-              <div className="hidden z-50 group-hover:block hover:block lg:top-15 lg:absolute w-24 top-30 bg-slate-50 shadow-xl px-2 py-3">
-                <ul className="opacity-50 font-semibold ">
-                  <li className=" opacity-100">
+              <div className="hidden z-50 group-hover:block  border border-black h-32 hover:block lg:top-15 lg:absolute w-32 top-30 bg-slate-50 shadow-xl px-2 py-3">
+                <ul className=" font-semibold w-full">
+                  <li className=" text-lg w-full py-2 ">
                     <Link className="block" to="/check-pincode">
                       JunkPickup
                     </Link>
                   </li>
-                  <li className="block">
+                  <hr className="" />
+                  <li className="block text-lg w-full  py-2">
                     <Link className="" to="/recycle">
                       Recycle
                     </Link>
@@ -99,14 +100,15 @@ const MainNavBar = () => {
                   <span className="lg:px-5 py-2 block hover:text-blue-700 font-bold">
                     <FaUser className="mt-1" />
                   </span>
-                  <div className="hidden z-50 group-hover:block hover:block lg:top-15 lg:absolute w-24 top-30 bg-slate-50 shadow-xl px-2 py-3">
-                    <ul className="opacity-50 font-semibold ">
-                      <li className=" opacity-100">
+                  <div className="hidden z-50 group-hover:block  border border-black h-32 hover:block lg:top-15 lg:absolute w-28 top-30 bg-slate-50 shadow-xl px-2 py-3">
+                    <ul className=" font-semibold w-full">
+                      <li className=" text-lg w-full py-2 ">
                         <Link className="block" to="/profile">
                           Profile
                         </Link>
                       </li>
-                      <li className=" opacity-100">
+                      <hr className="" />
+                      <li className="block text-lg w-full  py-2">
                         <Link className="block" to="/view-bookings">
                           Bookings
                         </Link>
