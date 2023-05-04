@@ -27,4 +27,18 @@ module.exports = {
     }
     return false;
   },
+  getAllItems: async () => {
+    const allItems = await Item.find();
+    if (allItems) {
+      return allItems;
+    }
+    return false;
+  },
+  deleteItem: async (itemId) => {
+    const response = await Item.deleteOne({ _id: itemId });
+    if(response) {
+      return response;
+    }
+    return false;
+  }
 };

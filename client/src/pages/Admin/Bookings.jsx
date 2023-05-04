@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import AdminSideBar from "../../components/Admin/Navigation/AdminSideBar";
-import Bookings from '../../components/Admin/Bookings/Bookings';
+import Bookings from "../../components/Admin/Bookings/Bookings";
 
 const BookingsPage = () => {
   return (
@@ -8,7 +8,7 @@ const BookingsPage = () => {
       <AdminSideBar />
       <Bookings />
     </div>
-  )
-}
+  );
+};
 
-export default BookingsPage
+export default BookingsPage;

@@ -29,8 +29,13 @@ function Pick_DateTime() {
   useEffect(() => {
     (async () => {
       try {
-        const ITEMS_URL = "/items";
-        let response = await axiosInstance.get(ITEMS_URL);
+        let response = await axiosInstance.get('/items', {
+          headers: {
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("userToken")
+            )}`,
+          },
+        });
         if (response.data) {
           const itemsArray = response.data;
           setAllItems(itemsArray);

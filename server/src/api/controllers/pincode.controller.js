@@ -45,4 +45,35 @@ const pickupAvailability = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { pickupAvailability, addPincode };
+// @desc get all pincodes
+// @route GET /api/pincode
+// @access private
+const getPincodes = asyncHandler(async (req, res) => {
+  const pincode = await pincodeService.getPincodes();
+  if(pincode) {
+    res.status(200).json(pincode);
+  } else {
+    res.status(404);
+    throw new Error("Pincodes not found");
+  }
+})
+
+// @desc delete pincode
+// @route DELETE /api/pincode/:id
+// @access public
+const deletePincode = asyncHandler(async (req, res) => {
+  const pinId = req.params.id;
+  if(!pinId) {
+    res.status(400);
+    throw new Error("PinId is mandatory");
+  }
+  const pin = await pincodeService.deletePincode(pinId);
+  if(pin) {
+    res.status(200).json(pin);
+  } else{
+    res.status(404);
+    throw new Error("Pincode not found");
+  }
+})
+
+module.exports = { pickupAvailability, addPincode, getPincodes, deletePincode };

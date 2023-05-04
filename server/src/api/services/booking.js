@@ -34,7 +34,7 @@ module.exports = {
   },
   getAllBookings: async () => {
     const response = await Booking.find();
-    if(response) {
+    if (response) {
       return response;
     }
     return false;
@@ -42,42 +42,42 @@ module.exports = {
   searchInBookings: async (key) => {
     let response = await Booking.find({
       $or: [
-      { time: { $regex: key, $options: "i" } },
-      { status: { $regex: key, $options: "i" } },
-      { "products.name": { $regex: key, $options: "i" } },
-      { "deliveryDetails.name": { $regex: key, $options: "i" } },
+        { time: { $regex: key, $options: 'i' } },
+        { status: { $regex: key, $options: 'i' } },
+        { 'products.name': { $regex: key, $options: 'i' } },
+        { 'deliveryDetails.name': { $regex: key, $options: 'i' } },
       ],
-  })
-  if(response) {
-    return response;
-  }
-  return false;
+    });
+    if (response) {
+      return response;
+    }
+    return false;
   },
   userSearchInBookings: async (key, userId) => {
     let response = await Booking.find({
       userId: userId,
       $or: [
-      { time: { $regex: key, $options: "i" } },
-      { status: { $regex: key, $options: "i" } },
-      { "products.name": { $regex: key, $options: "i" } },
-      { "deliveryDetails.name": { $regex: key, $options: "i" } },
-      { "deliveryDetails.address": { $regex: key, $options: "i" } },
-      { "deliveryDetails.mobile": { $regex: key, $options: "i" } },
-      { "deliveryDetails.city": { $regex: key, $options: "i" } },
-      { "deliveryDetails.pincode": { $regex: key, $options: "i" } },
-      { "deliveryDetails.email": { $regex: key, $options: "i" } },
+        { time: { $regex: key, $options: 'i' } },
+        { status: { $regex: key, $options: 'i' } },
+        { 'products.name': { $regex: key, $options: 'i' } },
+        { 'deliveryDetails.name': { $regex: key, $options: 'i' } },
+        { 'deliveryDetails.address': { $regex: key, $options: 'i' } },
+        { 'deliveryDetails.mobile': { $regex: key, $options: 'i' } },
+        { 'deliveryDetails.city': { $regex: key, $options: 'i' } },
+        { 'deliveryDetails.pincode': { $regex: key, $options: 'i' } },
+        { 'deliveryDetails.email': { $regex: key, $options: 'i' } },
       ],
-  })
-  if(response) {
-    return response;
-  }
-  return false;
+    });
+    if (response) {
+      return response;
+    }
+    return false;
   },
   getBookingCount: async () => {
     let count = await Booking.countDocuments();
-    if(count) {
+    if (count) {
       return count;
     }
     return false;
-  }
+  },
 };

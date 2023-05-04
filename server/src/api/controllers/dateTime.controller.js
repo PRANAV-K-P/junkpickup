@@ -9,7 +9,7 @@ const nodeCron = require('node-cron');
 const updateTimeStatus = asyncHandler(async (req, res) => {
   const { date, timeSlot } = req.body;
   const dateObj = new Date(date);
-  
+
   dateObj.setDate(dateObj.getDate() + parseInt(1));
   dateObj.setUTCHours(0, 0, 0, 0);
 
@@ -126,16 +126,16 @@ const getAllTimeUser = asyncHandler(async (req, res) => {
 // @route PUT /api/datetime/bookings
 // @access private
 const updateIsBooked = asyncHandler(async (req, res) => {
-  const {date,timeId} = req.body;
-  if(!timeId || !date) {
+  const { date, timeId } = req.body;
+  if (!timeId || !date) {
     res.status(400);
-    throw new Error("All fields are mandatory");
+    throw new Error('All fields are mandatory');
   }
   const dateObj = new Date(date);
   dateObj.setDate(dateObj.getDate() + parseInt(1));
   dateObj.setUTCHours(0, 0, 0, 0);
-  let time = await dateTimeService.updateIsBooked(dateObj,timeId);
-  if(time) {
+  let time = await dateTimeService.updateIsBooked(dateObj, timeId);
+  if (time) {
     res.status(200).json(time);
   } else {
     res.status(404);
@@ -143,4 +143,9 @@ const updateIsBooked = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { updateTimeStatus, getAllTimeAdmin, getAllTimeUser, updateIsBooked };
+module.exports = {
+  updateTimeStatus,
+  getAllTimeAdmin,
+  getAllTimeUser,
+  updateIsBooked,
+};

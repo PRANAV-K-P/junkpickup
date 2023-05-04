@@ -17,6 +17,7 @@ import Recycle from "../pages/User/Recycle";
 import Page404 from "../utils/Page404";
 import BookingDetails from "../pages/User/BookingDetails";
 import ConnectPage from "../pages/User/Connect";
+import Faq from "../pages/User/Faq";
 
 const UserRoutes = () => {
   return (
@@ -39,6 +40,7 @@ const UserRoutes = () => {
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="about" element={<About />} />
+        <Route path="faq" element={<Faq />} />
         <Route path="/*" element={<Page404 user={true} />} />
       </Routes>
     </div>

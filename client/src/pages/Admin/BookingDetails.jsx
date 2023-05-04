@@ -1,14 +1,14 @@
-import React from 'react'
+import React from "react";
 import AdminSideBar from "../../components/Admin/Navigation/AdminSideBar";
-import BookingDetails from '../../components/Admin/Bookings/BookingDetails';
+import BookingDetails from "../../components/Admin/Bookings/BookingDetails";
 
 const BookingDetailsPage = () => {
   return (
     <div className="flex min-h-full ">
-    <AdminSideBar />
-    <BookingDetails />
-  </div>
-  )
-}
+      <AdminSideBar />
+      <BookingDetails />
+    </div>
+  );
+};
 
-export default BookingDetailsPage
+export default BookingDetailsPage;

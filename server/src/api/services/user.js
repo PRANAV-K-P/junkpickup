@@ -4,7 +4,6 @@ const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 
-
 module.exports = {
   userExist: async (email) => {
     const userAvailable = await User.findOne({ email });
@@ -93,39 +92,42 @@ module.exports = {
     return false;
   },
   getAddresses: async (userId) => {
-      let response = await User.aggregate([
-        {
-          $match: {_id: new ObjectId(userId)},
+    let response = await User.aggregate([
+      {
+        $match: { _id: new ObjectId(userId) },
+      },
+      {
+        $unwind: '$addresses',
+      },
+      {
+        $project: {
+          _id: 0,
+          addressId: '$addresses.addressId',
+          name: '$addresses.name',
+          address: '$addresses.address',
+          pincode: '$addresses.pincode',
+          city: '$addresses.city',
+          mobile: '$addresses.mobile',
+          email: '$addresses.email',
         },
-        {
-          $unwind: '$addresses',
-        },
-        {
-          $project: {
-            _id: 0,
-            addressId: '$addresses.addressId',
-            name: '$addresses.name',
-            address: '$addresses.address',
-            pincode: '$addresses.pincode',
-            city: '$addresses.city',
-            mobile: '$addresses.mobile',
-            email: '$addresses.email',
-          },
-        },
-      ]);
-      if (response) {
-        return response;
-      }
-      return false;
-  },
-  getSingleAddres: async (userId, addressId) => {
-    let response = await User.findOne({ _id: userId }, {
-      addresses: {$elemMatch: {addressId: addressId}}
-    });
-    if(response) {
-      response = response.addresses?.[0]
+      },
+    ]);
+    if (response) {
       return response;
     }
     return false;
-  }
+  },
+  getSingleAddres: async (userId, addressId) => {
+    let response = await User.findOne(
+      { _id: userId },
+      {
+        addresses: { $elemMatch: { addressId: addressId } },
+      },
+    );
+    if (response) {
+      response = response.addresses?.[0];
+      return response;
+    }
+    return false;
+  },
 };

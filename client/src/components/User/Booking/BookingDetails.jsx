@@ -6,7 +6,6 @@ import backgroundImage from "../../../assets/images/commonbackground.jpg";
 import axiosInstance from "../../../api/axiosInstance";
 
 const BookingDetails = () => {
-  // const [bookingId, setBookingId] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [items, setItems] = useState([]);
   const [addressData, setAddressData] = useState({});

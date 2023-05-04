@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowCircleRight } from "react-icons/fa";
-import { useSelector,useDispatch } from "react-redux";
-import {useNavigate} from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import AddressDiv from "./AddressDiv";
-import {updateType} from "../../../redux/user";
+import { updateType } from "../../../redux/user";
 import backgroundImage from "../../../assets/images/commonbackground.jpg";
 
 const AddressDetails = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
   const [newDate, setNewDate] = useState("");
@@ -18,21 +18,26 @@ const AddressDetails = () => {
   const { addressId } = useSelector((state) => state.user);
   const { type } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  
+
   const handleSubmit = () => {
-    if(!type || !addressId ) {
-        setError(true);
-        return false;
+    if (!type || !addressId) {
+      setError(true);
+      return false;
     }
     navigate("/booking");
-  }
+  };
 
   useEffect(() => {
     let formattedDate = new Date(date);
-    const options = { weekday: 'short', month: 'long', day: 'numeric', year: 'numeric' };
-    formattedDate = formattedDate.toLocaleDateString('en-US', options);
-    setNewDate(formattedDate)
-  }, [])
+    const options = {
+      weekday: "short",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    };
+    formattedDate = formattedDate.toLocaleDateString("en-US", options);
+    setNewDate(formattedDate);
+  }, []);
 
   return (
     <div className="relative w-full bg-white flex flex-col justify-end ">
@@ -57,11 +62,11 @@ const AddressDetails = () => {
               <span className="text-2xl">I am Booking for</span>
             </div>
             <div className="flex flex-wrap flex-row  bg-white border p-3 border-gray-400 shadow-xl mb-4">
-            {error && !type && (
-            <span className="mt-1 mb-1 p-1 text-red-500 bg-white text-xl font-medium block ml-0 w-full ">
-              * Required
-            </span>
-          )}
+              {error && !type && (
+                <span className="mt-1 mb-1 p-1 text-red-500 bg-white text-xl font-medium block ml-0 w-full ">
+                  * Required
+                </span>
+              )}
               <label
                 htmlFor="home"
                 className="cursor-pointer flex h-10 justify-center sm:w-auto mr-4"
@@ -100,10 +105,10 @@ const AddressDetails = () => {
               </label>
             </div>
             {error && !addressId && (
-            <span className="mt-1 mb-1 p-1 text-red-500 bg-white text-xl font-medium block ml-0 w-full ">
-              Select any address
-            </span>
-          )}
+              <span className="mt-1 mb-1 p-1 text-red-500 bg-white text-xl font-medium block ml-0 w-full ">
+                Select any address
+              </span>
+            )}
             <AddressDiv />
             <div className="">
               <button

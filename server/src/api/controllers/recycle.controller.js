@@ -11,7 +11,6 @@ const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 
 const bucketName = process.env.BUCKET_NAME2;
 
-
 // @desc add recycling centers
 // @route POST /api/recycling-centers
 // @access private
@@ -107,7 +106,7 @@ const updateCenters = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('All fields are mandatory');
   }
-  if(req.file) {
+  if (req.file) {
     const params = {
       Bucket: bucketName,
       Key: imageName,
@@ -171,4 +170,11 @@ const searchInCenters = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addCenters, deleteCenters, updateCenters, getCenters, getSingleCenter, searchInCenters };
+module.exports = {
+  addCenters,
+  deleteCenters,
+  updateCenters,
+  getCenters,
+  getSingleCenter,
+  searchInCenters,
+};

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { MdOutlineEditNote } from "react-icons/md";
 import axiosInstance from "../../../api/axiosInstance";
@@ -21,7 +20,8 @@ const Address = () => {
   const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
 
   const nameRegex = /^\S[a-zA-Z]*(\s[a-zA-Z]+)*\s?\S[a-zA-Z]*$/;
-  const addressRegex = /^[a-zA-Z0-9][a-zA-Z0-9,]*(\s[a-zA-Z0-9,]+)*[a-zA-Z0-9,]$/;
+  const addressRegex =
+    /^[a-zA-Z0-9][a-zA-Z0-9,]*(\s[a-zA-Z0-9,]+)*[a-zA-Z0-9,]$/;
   const pinRegex = /^\d{6}$/;
   const cityRegex = /^\S[a-zA-Z]*(\s[a-zA-Z]+)*\s?\S[a-zA-Z]*$/;
   const phoneRegex = /^\d{10}$/;
@@ -100,7 +100,7 @@ const Address = () => {
       setMobile("");
       setEmail("");
       setIsAddAddressModalOpen(false);
-      setError(false)
+      setError(false);
     } catch (err) {
       setServerError(true);
       setMessage(err.response.data.message);
@@ -163,13 +163,6 @@ const Address = () => {
                   key={index}
                   className="flex items-center py-3 bg-white mr-2 mb-2 pl-2 shadow-xl w-[100%] sm:w-[45%] md:w-[49%] lg:w-[32%] xl:w-[23%] 2xl:w-[22%]"
                 >
-                  {/* <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 mr-3">
-              
-                    <FaUserCircle
-                      size={24}
-                      className="text-gray-500 mx-auto my-auto"
-                    />
-                  </div> */}
                   <div className="">
                     <div className="">
                       <MdOutlineEditNote
@@ -194,14 +187,14 @@ const Address = () => {
                       {address.address}
                     </p>
                     <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap ">
-                      {address.pincode} 
-                    </p> 
+                      {address.pincode}
+                    </p>
                     <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap">
-                      {address.city} 
-                    </p> 
+                      {address.city}
+                    </p>
                     <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap">
-                      {address.mobile} 
-                    </p> 
+                      {address.mobile}
+                    </p>
                     <p className="text-gray-700 border border-gray-200 bg-gray-100 rounded-lg mb-2 flex flex-wrap">
                       {address.email}
                     </p>

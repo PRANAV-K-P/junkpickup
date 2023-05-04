@@ -73,7 +73,7 @@ const MainNavBar = () => {
             <li>
               <Link
                 className="lg:px-5 py-2 block hover:text-blue-700 font-bold"
-                to=""
+                to="/faq"
               >
                 FAQs
               </Link>

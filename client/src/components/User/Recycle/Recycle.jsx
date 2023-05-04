@@ -5,8 +5,6 @@ import { MdLocationOn } from "react-icons/md";
 
 const Recycle = () => {
   const [centers, setCenters] = useState([]);
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
 
   const RECYCLE_URL = "/recycling-centers/details";
   useEffect(() => {
@@ -26,7 +24,7 @@ const Recycle = () => {
         setCenters(response.data);
       }
     } catch (err) {}
-  }
+  };
 
   const handleSearch = async (event) => {
     const key = event.target.value;
@@ -49,7 +47,7 @@ const Recycle = () => {
           src={`${backgroundImage}`}
           alt=""
         />
-        <div className=" absolute sm:w-1/2 lg:w-2/3 top-[12%] mt-1 border border-white lg:pl-52">
+        <div className=" absolute sm:w-1/2 lg:w-2/3 top-[12%] mt-1 border rounded-full border-white lg:pl-52">
           <h2 className=" text-1xl lg:text-2xl text-white font-medium">
             Filter Recycling centers.
           </h2>
@@ -61,9 +59,11 @@ const Recycle = () => {
         </div>
       </div>
       <div className="w-full min-h-screen bg-gradient-to-bl from-indigo-900 via-indigo-400 to-indigo-900 pt-10 pb-4 flex flex-col items-center  ">
-      {centers.length === 0  && (<div
-        className="text-white text-4xl border border-white w-3/4"
-           >* Items Not Found</div>)}
+        {centers.length === 0 && (
+          <div className="text-white text-4xl border border-white w-3/4">
+            * Items Not Found
+          </div>
+        )}
         {centers.map((element, index) => (
           <div
             key={index}
@@ -80,9 +80,7 @@ const Recycle = () => {
               <div className="font-semibold text-2xl">{element.name}</div>
             </div>
             <div class="row-span-1 col-span-7 flex flex-row border border-gray-300 shadow-lg text-xl ">
-              <div
-                className="mr-3 text-lg"
-              >
+              <div className="mr-3 text-lg">
                 <MdLocationOn className="text-xl" />
               </div>
               <div className="mr-3 text-lg">{element.city}</div>

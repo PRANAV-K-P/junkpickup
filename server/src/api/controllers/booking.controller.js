@@ -24,7 +24,7 @@ const createOrder = asyncHandler(async (req, res) => {
     items,
     addressData,
     dateObj,
-    time
+    time,
   );
   if (booking) {
     res.status(201).json(booking);
@@ -39,49 +39,49 @@ const createOrder = asyncHandler(async (req, res) => {
 // @access private
 const getBookings = asyncHandler(async (req, res) => {
   const userId = req.query.userId;
-  if(!userId) {
+  if (!userId) {
     res.status(400);
     throw new Error('User id not present');
   }
   let bookings = await bookingService.getBookings(userId);
-  if(bookings) {
+  if (bookings) {
     res.status(200).json(bookings);
   } else {
     res.status(400);
     throw new Error('Booking data is not available');
   }
-})
+});
 
 // @desc get single booking
 // @route GET /api/bookings/:id
 // @access private
 const getSingleBooking = asyncHandler(async (req, res) => {
   const bookingId = req.params.id;
-  if(!bookingId) {
+  if (!bookingId) {
     res.status(400);
     throw new Error('Booking id not present');
   }
   let data = await bookingService.getSingleBooking(bookingId);
-  if(data) {
+  if (data) {
     res.status(200).json(data);
   } else {
     res.status(400);
     throw new Error('Booking data is not available');
   }
-})
+});
 
 // @desc get all bookings
 // @route GET /api/bookings/admin
 // @access private
 const getAllBookings = asyncHandler(async (req, res) => {
   const bookings = await bookingService.getAllBookings();
-  if(bookings) {
+  if (bookings) {
     res.status(200).json(bookings);
   } else {
     res.status(404);
-    throw new Error("Bookings not found");
+    throw new Error('Bookings not found');
   }
-})
+});
 
 // @desc search all Bookings
 // @route GET /api/bookings/admin/search/:id
@@ -117,12 +117,20 @@ const userSearchInBookings = asyncHandler(async (req, res) => {
 // @access private
 const getBookingCount = asyncHandler(async (req, res) => {
   let count = await bookingService.getBookingCount();
-  if(count) {
-    res.status(200).json({bookings: count});
+  if (count) {
+    res.status(200).json({ bookings: count });
   } else {
     res.status(404);
     throw new Error('Bookings not found');
   }
-})
+});
 
-module.exports = { createOrder, getBookings, getSingleBooking, getAllBookings, searchInBookings, userSearchInBookings, getBookingCount };
+module.exports = {
+  createOrder,
+  getBookings,
+  getSingleBooking,
+  getAllBookings,
+  searchInBookings,
+  userSearchInBookings,
+  getBookingCount,
+};

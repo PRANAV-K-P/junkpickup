@@ -43,7 +43,7 @@ const ViewBookings = () => {
         setIsLoading(false);
       }
     } catch (err) {}
-  }
+  };
 
   useEffect(() => {
     getBookings();
@@ -52,23 +52,23 @@ const ViewBookings = () => {
   const handleSearch = async (event) => {
     const key = event.target.value;
     if (key) {
-      let response = await axiosInstance.get(`/bookings/user/search/${key}`,{
+      let response = await axiosInstance.get(`/bookings/user/search/${key}`, {
         headers: {
-            Authorization: `Bpickj ${JSON.parse(
-              localStorage.getItem("userToken")
-            )}`,
-          },
-          params: {
-            userId,
-          }
+          Authorization: `Bpickj ${JSON.parse(
+            localStorage.getItem("userToken")
+          )}`,
+        },
+        params: {
+          userId,
+        },
       });
       if (response.data) {
         setBookings(response.data);
       }
     } else {
-        getBookings();
+      getBookings();
     }
-  }
+  };
 
   return (
     <div className="relative w-full h-[697px] bg-red-400 z-40 flex flex-col bg-no-repeat">
@@ -130,16 +130,16 @@ const ViewBookings = () => {
                         <Skeleton count={3} />
                       </td>
                       <td>
-                        <Skeleton count={3}/>
+                        <Skeleton count={3} />
                       </td>
                       <td>
-                        <Skeleton count={3}/>
+                        <Skeleton count={3} />
                       </td>
                       <td>
-                        <Skeleton count={3}/>
+                        <Skeleton count={3} />
                       </td>
                       <td>
-                        <Skeleton count={3}/>
+                        <Skeleton count={3} />
                       </td>
                     </tr>
                   )}

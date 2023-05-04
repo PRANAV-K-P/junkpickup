@@ -10,7 +10,6 @@ const {
 const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 const bucketName = process.env.BUCKET_NAME1;
 
-
 // @desc add banner
 // @route POST /api/banners
 // @access private
@@ -68,21 +67,20 @@ const getBanner = asyncHandler(async (req, res) => {
 const deleteBanner = asyncHandler(async (req, res) => {
   const bannerId = req.params.id;
   const banner = await bannerService.getSingleBanner(bannerId);
-  if(banner) {
+  if (banner) {
     const params = {
       Bucket: bucketName,
       Key: banner.image,
-    }
+    };
     const command = new DeleteObjectCommand(params);
-    await s3.send(command)
+    await s3.send(command);
 
     let response = await bannerService.deleteBanner(bannerId);
     if (response) {
       res.status(200).json(response);
-
     } else {
-      res.status(500);  
-    throw new Error('deletion failed');
+      res.status(500);
+      throw new Error('deletion failed');
     }
   } else {
     res.status(401);

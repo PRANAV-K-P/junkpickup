@@ -74,18 +74,18 @@ const manageUserAccess = asyncHandler(async (req, res) => {
 // @access private
 const AdminGetUser = asyncHandler(async (req, res) => {
   const userId = req.params.id;
-  if(!userId) {
+  if (!userId) {
     res.status(400);
-    throw new Error("Invalid userId")
+    throw new Error('Invalid userId');
   }
   const userData = await adminService.AdminGetUser(userId);
-  if(userData) {
+  if (userData) {
     res.status(200).json(userData);
   } else {
     res.status(404);
-    throw new Error("User data not found");
+    throw new Error('User data not found');
   }
-})
+});
 
 // @desc search all Users
 // @route GET /api/admin/users/search/:id
@@ -106,12 +106,19 @@ const searchInUsers = asyncHandler(async (req, res) => {
 // @access private
 const getUserCount = asyncHandler(async (req, res) => {
   let count = await adminService.getUserCount();
-  if(count) {
-    res.status(200).json({users: count});
+  if (count) {
+    res.status(200).json({ users: count });
   } else {
     res.status(404);
     throw new Error('Users not found');
   }
-})
+});
 
-module.exports = { loginAdmin, getAllusers, manageUserAccess, AdminGetUser, searchInUsers, getUserCount };
+module.exports = {
+  loginAdmin,
+  getAllusers,
+  manageUserAccess,
+  AdminGetUser,
+  searchInUsers,
+  getUserCount,
+};

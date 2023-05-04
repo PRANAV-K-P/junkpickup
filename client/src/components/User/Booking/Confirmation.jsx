@@ -35,27 +35,25 @@ const Confirmation = () => {
             </div>
             <hr className="h-1 my-4 bg-white" />
             <div className="text-xl text-yellow-400 font-bold mb-3">
-              Your to expect on your appointment day
+            This message is a part of our junk pickup scheduling process
             </div>
             <div className="mb-5 text-xl text-white font-semibold flex">
-              <div className="mr-3">1.</div>
+              <div className="mr-3">⁜</div>
               <div>
-                Our friendly truck team will call you 15-30 minutes before your
-                promise window to let you know their expected arrival time.
+              We understand that our customers have busy schedules, and we want to make the junk pickup process as convenient as possible
+              
               </div>
             </div>
             <div className="mb-5 text-xl text-white font-semibold flex">
-              <div className="mr-3">2.</div>
+              <div className="mr-3">⁜</div>
               <div>
-                Our friendly truck team will call you 15-30 minutes before your
-                promise window to let you know their expected arrival time.
+              Once you have scheduled your junk pickup on our website, you can relax knowing that our friendly truck team will call you 15-30 minutes before your promise window to let you know their expected arrival time
               </div>
             </div>
             <div className="mb-5 text-xl text-white font-semibold flex">
-              <div className="mr-3">3.</div>
+              <div className="mr-3">⁜</div>
               <div>
-                Our friendly truck team will call you 15-30 minutes before your
-                promise window to let you know their expected arrival time.
+              This way, you can plan your day accordingly and be ready for the pickup without any unnecessary delays.
               </div>
             </div>
           </div>

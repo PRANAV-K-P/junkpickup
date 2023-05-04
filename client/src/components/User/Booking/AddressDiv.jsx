@@ -4,10 +4,10 @@ import { FaUserCircle } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
 import { MdOutlineEditNote } from "react-icons/md";
 import axiosInstance from "../../../api/axiosInstance";
-import {updateAddressId} from "../../../redux/user";
+import { updateAddressId } from "../../../redux/user";
 
 const AddressDiv = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
@@ -19,15 +19,14 @@ const AddressDiv = () => {
   const [message, setMessage] = useState("");
   const [serverError, setServerError] = useState(false);
   const [addresses, setAddresses] = useState([]);
-//   const [addressId, setAddressId] = useState("");
-const { addressId } = useSelector((state) => state.user);
-  
+  const { addressId } = useSelector((state) => state.user);
+
   const [update, setUpdate] = useState(false);
   const [isAddAddressModalOpen, setIsAddAddressModalOpen] = useState(false);
-  
 
   const nameRegex = /^\S[a-zA-Z]*(\s[a-zA-Z]+)*\s?\S[a-zA-Z]*$/;
-  const addressRegex = /^[a-zA-Z0-9][a-zA-Z0-9,]*(\s[a-zA-Z0-9,]+)*[a-zA-Z0-9,]$/;
+  const addressRegex =
+    /^[a-zA-Z0-9][a-zA-Z0-9,]*(\s[a-zA-Z0-9,]+)*[a-zA-Z0-9,]$/;
   const pinRegex = /^\d{6}$/;
   const cityRegex = /^\S[a-zA-Z]*(\s[a-zA-Z]+)*\s?\S[a-zA-Z]*$/;
   const phoneRegex = /^\d{10}$/;
@@ -172,15 +171,13 @@ const { addressId } = useSelector((state) => state.user);
                     value={address.addressId}
                     id={address.addressId}
                     onChange={() => {
-                        dispatch(updateAddressId(address.addressId))
+                      dispatch(updateAddressId(address.addressId));
                     }}
                     name="Address"
                     className="mr-2"
                   />
 
-                  <li
-                    className=""
-                  >
+                  <li className="">
                     <div className="w-8 h-8 rounded-full bg-gray-200 flex-shrink-0 mr-3">
                       <FaUserCircle
                         size={24}
@@ -193,7 +190,7 @@ const { addressId } = useSelector((state) => state.user);
                           size={30}
                           className="ml-auto cursor-pointer "
                           onClick={() => {
-                            dispatch(updateAddressId(address.addressId))
+                            dispatch(updateAddressId(address.addressId));
                             setName(address.name);
                             setAddress(address.address);
                             setPincode(address.pincode);

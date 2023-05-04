@@ -6,16 +6,16 @@ const conversationService = require('../services/conversation');
 // @access private
 const createConversation = asyncHandler(async (req, res) => {
   const receiverId = process.env.RECEIVER_ID;
-  const { senderId  } = req.body;
-  if (!senderId ) {
+  const { senderId } = req.body;
+  if (!senderId) {
     res.status(400);
     throw new Error('Invalid senderId and receiverId');
   }
   const conversationExist = await conversationService.getConversation(senderId);
-  if(conversationExist) {
+  if (conversationExist) {
     res.status(400);
     throw new Error('Conversation already created');
-  } 
+  }
   const conversation = await conversationService.createConversation(
     senderId,
     receiverId,
@@ -64,5 +64,8 @@ const getSingleConversation = asyncHandler(async (req, res) => {
   }
 });
 
-
-module.exports = { createConversation, AdminGetConversation, getSingleConversation };
+module.exports = {
+  createConversation,
+  AdminGetConversation,
+  getSingleConversation,
+};

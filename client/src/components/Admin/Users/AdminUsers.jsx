@@ -10,7 +10,7 @@ const AdminUsers = () => {
 
   const getUsers = async () => {
     try {
-      let response = await axiosInstance.get('/admin/users', {
+      let response = await axiosInstance.get("/admin/users", {
         headers: {
           Authorization: `Bpickj ${JSON.parse(
             localStorage.getItem("adminToken")
@@ -22,7 +22,7 @@ const AdminUsers = () => {
         setStatus(false);
       }
     } catch (err) {}
-  }
+  };
 
   useEffect(() => {
     getUsers();
@@ -31,12 +31,12 @@ const AdminUsers = () => {
   const handleSearch = async (event) => {
     const key = event.target.value;
     if (key) {
-      let response = await axiosInstance.get(`/admin/users/search/${key}`,{
+      let response = await axiosInstance.get(`/admin/users/search/${key}`, {
         headers: {
-            Authorization: `Bpickj ${JSON.parse(
-              localStorage.getItem("adminToken")
-            )}`,
-          },
+          Authorization: `Bpickj ${JSON.parse(
+            localStorage.getItem("adminToken")
+          )}`,
+        },
       });
       if (response.data) {
         setUsers(response.data);
@@ -44,7 +44,7 @@ const AdminUsers = () => {
     } else {
       getUsers();
     }
-  }
+  };
 
   const handleUserAccess = async (userId, userName, blocked) => {
     try {
@@ -132,7 +132,7 @@ const AdminUsers = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody >
+              <tbody>
                 {users.map((item, index) => (
                   <tr
                     key={item.name}

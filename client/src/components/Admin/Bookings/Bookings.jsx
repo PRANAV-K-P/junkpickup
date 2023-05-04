@@ -1,59 +1,59 @@
-import React, { useEffect, useState } from 'react'
-import {Link} from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { MdOutlineSearch } from "react-icons/md";
-import axiosInstance from '../../../api/axiosInstance';
+import axiosInstance from "../../../api/axiosInstance";
 
 const Bookings = () => {
-    const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings] = useState([]);
 
-    const getBookings = async () => {
-        try {
-          let response = await axiosInstance.get('/bookings/admin', {
-            headers: {
-              Authorization: `Bpickj ${JSON.parse(
-                localStorage.getItem("adminToken")
-              )}`,
-            },
-          });
-          if (response.data) {
-            const res = response.data;
-            res.map((item) => {
-              let formattedDate = new Date(item.date);
-              const options = {
-                weekday: "short",
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              };
-              formattedDate = formattedDate.toLocaleDateString("en-US", options);
-              item.date = formattedDate;
-            });
-            setBookings(res);
-          }
-        } catch (err) {}
+  const getBookings = async () => {
+    try {
+      let response = await axiosInstance.get("/bookings/admin", {
+        headers: {
+          Authorization: `Bpickj ${JSON.parse(
+            localStorage.getItem("adminToken")
+          )}`,
+        },
+      });
+      if (response.data) {
+        const res = response.data;
+        res.map((item) => {
+          let formattedDate = new Date(item.date);
+          const options = {
+            weekday: "short",
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          };
+          formattedDate = formattedDate.toLocaleDateString("en-US", options);
+          item.date = formattedDate;
+        });
+        setBookings(res);
       }
+    } catch (err) {}
+  };
 
-    useEffect(() => {
-        getBookings();
-      }, []);
+  useEffect(() => {
+    getBookings();
+  }, []);
 
-      const handleSearch = async (event) => {
-        const key = event.target.value;
-        if (key) {
-          let response = await axiosInstance.get(`/bookings/admin/search/${key}`,{
-            headers: {
-                Authorization: `Bpickj ${JSON.parse(
-                  localStorage.getItem("adminToken")
-                )}`,
-              },
-          });
-          if (response.data) {
-            setBookings(response.data);
-          }
-        } else {
-            getBookings();
-        }
+  const handleSearch = async (event) => {
+    const key = event.target.value;
+    if (key) {
+      let response = await axiosInstance.get(`/bookings/admin/search/${key}`, {
+        headers: {
+          Authorization: `Bpickj ${JSON.parse(
+            localStorage.getItem("adminToken")
+          )}`,
+        },
+      });
+      if (response.data) {
+        setBookings(response.data);
       }
+    } else {
+      getBookings();
+    }
+  };
 
   return (
     <div className="bg-sky-blue w-full min-h-screen  flex justify-center items-center ">
@@ -83,61 +83,61 @@ const Bookings = () => {
               </div>
             </div>
             <table className="w-full text-sm text-left text-black dark:text-black">
-            <thead className="text-lg text-black uppercase bg-gray-100 dark:bg-gray-100 dark:text-black ">
-                  <tr>
-                    <th scope="col" className="p-4">
-                      Sl.no
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Date
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Time
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Status
-                    </th>
-                    <th scope="col" className="px-6 py-3">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-              <tbody className='text-lg'>
-              {bookings.map((item, index) => (
-                    <tr
-                      key={item._id}
-                      className="bg-gray-100 border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-white dark:hover:bg-white"
+              <thead className="text-lg text-black uppercase bg-gray-100 dark:bg-gray-100 dark:text-black ">
+                <tr>
+                  <th scope="col" className="p-4">
+                    Sl.no
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Date
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Time
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Status
+                  </th>
+                  <th scope="col" className="px-6 py-3">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="text-lg">
+                {bookings.map((item, index) => (
+                  <tr
+                    key={item._id}
+                    className="bg-gray-100 border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-white dark:hover:bg-white"
+                  >
+                    <td className="w-4 p-4">{index + 1}</td>
+                    <td
+                      scope="row"
+                      className="flex items-center px-6 py-4 text-black whitespace-nowrap dark:text-black"
                     >
-                      <td className="w-4 p-4">{index + 1}</td>
-                      <td
-                        scope="row"
-                        className="flex items-center px-6 py-4 text-black whitespace-nowrap dark:text-black"
-                      >
-                        <div className="pl-3">
-                          <div className="text-base font-semibold">
-                            {item.date}
-                          </div>
+                      <div className="pl-3">
+                        <div className="text-base font-semibold">
+                          {item.date}
                         </div>
-                      </td>
-                      <td className="px-6 py-4">{item.time}</td>
-                      <td className="px-6 py-4">{item.status}</td>
-                      <td className="px-6 py-4">
-                        <Link
-                          to={`/admin/bookings/${item._id}`}
-                          className="text-blue-500 font-semibold"
-                        >
-                          more details
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">{item.time}</td>
+                    <td className="px-6 py-4">{item.status}</td>
+                    <td className="px-6 py-4">
+                      <Link
+                        to={`/admin/bookings/${item._id}`}
+                        className="text-blue-500 font-semibold"
+                      >
+                        more details
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Bookings
+export default Bookings;

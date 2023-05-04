@@ -15,6 +15,8 @@ import Logout from "../utils/Logout";
 import Page404 from "../utils/Page404";
 import Bookings from "../pages/Admin/Bookings";
 import BookingDetails from "../pages/Admin/BookingDetails";
+import Pincode from "../pages/Admin/Pincode";
+import Faq from "../pages/Admin/faq";
 
 const AdminRoutes = () => {
   return (
@@ -32,6 +34,8 @@ const AdminRoutes = () => {
           <Route path="chat" element={<Chat />}></Route>
           <Route path="bookings" element={<Bookings />}></Route>
           <Route path="bookings/:id" element={<BookingDetails />}></Route>
+          <Route path="pincode" element={<Pincode />}></Route>
+          <Route path="faq" element={<Faq />}></Route>
           <Route path="logout" element={<Logout />}></Route>
         </Route>
         <Route path="login" element={<AdminLogin />}></Route>

@@ -42,6 +42,7 @@ app.use('/api/banners', require('./api/routes/banner.route'));
 app.use('/api/recycling-centers', require('./api/routes/recycle.route'));
 app.use('/api/conversations', require('./api/routes/conversation.route'));
 app.use('/api/messages', require('./api/routes/message.route'));
+app.use('/api/faqs', require('./api/routes/faq.route'));
 
 app.use(errorHandler);
 

@@ -1,21 +1,21 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { BsChevronExpand } from "react-icons/bs";
 
 import {
   MdOutlineDashboard,
   MdAccountCircle,
-  MdAnalytics,
-  MdOutlineSettings,
   MdLogout,
+  MdOutlineShareLocation,
+  MdRecycling,
+  MdDateRange,
 } from "react-icons/md";
 import {
   BsChevronDown,
   BsChatLeftText,
   BsCalendarCheck,
   BsFiles,
-  BsServer,
 } from "react-icons/bs";
 import { FaQuestion, FaImage } from "react-icons/fa";
 
@@ -24,9 +24,10 @@ const Menus = [
   { title: "Chat", src: "/admin/chat", icon: <BsChatLeftText /> },
   { title: "Users", src: "/admin/users", gap: true, icon: <MdAccountCircle /> },
   { title: "Booking", src: "/admin/bookings", icon: <BsCalendarCheck /> },
-  { title: "Dates", src: "/admin/dates", icon: <BsCalendarCheck /> },
-  { title: "Recycle", src: "/admin/recycle", icon: <BsCalendarCheck /> },
-  { title: "FAQs", src: "", icon: <FaQuestion /> },
+  { title: "Dates", src: "/admin/dates", icon: <MdDateRange /> },
+  { title: "Recycle", src: "/admin/recycle", icon: <MdRecycling /> },
+  { title: "FAQs", src: "/admin/faq", icon: <FaQuestion /> },
+  { title: "Pincode", src: "/admin/pincode", icon: <MdOutlineShareLocation /> },
   { title: "Banners", src: "/admin/banners", icon: <FaImage /> },
   { title: "items", src: "/admin/items", icon: <BsFiles /> },
 
@@ -63,7 +64,7 @@ const AdminSideBar = () => {
               <Link to={Menu.src}>
                 <li
                   key={uuidv4()}
-                  className={`flex rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-lg 
+                  className={`flex rounded-md p-2 cursor-pointer hover:bg-teal-400 text-white text-lg
                 items-center gap-x-4 ${Menu.gap ? "mt-9" : "mt-2"}`}
                 >
                   {Menu.icon}

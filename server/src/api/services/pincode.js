@@ -24,4 +24,18 @@ module.exports = {
     }
     return false;
   },
+  getPincodes: async () => {
+    const pincodes = await Pincode.find();
+    if(pincodes) {
+      return pincodes;
+    }
+    return false;
+  },
+  deletePincode: async (pinId) => {
+    const response = await Pincode.deleteOne({ _id: pinId});
+    if(response) {
+      return response;
+    }
+    return false;
+  }
 };

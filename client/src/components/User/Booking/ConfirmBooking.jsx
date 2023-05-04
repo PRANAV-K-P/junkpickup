@@ -4,7 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { FaArrowCircleRight } from "react-icons/fa";
 import backgroundImage from "../../../assets/images/commonbackground.jpg";
 import axiosInstance from "../../../api/axiosInstance";
-import {updateDate, updateTimeId, updateItems, updateTime, updateAddressId, updatePincode, updateType} from "../../../redux/user";
+import {
+  updateDate,
+  updateTimeId,
+  updateItems,
+  updateTime,
+  updateAddressId,
+  updatePincode,
+  updateType,
+} from "../../../redux/user";
 
 const ConfirmBooking = () => {
   const { date } = useSelector((state) => state.user);
@@ -66,41 +74,14 @@ const ConfirmBooking = () => {
     })();
   }, []);
 
-  const updateTimeStatus = async (date,timeId) => {
+  const updateTimeStatus = async (date, timeId) => {
     try {
-      const TIME = "/datetime/bookings"
-      let response = await axiosInstance.put(TIME,
+      const TIME = "/datetime/bookings";
+      let response = await axiosInstance.put(
+        TIME,
         {
           date,
-          timeId
-        },
-        {
-          headers: {
-            Authorization: `Bpickj ${JSON.parse(
-              localStorage.getItem("userToken")
-            )}`,
-          },
-        })
-        if (response.data) {
-          return true;
-        }
-    } catch(err) {
-      setServerError(true);
-      setMessage(err.response?.data?.message);
-    }
-  }
-
-  const handleSubmit = async () => {
-    try {
-      const BOOKING = "/bookings";
-      let response = await axiosInstance.post(
-        BOOKING, 
-        {
-          userId,
-          items,
-          addressData,
-          date,
-          time
+          timeId,
         },
         {
           headers: {
@@ -111,7 +92,36 @@ const ConfirmBooking = () => {
         }
       );
       if (response.data) {
-        await updateTimeStatus(date,timeId);
+        return true;
+      }
+    } catch (err) {
+      setServerError(true);
+      setMessage(err.response?.data?.message);
+    }
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const BOOKING = "/bookings";
+      let response = await axiosInstance.post(
+        BOOKING,
+        {
+          userId,
+          items,
+          addressData,
+          date,
+          time,
+        },
+        {
+          headers: {
+            Authorization: `Bpickj ${JSON.parse(
+              localStorage.getItem("userToken")
+            )}`,
+          },
+        }
+      );
+      if (response.data) {
+        await updateTimeStatus(date, timeId);
         dispatch(updateDate(null));
         dispatch(updateTimeId(""));
         dispatch(updateItems([]));
@@ -119,7 +129,7 @@ const ConfirmBooking = () => {
         dispatch(updateAddressId(""));
         dispatch(updatePincode(""));
         dispatch(updateType(""));
-        navigate('/confirmation');
+        navigate("/confirmation");
       }
     } catch (err) {
       setServerError(true);

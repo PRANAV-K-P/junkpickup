@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const INITIAL_STATE = {
   status: false,
   recycleId: "",
+  itemId: "",
 };
 
 const adminSlice = createSlice({
@@ -15,9 +16,12 @@ const adminSlice = createSlice({
     updateRecycleId: (state, action) => {
       state.recycleId = action.payload;
     },
+    updateItemId: (state, action) => {
+      state.itemId = action.payload;
+    },
   },
 });
 
-export const { updateStatus, updateRecycleId } = adminSlice.actions;
+export const { updateStatus, updateRecycleId, updateItemId } = adminSlice.actions;
 
 export default adminSlice.reducer;

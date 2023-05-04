@@ -40,4 +40,35 @@ const getItems = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addItems, getItems };
+// @desc get all items admin
+// @route GET /api/items/admin
+// @access private
+const getAdminItems = asyncHandler(async (req, res) => {
+  const allItems = await itemService.getAllItems();
+  if (allItems) {
+    res.status(200).json(allItems);
+  } else {
+    res.status(404);
+    throw new Error('Items not found');
+  }
+});
+
+// @desc delete items
+// @route DELETE   /api/items/:id
+// @access private
+const deleteItem = asyncHandler(async (req, res) => {
+  const itemId = req.params.id;
+  if(!itemId) {
+    res.status(400);
+    throw new Error("ItemId is mandatory ")
+  }
+  const item = await itemService.deleteItem(itemId);
+  if (item) {
+    res.status(200).json(item);
+  } else {
+    res.status(404);
+    throw new Error('Items not found');
+  }
+});
+
+module.exports = { addItems, getItems, getAdminItems, deleteItem };

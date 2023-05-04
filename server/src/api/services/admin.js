@@ -28,8 +28,11 @@ module.exports = {
     return false;
   },
   AdminGetUser: async (userId) => {
-    let userData = await User.findOne({_id: userId},{name: 1, email: 1, phone: 1});
-    if(userData) {
+    let userData = await User.findOne(
+      { _id: userId },
+      { name: 1, email: 1, phone: 1 },
+    );
+    if (userData) {
       return userData;
     }
     return false;
@@ -37,20 +40,20 @@ module.exports = {
   searchInUsers: async (key) => {
     let response = await User.find({
       $or: [
-      { name: { $regex: key, $options: "i" } },
-      { email: { $regex: key, $options: "i" } },
+        { name: { $regex: key, $options: 'i' } },
+        { email: { $regex: key, $options: 'i' } },
       ],
-  })
-  if(response) {
-    return response;
-  }
-  return false;
+    });
+    if (response) {
+      return response;
+    }
+    return false;
   },
   getUserCount: async () => {
     let count = await User.countDocuments();
-    if(count) {
+    if (count) {
       return count;
     }
     return false;
-  }
+  },
 };

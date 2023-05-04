@@ -17,23 +17,23 @@ module.exports = {
   },
   getBanner: async () => {
     const response = await Banner.find();
-    if(response) {
-        return response;
+    if (response) {
+      return response;
     }
     return false;
   },
   getSingleBanner: async (bannerId) => {
-    let response = await Banner.findOne({_id: bannerId});
+    let response = await Banner.findOne({ _id: bannerId });
     if (response) {
       return response;
     }
     return false;
   },
   deleteBanner: async (bannerId) => {
-    let response = await Banner.deleteOne({_id: bannerId});
-    if(response) {
+    let response = await Banner.deleteOne({ _id: bannerId });
+    if (response) {
       return response;
-    } 
+    }
     return false;
   },
 };
