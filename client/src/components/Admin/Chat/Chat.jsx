@@ -5,7 +5,7 @@ import axiosInstance from "../../../api/axiosInstance";
 import chatUserIcon from "../../../assets/icons/chat_icon_user.jpg";
 
 import io from "socket.io-client";
-const socket = io.connect("http://localhost:6001/");
+const socket = io.connect("https://junkpickup.online/");
 
 const Chat = () => {
   const adminId = JSON.parse(localStorage.getItem("admin"))._id;
