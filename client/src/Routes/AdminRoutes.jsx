@@ -10,13 +10,13 @@ import Banners from "../pages/Admin/Banner";
 import Recycle from "../pages/Admin/Recycle";
 import RecycleDetails from "../pages/Admin/RecycleDetails";
 import AdminAddItems from "../pages/Admin/AdminAddItems";
-import Chat from "../pages/Admin/chat";
+import Chat from "../pages/Admin/Chat";
 import Logout from "../utils/Logout";
 import Page404 from "../utils/Page404";
 import Bookings from "../pages/Admin/Bookings";
 import BookingDetails from "../pages/Admin/BookingDetails";
 import Pincode from "../pages/Admin/Pincode";
-import Faq from "../pages/Admin/faq";
+import Faq from "../pages/Admin/Faq";
 
 const AdminRoutes = () => {
   return (
