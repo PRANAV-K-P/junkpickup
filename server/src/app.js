@@ -19,7 +19,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: 'https://junkpickup.online/',
+    origin: 'https://junkpickup.online',
   },
 });
 
