@@ -1,5 +1,5 @@
 import React from "react";
-import Connect from "../../components/User/Connect.jsx/Connect";
+import Connect from "../../components/User/Connect/Connect";
 
 const ConnectPage = () => {
   return (

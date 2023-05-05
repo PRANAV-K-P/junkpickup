@@ -1,7 +1,7 @@
 import React from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import ViewBookings from "../../components/User/Booking/ViewBookings";
-import Support from "../../components/User/common/Support";
+import Support from "../../components/User/Common/Support";
 import Footer from "../../components/User/Footer/Footer";
 
 const ViewBookingsPage = () => {

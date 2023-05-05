@@ -1,6 +1,6 @@
 import React from "react";
 import Pick_DateTime from "../../components/User/Booking/Pick_DateTime";
-import Support from "../../components/User/common/Support";
+import Support from "../../components/User/Common/Support";
 import Footer from "../../components/User/Footer/Footer";
 
 const Pick_DateTimePage = () => {
