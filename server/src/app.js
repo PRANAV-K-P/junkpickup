@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const app = express();
 const http = require('http');
 const { Server } = require('socket.io');
@@ -32,7 +33,6 @@ io.on('connection', (socket) => {
   });
 });
 
-app.use(express.static(path.join(__dirname,'../public')))
 app.use('/api/users', require('./api/routes/user.route'));
 app.use('/api/admin', require('./api/routes/admin.route'));
 app.use('/api/pincode', require('./api/routes/pincode.route'));
@@ -46,5 +46,13 @@ app.use('/api/messages', require('./api/routes/message.route'));
 app.use('/api/faqs', require('./api/routes/faq.route'));
 
 app.use(errorHandler);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../client/dist')));
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+  });
+}
 
 server.listen(port, () => console.log(`Server running on port ${port}`));

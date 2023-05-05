@@ -1,0 +1,1 @@
+export const baseUrl = 'https://junkpickup.online/api'

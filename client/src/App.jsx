@@ -8,8 +8,8 @@ function App() {
       <SkeletonTheme baseColor="#e6e6e6" highlightColor="#ffffff">
         <BrowserRouter>
           <Routes>
-            <Route path="/*" element={<UserRoutes />} />
             <Route path="/admin/*" element={<AdminRoutes />} />
+            <Route path="/*" element={<UserRoutes />} />
           </Routes>
         </BrowserRouter>
       </SkeletonTheme>
