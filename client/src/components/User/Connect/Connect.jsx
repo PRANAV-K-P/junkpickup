@@ -5,7 +5,7 @@ import Message from "../Message/Message";
 import axiosInstance from "../../../api/axiosInstance";
 
 import io from "socket.io-client";
-const socket = io.connect("https://junkpickup.online/");
+const socket = io.connect("https://junkpickup.online/api");
 
 const Connect = () => {
   const userId = JSON.parse(localStorage.getItem("user"))._id;
