@@ -1,5 +1,5 @@
 import React from "react";
-import Support from "../../components/User/Common/Support";
+import Support from "../../components/User/Shared/Support";
 import Footer from "../../components/User/Footer/Footer";
 import Faq from "../../components/User/Faq/Faq";
 

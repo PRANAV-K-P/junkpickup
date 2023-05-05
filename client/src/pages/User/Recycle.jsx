@@ -1,6 +1,6 @@
 import React from "react";
 import Recycle from "../../components/User/Recycle/Recycle";
-import Support from "../../components/User/Common/Support";
+import Support from "../../components/User/Shared/Support";
 import Footer from "../../components/User/Footer/Footer";
 
 const RecyclePage = () => {

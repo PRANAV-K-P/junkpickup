@@ -1,7 +1,7 @@
 import React from "react";
 import { SkeletonTheme } from "react-loading-skeleton";
 import BookingDetails from "../../components/User/Booking/BookingDetails";
-import Support from "../../components/User/Common/Support";
+import Support from "../../components/User/Shared/Support";
 import Footer from "../../components/User/Footer/Footer";
 
 const BookingDetailsPage = () => {
